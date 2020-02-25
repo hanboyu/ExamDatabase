@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="CSS/stylesheet.css">
+    <title>Search</title>
+</head>
+<body>
+<div class="page">
+    <div id="top_banner_placeholder" th:replace="fragments/header :: header"></div>
+    <div class="main_content" style="margin: 0; padding: 0;">
+        <div id="side_bar_placeholder" th:replace="fragments/side_bar :: side_bar"></div>
+        <div class="content_area" id="content_area">
+            <div class="content_slide" id="search_questions">
+                <div id="search_bar_container">
+                    <form action="/search/query" method="get" id="search_form">
+                        <input id="search_bar" form="search_form" name="key_word"
+                               placeholder="Search by question code or tags"/>
+                        <p class="small_text">Search by
+                            <input type="radio" id="by_key_word" name="search_type" value=0 checked ="checked">
+                            <label for="by_key_word" >by key word</label>
+                            <input type="radio" id="by_tag" name="search_type" value=1>
+                            <label for="by_tag">by tag</label>
+                            <input type="radio" id="by_q-code" name="search_type" value=2>
+                            <label for="by_q-code">by question ID</label>
+                        </p>
+                    </form>
+                </div>
+                <div id="result_stat hidden_content">
+                    <p class="small_text hidden_content"> relevant questions found.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
