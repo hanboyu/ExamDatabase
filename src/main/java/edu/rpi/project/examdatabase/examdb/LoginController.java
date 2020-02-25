@@ -70,6 +70,4 @@ public class LoginController {
 
         return new RedirectView("/");
     }
-
-
 }
