@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="CSS/stylesheet.css">
+    <link rel="stylesheet" href="../static/CSS/stylesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../static/js/SearchResultsUtility.js"></script>
     <title>Search</title>
 </head>
 <body>
@@ -13,44 +15,48 @@
         <div class="content_area" id="content_area">
             <div class="content_slide" id="search_questions">
                 <div id="search_bar_container">
-                    <form action="/search/query" method="get" id="search_form">
+                    <form action="/search/by_key_word" method="get" id="search_form">
                         <input id="search_bar" form="search_form" name="key_word"
-                               placeholder="Search by question code or tags"/>
-                        <p class="small_text">Search by
-                            <input type="radio" id="by_key_word" name="search_type" value=0 checked ="checked">
-                            <label for="by_key_word" >by key word</label>
-                            <input type="radio" id="by_tag" name="search_type" value=1>
-                            <label for="by_tag">by tag</label>
-                            <input type="radio" id="by_q-code" name="search_type" value=2>
-                            <label for="by_q-code">by question ID</label>
-                        </p>
+                               placeholder="Enter key word here"/>
                     </form>
+                    <p id="search_method" class="small_text">Search by
+                        <button onclick="ChangeSearchMethod('by_key_word')">by key word</button>
+                        <button onclick="ChangeSearchMethod('by_tags')">by categories</button>
+                        <button onclick="ChangeSearchMethod('by_id')">by question ID</button>
+                    </p>
                 </div>
                 <div id="result_stat hidden_content">
                     <p class="small_text hidden_content"> relevant questions found.</p>
                 </div>
-                <div id="search_results_container" class="">
+                <div id="search_results_container" class="" th:each="q : search_results">
                     <!--Search result template for each question-->
-                    <!--generate an ID for each results. Replace the Id with 'IdNumber'-->
-                    <div class="result_question_container">
-                        <div class="code_difficulty">
-                            <div class="result_titles q-code">Question Code: </div>
-                            <div class="result_titles difficulty_level hidden_content">Difficulty Level</div>
+                    <div class="result_question_container" th:id="${q.getSerialCode()}">
+                        <div class="result_titles categories">
+                            Categories:
+                            <span class="rq_tags_list" th:each="t : q.getTags()">
+                                <a th:text="${t} + ' '"  th:href="@{/search/by_tags(key_word=${t})}">Greek myths</a>
+                            </span>
                         </div>
-                        <div class="result_titles categories">Tags: {{result.tags|safe}} </div>
                         <div class="text_content">
                             <p>
-                                <span>{{result.testlet|safe}}</span>
-                                <span class="hidden_content">...</span>
-                                <span class="hidden_content"></span>
+                                <span th:text="${q.getQuestionBody}">
+                                    Who introduced the idea that dreams and myths were the projection of what he called the "collective unconscious" based on archetypal characters and narrative patterns.
+                                    <!--*Carl Jung,* B. Malinowski, J. G. Frazer, Joseph Campbell-->
+                                </span>
                             </p>
-                            <button onclick="Collapse('IdNumber')" class="collapse_buttons hidden_content">Read more</button>
                         </div>
+                        <div class="rq_choices_container hidden_content" th:each="c : q.getChoices()">
+                            <p th:text="${c}">Carl Jung</p>
+                            <p>B. Malinowski</p>
+                            <p>J. G. Frazer</p>
+                            <p>Joseph Campbell</p>
+                        </div>
+                        <div class="rq_answer hidden_content" th:text="q.getAnswer()">Carl Jung</div>
                         <div class="action_options">
-                            <button onclick="add_to_list('q-code')" class="action_buttons">Add to my list</button>
+                            <button class="action_buttons" onclick="add_to_list('q-code')">Add to my list +</button>
+                            <button class="action_buttons" th:attr="onclick='MagnifyQuestion(' + ${q.getSerialCode() + ')'">Detail <i class="fa fa-search"></i></button>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>

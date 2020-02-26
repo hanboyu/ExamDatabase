@@ -16,7 +16,7 @@ public class ReadQuestionService {
      * @throws InvalidQuestionId when the id is not found in the database
      * @return the question
      */
-    public static Question GetQuestionById(User user, int id){
+    public static Question GetQuestionById(User user, String id){
         //TODO - implement GetQuestionById()
         throw new RuntimeException("GetQuestionById is not implemented yet");
     }

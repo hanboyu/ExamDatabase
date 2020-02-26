@@ -8,6 +8,7 @@ body{
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     text-align: center;
     min-height: 100%;
+    color: #454545;
 }
 .page{
     min-width: 1200px;
@@ -26,8 +27,8 @@ form{
 }
 a{
     cursor: pointer;
-    color: black;
     text-decoration: none;
+    color: #454545;
 }
 input:focus{
     outline: none;
@@ -285,10 +286,7 @@ ul.ba {
 }
 
 .menu_options{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 15px 10px;
     width: 100%;
     height: 8%;
     font-variant: small-caps;
@@ -395,10 +393,23 @@ ul.ba {
     float: right;
 }
 .action_buttons{
-    width: 100%;
-}
-.action_buttons{
     visibility: hidden;
+    width: calc(100% / 2);
+    display: inline-block;
+    float: left;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-variant: small-caps;
+}
+
+.rq_tags_list a{
+    display: inline;
+}
+.rq_tags_list a:hover{
+    font-weight: bolder;
+}
+
+.rq_magnify_button{
+    display: inline-block;
 }
 
 /*Account Setting*/

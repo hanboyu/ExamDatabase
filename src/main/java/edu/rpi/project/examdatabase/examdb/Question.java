@@ -32,7 +32,7 @@ public final class Question implements Comparable<Question> {
     private final List<String> tags;
     private final String permission;
     private final String question_body;
-    private final List<String> Choices;
+    private final List<String> choices;
     private final String Answer;
 
     //Constructors
@@ -71,6 +71,14 @@ public final class Question implements Comparable<Question> {
      */
     public String getQuestionBody() {
         return question_body;
+    }
+
+    /**
+     * Question choices observer
+     * @return a list of choices.
+     */
+    public List<String> getChoices(){
+        return choices;
     }
 
     /**
