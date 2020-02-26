@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="../static/CSS/stylesheet.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="../static/js/SearchResultsUtility.js"></script>
     <title>Search</title>
 </head>
@@ -30,7 +30,7 @@
                 </div>
                 <div id="search_results_container" class="" th:each="q : search_results">
                     <!--Search result template for each question-->
-                    <div class="result_question_container" th:id="${q.getSerialCode()}">
+                    <div class="result_question_container" id="123456789" th:id="${q.getSerialCode()}">
                         <div class="result_titles categories">
                             Categories:
                             <span class="rq_tags_list" th:each="t : q.getTags()">
@@ -45,7 +45,8 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="rq_choices_container hidden_content" th:each="c : q.getChoices()">
+
+                        <div class="rq_choices_container" th:each="c : q.getChoices()">
                             <p th:text="${c}">Carl Jung</p>
                             <p>B. Malinowski</p>
                             <p>J. G. Frazer</p>
@@ -53,8 +54,41 @@
                         </div>
                         <div class="rq_answer hidden_content" th:text="q.getAnswer()">Carl Jung</div>
                         <div class="action_options">
-                            <button class="action_buttons" onclick="add_to_list('q-code')">Add to my list +</button>
-                            <button class="action_buttons" th:attr="onclick='MagnifyQuestion(' + ${q.getSerialCode() + ')'">Detail <i class="fa fa-search"></i></button>
+
+                            <i class="action_buttons arrow glyphicon glyphicon-chevron-down" onclick="ExpendQuestion('123456789')" title="Expend"></i>
+                            <i class="action_buttons arrow glyphicon glyphicon-chevron-up" onclick="CollapseQuestion('123456789')" title="Collapse" style="display: none"></i>
+                            <i class="action_buttons glyphicon glyphicon-plus-sign" title="Add to my list"></i>
+                            <i class="action_buttons glyphicon glyphicon-pencil" title="Edit"></i>
+                        </div>
+                    </div>
+                    <div class="result_question_container" id="000000000" th:id="${q.getSerialCode()}">
+                        <div class="result_titles categories">
+                            Categories:
+                            <span class="rq_tags_list" th:each="t : q.getTags()">
+                                <a th:text="${t} + ' '"  th:href="@{/search/by_tags(key_word=${t})}">Greek myths</a>
+                            </span>
+                        </div>
+                        <div class="text_content">
+                            <p>
+                                <span th:text="${q.getQuestionBody}">
+                                    Who introduced the idea that dreams and myths were the projection of what he called the "collective unconscious" based on archetypal characters and narrative patterns.
+                                    <!--*Carl Jung,* B. Malinowski, J. G. Frazer, Joseph Campbell-->
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="rq_choices_container" th:each="c : q.getChoices()">
+                            <p th:text="${c}">Carl Jung</p>
+                            <p>B. Malinowski</p>
+                            <p>J. G. Frazer</p>
+                            <p>Joseph Campbell</p>
+                        </div>
+                        <div class="rq_answer hidden_content" th:text="q.getAnswer()">Carl Jung</div>
+                        <div class="action_options">
+
+                            <i class="action_buttons arrow glyphicon glyphicon-chevron-down" onclick="ExpendQuestion('000000000')" title="Expend"></i>
+                            <i class="action_buttons arrow glyphicon glyphicon-chevron-up" onclick="CollapseQuestion('000000000')" title="Collapse" style="display: none"></i>
+                            <i class="action_buttons glyphicon glyphicon-plus-sign" title="Add to my list"></i>
                         </div>
                     </div>
                 </div>
@@ -62,6 +96,16 @@
         </div>
     </div>
 </div>
-<script src='../static/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<div id="magnified_question_container" class="magnified_question_container">
+    <div class="magnified_question_content">
+        <span id="magnified_question_close_button" class="close">&times;</span>
+        <div id="magnified_question_tags" class=""></div>
+        <div id="magnified_question_body"></div>
+        <div id="magnified_question_choices"></div>
+    </div>
+
+</div>
 </body>
+<script src="../static/js/SearchResultsUtility.js"></script>
+<script src='../static/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 </html>
