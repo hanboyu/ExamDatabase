@@ -368,6 +368,7 @@ ul.ba {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     border-radius: 14px;
+    font-variant: small-caps;
 }
 #search_methods > button:hover{
     color: #FFFFFF;
@@ -380,6 +381,9 @@ ul.ba {
 #search_methods > .not_selected{
     color: #8a8a8a;
     background-color: #FFFFFF;
+}
+.search_method_button{
+    font-variant: small-caps;
 }
 #search_results_container{
     margin: 10% auto 0 auto;

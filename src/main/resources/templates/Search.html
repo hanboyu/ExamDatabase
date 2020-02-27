@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../static/CSS/stylesheet.css">
-    <script src="../static/js/SearchResultsUtility.js"></script>
+    <link rel="stylesheet" href="CSS/stylesheet.css">
+    <link rel="stylesheet" href="../static/CSS/stylesheet.css" th:remove="all">
     <title>Search</title>
 </head>
 <body>
@@ -18,15 +18,20 @@
                         <input id="search_bar" form="search_form" name="key_word"
                                placeholder="Enter key word here"/>
                     </form>
-                    <p class="small_text">Search by
-                        <button onclick="ChangeSearchMethod('by_key_word')">by key word</button>
-                        <button onclick="ChangeSearchMethod('by_tags')">by categories</button>
-                        <button onclick="ChangeSearchMethod('by_id')">by question ID</button>
-                    </p>
+                    <div id="search_methods">
+                        <button id="by_key_word" class="selected search_method_button" onclick="ChangeSearchMethod('by_key_word')">By key word</button>
+                        <button id="by_tags" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_tags')">By categories</button>
+                        <button id="by_id" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_id')">By question id</button>
+                    </div>
+                </div>
+                <div id="result_stat hidden_content">
+                    <p class="small_text hidden_content"> relevant questions found.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+<script src="js/SearchResultsUtility.js"></script>
+<script src="../static/js/SearchResultsUtility.js" th:remove="all"></script>
 </html>

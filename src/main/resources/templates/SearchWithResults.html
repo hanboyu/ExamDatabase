@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../static/CSS/stylesheet.css">
+    <link rel="stylesheet" href="CSS/stylesheet.css">
+    <link rel="stylesheet" href="../static/CSS/stylesheet.css" th:remove="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="../static/js/SearchResultsUtility.js"></script>
     <title>Search</title>
 </head>
 <body>
@@ -19,11 +19,11 @@
                         <input id="search_bar" form="search_form" name="key_word"
                                placeholder="Enter key word here"/>
                     </form>
-                    <p id="search_methods">
+                    <div id="search_methods">
                         <button id="by_key_word" class="selected search_method_button" onclick="ChangeSearchMethod('by_key_word')">By key word</button>
                         <button id="by_tags" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_tags')">By categories</button>
                         <button id="by_id" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_id')">By question id</button>
-                    </p>
+                    </div>
                 </div>
                 <div id="result_stat hidden_content">
                     <p class="small_text hidden_content"> relevant questions found.</p>
@@ -126,6 +126,7 @@
 
 </div>
 </body>
-<script src="../static/js/SearchResultsUtility.js"></script>
+<script src="js/SearchResultsUtility.js"></script>
+<script src="../static/js/SearchResultsUtility.js" th:remove="all"></script>
 <script src='../static/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 </html>
