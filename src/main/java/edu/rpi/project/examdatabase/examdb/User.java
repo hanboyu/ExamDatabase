@@ -1,4 +1,5 @@
 package edu.rpi.project.examdatabase.examdb;
 
-public abstract class User {
+public abstract class User implements Cachable{
+
 }
