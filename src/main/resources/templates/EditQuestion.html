@@ -2,12 +2,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="CSS/stylesheet.css">
-    <link rel="stylesheet" href="../static/CSS/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="CSS/stylesheet.css"><link rel="stylesheet" href="../static/CSS/stylesheet.css" th:remove="all">
     <script src="../static/tinymce/tinymce.min.js"></script>
+    <script src="../static/js/EditQuestionUtility.js"></script>
     <title>Edit Question</title>
 </head>
-<body>
-
+<body class="edit_question_background">
+<div id="page">
+    <div id="main_content">
+        <div class="content_area edit_question_main" id="content_area">
+            <div class="question_edit_area">
+                <form method="post" id="question_form" enctype="multipart/form-data">
+                    <div class="input_field" id="input_permission">
+                        <label class="input_field_name" for="permission">Who can access this question:   </label>
+                        <select id="permission" name="permission">
+                            <option value="2">Instructors only</option>
+                            <option value="1">Instructors and TAs</option>
+                            <option value="0">Everyone</option>
+                        </select>
+                    </div>
+                    <div class="tag_edit_area input_field">
+                        <span class="input_field_name">Categories:</span>
+                        <ul class="tags" id="tagsList">
+                            <template id="tag_template">
+                                <li class="tag" id="tag_id">
+                                    <span>template</span>
+                                    <textarea  name="tags" form="question_form"></textarea>
+                                    <button onclick="deletTage('id')" class="delete_tag_button">X</button>
+                                </li>
+                            </template>
+                        </ul>
+                        <button onclick="add_tag()" type="button">Add category</button>
+                    </div>
+                    <div class="input_field" id="question_edit_area">
+                        <div class="input_field_name">Question:</div>
+                        <div id="rich_text_editor_container">
+                            <textarea id="edit_area" name="question" placeholder="Enter the question here." form="question_form"></textarea>
+                        </div>
+                    </div>
+                    <div class="input_field">
+                        <span class="input_field_name">Upload image for question: </span>
+                        <input type="file" name="question_image">
+                    </div>
+                    <div class="choices input_field" id="choices">
+                        <div class="each_choice" id="choice_A">
+                            A: <textarea name="choice" form="question_form"></textarea>
+                            Upload Image: <input type="file" name="choice_image">
+                        </div>
+                        <button onclick="add_choice()" type="button" id="add_choice_button" title="Delete this tag">Add More Choice</button>
+                    </div>
+                    <div class="answer input_field">
+                        <span class="input_field_name">Upload the answer as PDF</span>
+                        <input type="file" name="answer">
+                    </div>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script src="../static/js/TinymceInit.js"></script>
 </html>

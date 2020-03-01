@@ -10,12 +10,14 @@ body{
     min-height: 100%;
     color: #454545;
 }
-.page{
+#page{
     min-width: 1200px;
     min-height: 100%;
     height: 100%;
     width:100%;
     overflow: hidden;
+    max-width: 935px;
+
 }
 div{
     overflow: auto;
@@ -42,6 +44,8 @@ button{
     font-variant: small-caps;
     color: #8a8a8a;
     background-color: white;
+    margin: auto;
+    outline: none;
 }
 button:hover{
     color: #FFFFFF;
@@ -52,12 +56,12 @@ ul.ba {
     list-style-type: none;
 }
 /*login page*/
-.main_content{
-    width: 100%;
-    max-width: 935px;
+#main_content{
+    width: 90%;
     padding: 5%;
     overflow: hidden;
     display: table;
+    margin: 0 auto;
 }
 .login_background{
     width: 100%;
@@ -113,7 +117,7 @@ ul.ba {
     width: 100%;
 }
 
-/*add question page*/
+
 .top_banner{
     width: 100%;
     max-height: 80px;
@@ -141,34 +145,36 @@ ul.ba {
     height: 65px;
 
 }
-.back{
-    font-style: normal;
-    font-size: 18px;
+/*EditQuestion*/
+.edit_question_background{
+    background-color: #A6A6A6;
+}
+.edit_question_main{
+    background-color: white;
+    border-radius: 14px;
+    width: auto;
+}
+
+.input_field{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.input_field_name{
     font-variant: small-caps;
-    color: #999999;
-    float: left;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    width: 100%;
-    text-align: left;
+    color: #8a8a8a;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-.back a:hover{
-    font-weight: bold;
+#permission{
+    font-variant: small-caps;
+    color: #525252;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-.question_edit_area{
-    display: inline-block;
-    width: 100%;
-}
-.question_edit_area > textarea{
-    height: 100px;
+#rich_text_editor_container{
+    width: 80%;
+    padding: 5px;
 }
 #edit_area{
-    overflow: visible;
-}
-.rich_text_editor_container{
-    margin: 0 5px 0 0;
-    width: calc(100% - 5px);
-    overflow: visible;
+    height: 150px;
 }
 .question_input_box{
     text-align: left;
@@ -198,9 +204,9 @@ ul.ba {
 }
 
 .tag {
-    background: #eee;
+    background: #FFFFFF;
     border-radius: 3px 0 0 3px;
-    color: #999;
+    color: #525252;
     display: inline-block;
     height: 26px;
     line-height: 26px;
@@ -229,7 +235,7 @@ ul.ba {
 .tag::after {
     background: #fff;
     border-bottom: 13px solid transparent;
-    border-left: 10px solid #eee;
+    border-left: 10px solid #FFFFFF;
     border-top: 13px solid transparent;
     content: '';
     position: absolute;
@@ -238,10 +244,10 @@ ul.ba {
 }
 
 .tag:hover {
-    background-color: #999;
+    background-color: #A6A6A6;
     color: white;
 }
-.tag:hover > .delet_tage_button{
+.tag:hover > .delete_tag_button{
     color: red;
     visibility: visible;
     opacity: 1;
@@ -249,12 +255,12 @@ ul.ba {
 }
 
 .tag:hover::after {
-    border-left-color: #999;
+    border-left-color: #A6A6A6;
 }
-.delet_tage_button{
+.delete_tag_button{
     background-color: transparent;
     border: none;
-    color: #999;
+    color: red;
     height: 100%;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 16px;
@@ -265,7 +271,7 @@ ul.ba {
     -webkit-transition: opacity 0.2s, visibility 0.2s;
     transition: opacity 0.2s, visibility 0.2s;
 }
-.delet_tage_button:hover{
+.delete_tag_button:hover{
     font-weight: 500;
     color: red;
 }
@@ -332,6 +338,7 @@ ul.ba {
     /*width: 100%;*/
     display: table-cell;
     vertical-align: top;
+    margin: 0 auto;
 }
 
 .current_option{
@@ -341,9 +348,6 @@ ul.ba {
 
 .hidden_content{
     display: none;
-}
-.content_slide{
-
 }
 /*question search*/
 #search_bar{
