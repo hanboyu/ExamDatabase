@@ -27,7 +27,7 @@ import java.util.List;
  *  Choices must contains at least two options.
  *  Answer can only be one of the choices.
  */
-public final class Question implements Comparable<Question> {
+public final class Question implements Comparable<Question>, QueryObject, Cachable {
     private final String serial_code;
     private final List<String> tags;
     private final String permission;
@@ -138,5 +138,15 @@ public final class Question implements Comparable<Question> {
     public int compareTo(Question question) {
         //TODO - implement compareTo
         throw new RuntimeException("compareTo() is not implemented");
+    }
+
+    @Override
+    public void setTime(long inTime) {
+
+    }
+
+    @Override
+    public long getTime() {
+        return 0;
     }
 }
