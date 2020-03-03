@@ -10,12 +10,14 @@ body{
     min-height: 100%;
     color: #454545;
 }
-.page{
+#page{
     min-width: 1200px;
     min-height: 100%;
     height: 100%;
     width:100%;
     overflow: hidden;
+    max-width: 935px;
+
 }
 div{
     overflow: auto;
@@ -33,23 +35,39 @@ a{
 input:focus{
     outline: none;
 }
-button{
-    outline:none;
+button, .my_button, #add_choice_button, .submit{
+    font-size: 100%;
+    -webkit-transition-duration: 0.1s; /* Safari */
+    transition-duration: 0.1s;
+    border-radius: 14px;
+    font-variant: small-caps;
+    color: #8a8a8a;
+    background-color: white;
+    margin: auto;
+    outline: none;
+    border: 1px solid #8a8a8a;
 }
-button:hover{
+button:hover, .my_button:hover, #add_choice_button:hover, .submit:hover{
+    color: #FFFFFF;
+    background-color: #A6A6A6;
     cursor: pointer;
 }
 ul.ba {
     list-style-type: none;
 }
 /*login page*/
-.main_content{
-    width: 100%;
-    max-width: 935px;
-    margin: auto;
+#main_content{
+    width: 90%;
     padding: 5%;
     overflow: hidden;
-    display: inline-block;
+    display: table;
+    margin: 0 auto;
+}
+.login_background{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: center;
 }
 
 .login_block{
@@ -63,7 +81,6 @@ ul.ba {
     min-width: 372px;
     min-height: 308px;
     overflow: hidden;
-
 }
 
 .login_inner_area{
@@ -88,12 +105,8 @@ ul.ba {
     height: 25px;
     width: 100%;
 }
-
-#login_button{
-    border: none;
-}
 #login_button button{
-    cursor: pointer;
+    padding: 3px 15px;
 }
 
 .login_logo{
@@ -104,7 +117,7 @@ ul.ba {
     width: 100%;
 }
 
-/*add question page*/
+
 .top_banner{
     width: 100%;
     max-height: 80px;
@@ -132,34 +145,36 @@ ul.ba {
     height: 65px;
 
 }
-.back{
-    font-style: normal;
-    font-size: 18px;
+/*EditQuestion*/
+.edit_question_background{
+    background-color: #A6A6A6;
+}
+.edit_question_main{
+    background-color: white;
+    border-radius: 14px;
+    width: auto;
+}
+
+.input_field{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.input_field_name{
     font-variant: small-caps;
-    color: #999999;
-    float: left;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    width: 100%;
-    text-align: left;
+    color: #8a8a8a;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-.back a:hover{
-    font-weight: bold;
+#permission{
+    font-variant: small-caps;
+    color: #525252;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-.question_edit_area{
-    display: inline-block;
-    width: 100%;
-}
-.question_edit_area > textarea{
-    height: 100px;
+#rich_text_editor_container{
+    width: 80%;
+    padding: 5px;
 }
 #edit_area{
-    overflow: visible;
-}
-.rich_text_editor_container{
-    margin: 0 5px 0 0;
-    width: calc(100% - 5px);
-    overflow: visible;
+    height: 150px;
 }
 .question_input_box{
     text-align: left;
@@ -169,12 +184,25 @@ ul.ba {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.choices > .each_choice > *{
-    vertical-align: middle;
+.each_choice:hover{
 }
-.choices > .each_choice > textarea{
+.each_choice > textarea{
     width: 50%;
-    height: 20px;
+    height: 12pt;
+}
+.delete_choice_button{
+    color: #8a8a8a;
+    cursor: pointer;
+    padding: 4px;
+    display: inline-block;
+    margin: 0.5%;
+}
+.delete_choice_button:hover{
+    color: red;
+}
+.submit{
+    margin-top: 5%;
+    font-size: 15pt;
 }
 
 .tags {
@@ -189,9 +217,9 @@ ul.ba {
 }
 
 .tag {
-    background: #eee;
+    background: #FFFFFF;
     border-radius: 3px 0 0 3px;
-    color: #999;
+    color: #525252;
     display: inline-block;
     height: 26px;
     line-height: 26px;
@@ -220,7 +248,7 @@ ul.ba {
 .tag::after {
     background: #fff;
     border-bottom: 13px solid transparent;
-    border-left: 10px solid #eee;
+    border-left: 10px solid #FFFFFF;
     border-top: 13px solid transparent;
     content: '';
     position: absolute;
@@ -229,10 +257,10 @@ ul.ba {
 }
 
 .tag:hover {
-    background-color: #999;
+    background-color: #A6A6A6;
     color: white;
 }
-.tag:hover > .delet_tage_button{
+.tag:hover > .delete_tag_button{
     color: red;
     visibility: visible;
     opacity: 1;
@@ -240,12 +268,12 @@ ul.ba {
 }
 
 .tag:hover::after {
-    border-left-color: #999;
+    border-left-color: #A6A6A6;
 }
-.delet_tage_button{
+.delete_tag_button{
     background-color: transparent;
     border: none;
-    color: #999;
+    color: red;
     height: 100%;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 16px;
@@ -256,7 +284,7 @@ ul.ba {
     -webkit-transition: opacity 0.2s, visibility 0.2s;
     transition: opacity 0.2s, visibility 0.2s;
 }
-.delet_tage_button:hover{
+.delete_tag_button:hover{
     font-weight: 500;
     color: red;
 }
@@ -266,16 +294,35 @@ ul.ba {
 .tag > textarea{
     display: none;
 }
-/* my dashboard */
+.each_choice input[type="radio"]{
+    display: none;
+}
+
+.each_choice  label{
+    color: #8a8a8a;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+.each_choice label:hover{
+    color: green;
+}
+.each_choice input[type="radio"]:checked ~ i{
+    color: green;
+}
+
+/*Side bar*/
 .side_bar{
     /*height: 80%;*/
     /*width: 20%;*/
-    position: fixed;
+    /*position: fixed;*/
     z-index: 1;
-    top: 10%;
     left: 0;
     /*background-color: #111; */
     overflow-x: hidden;
+    display:table-cell;
+    float: left;
 }
 .side_menu{
     /*height: 100%;*/
@@ -317,9 +364,12 @@ ul.ba {
 }
 .content_area{
     padding: 3%;
-    margin-left: 180px;
     overflow-x: hidden;;
     height: 100%;
+    /*width: 100%;*/
+    display: table-cell;
+    vertical-align: top;
+    margin: 0 auto;
 }
 
 .current_option{
@@ -329,9 +379,6 @@ ul.ba {
 
 .hidden_content{
     display: none;
-}
-.content_slide{
-
 }
 /*question search*/
 #search_bar{
@@ -352,7 +399,7 @@ ul.ba {
     color: #bfbfbf;
 }
 #search_bar_container{
-    margin: 10% auto 0 auto;
+    margin: 5% auto 0 auto;
     padding: 10px 20px 10px 20px;
     width: 80%;
 }

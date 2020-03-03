@@ -7,25 +7,20 @@
     <title>Search</title>
 </head>
 <body>
-<div class="page">
+<div id="page">
     <div id="top_banner_placeholder" th:replace="fragments/header :: header"></div>
-    <div class="main_content" style="margin: 0; padding: 0;">
+    <div id="main_content" style="margin: 0; padding: 0;">
         <div id="side_bar_placeholder" th:replace="fragments/side_bar :: side_bar"></div>
         <div class="content_area" id="content_area">
-            <div class="content_slide" id="search_questions">
-                <div id="search_bar_container">
-                    <form action="/search/by_key_word" method="get" id="search_form">
-                        <input id="search_bar" form="search_form" name="key_word"
-                               placeholder="Enter key word here"/>
-                    </form>
-                    <div id="search_methods">
-                        <button id="by_key_word" class="selected search_method_button" onclick="ChangeSearchMethod('by_key_word')">By key word</button>
-                        <button id="by_tags" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_tags')">By categories</button>
-                        <button id="by_id" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_id')">By question id</button>
-                    </div>
-                </div>
-                <div id="result_stat hidden_content">
-                    <p class="small_text hidden_content"> relevant questions found.</p>
+            <div id="search_bar_container" th:fragment="search_bar">
+                <form action="/search/by_key_word" method="get" id="search_form">
+                    <input id="search_bar" form="search_form" name="key_word"
+                           placeholder="Enter key word here"/>
+                </form>
+                <div id="search_methods">
+                    <button id="by_key_word" class="selected search_method_button" onclick="ChangeSearchMethod('by_key_word')">By key word</button>
+                    <button id="by_tags" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_tags')">By categories</button>
+                    <button id="by_id" class="not_selected search_method_button" onclick="ChangeSearchMethod('by_id')">By question id</button>
                 </div>
             </div>
         </div>
