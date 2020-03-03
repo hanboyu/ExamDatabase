@@ -1,4 +1,6 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Services;
+
+import edu.rpi.project.examdatabase.examdb.User;
 
 /**
  * All services related to user login/logout will be handled by this class.
@@ -19,8 +21,8 @@ public class AuthenticationService {
      */
     public static String LoginByPassword(String username, String password) {
         //TODO - implement LoginService()
-        //throw new RuntimeException("loginByPassword() is not implemented yet");
-        return "";
+        throw new RuntimeException("loginByPassword() is not implemented yet");
+        //return "";
     }
 
     /**

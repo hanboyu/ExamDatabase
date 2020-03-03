@@ -1,5 +1,7 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Controllers;
 
+import edu.rpi.project.examdatabase.examdb.Services.AuthenticationService;
+import edu.rpi.project.examdatabase.examdb.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
