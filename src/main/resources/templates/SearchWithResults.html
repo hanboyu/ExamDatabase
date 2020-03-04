@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="CSS/stylesheet.css">
-    <link rel="stylesheet" href="../static/CSS/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="../static/css/stylesheet.css" th:remove="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Search</title>
 </head>
@@ -117,7 +117,8 @@
 
 </div>
 </body>
-<script src="js/SearchResultsUtility.js"></script>
+<script src="/js/SearchResultsUtility.js"></script>
 <script src="../static/js/SearchResultsUtility.js" th:remove="all"></script>
-<script src='../static/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<script src='/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<script src='../static/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async th:remove="all"></script>
 </html>

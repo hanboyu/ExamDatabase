@@ -28,7 +28,7 @@ public class SearchController {
             return new ModelAndView("redirect:/", model);
         }
         */
-        model.addAttribute("permission", 0);
+        model.addAttribute("permission", 2);
         return new ModelAndView("Search", model);
 
     }

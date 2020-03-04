@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../../static/CSS/stylesheet.css">
+    <link rel="stylesheet" href="/css/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="../../static/css/stylesheet.css" th:remove="all">
 </head>
 <body>
 <div class="side_bar" th:fragment="side_bar">
@@ -10,7 +11,7 @@
         <a  href="../Search.html" th:href="@{/search}">
             <div class="menu_options">Search Questions</div>
         </a>
-        <a th:remove="${permission} <= 0 ? all : none" href="../EditQuestion.html" th:href="@{/edit/add_question}">
+        <a th:remove="${permission} <= 0 ? all : none" href="../EditQuestion.html" th:href="@{/edit/add_new_question}">
             <div class="menu_options">Add Question</div>
         </a>
         <a th:remove="${permission} <= 0 ? all : none" href="../BulkUpload.html" th:href="@{/edit/bulk_upload}">

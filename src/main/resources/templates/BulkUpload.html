@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="../static/css/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Bulk upload</title>
+</head>
+<body>
+<div id="page">
+    <div id="top_banner_placeholder" th:replace="fragments/header :: header"></div>
+    <div id="main_content" style="margin: 0; padding: 0;">
+        <div id="side_bar_placeholder" th:replace="fragments/side_bar :: side_bar"></div>
+        <div class="content_area" id="content_area">
+            <div id="buck-upload">
+                <form action="/bulk_submit" method="post" id="buck_upload_form" enctype="multipart/form-data">
+                    Select your file:<br>
+                    <input type="file" name="buck_questions">
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

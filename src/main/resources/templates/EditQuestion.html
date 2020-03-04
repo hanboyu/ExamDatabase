@@ -2,11 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="CSS/stylesheet.css"><link rel="stylesheet" href="../static/CSS/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="/css/stylesheet.css"/>
+    <link rel="stylesheet" href="../static/css/stylesheet.css" th:remove="all"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="../static/tinymce/tinymce.min.js"></script>
-    <script src="../static/js/EditQuestionUtility.js"></script>
-    <title>Edit Question</title>
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script src="../static/tinymce/tinymce.min.js" th:remove="all"></script>
+    <script src="/js/EditQuestionUtility.js"></script>
+    <script src="../static/js/EditQuestionUtility.js" th:remove="all"></script>
+    <title th:text="${title}?: 'Edit Question'">Edit Question</title>
 </head>
 <body class="edit_question_background">
 <div id="page">
@@ -71,12 +74,12 @@
                     <div style="text-align:center">
                         <input class="submit" type="submit" value="Submit">
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
 </body>
-<script src="../static/js/TinymceInit.js"></script>
+<script src="/js/TinymceInit.js"></script>
+<script src="../static/js/TinymceInit.js" th:remove="all"></script>
 </html>
