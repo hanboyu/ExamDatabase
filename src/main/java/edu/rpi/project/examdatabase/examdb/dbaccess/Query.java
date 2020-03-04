@@ -11,4 +11,5 @@ import java.util.Map;
  */
 public interface Query {
     List<QueryObject> doQuery(Map<String, String> arguments);
+    int close();
 }
