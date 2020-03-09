@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InsertToQuestionBank implements Insert{
+public class InsertToSQL implements Insert{
 
     @Override
     public int doInsert(Map<String, String> fields, String tablename) {
@@ -28,9 +28,9 @@ public class InsertToQuestionBank implements Insert{
             insert.append(") VALUES (");
             for (String fieldName: fields.keySet()) {
                 if (i != fields.size() - 1) {
-                    insert.append(fields.get(fieldName)).append(",");
+                    insert.append("'").append(fields.get(fieldName)).append("'").append(",");
                 } else {
-                    insert.append(fields.get(fieldName));
+                    insert.append("'").append(fields.get(fieldName)).append("'");
                 }
                 i ++;
             }
@@ -39,7 +39,8 @@ public class InsertToQuestionBank implements Insert{
             System.out.println(insertStatement);
             Statement statement = con.createStatement();
             statement.execute(insertStatement);
-            con.close();
+            // Unidentified bug. Connection cannot be closed. possibly from JDBC driver.
+//            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,7 +52,7 @@ public class InsertToQuestionBank implements Insert{
         test.put("field1", "value1");
         test.put("field2", "value2");
         test.put("field3", "value3");
-        InsertToQuestionBank test_instance = new InsertToQuestionBank();
+        InsertToSQL test_instance = new InsertToSQL();
         test_instance.doInsert(test, "test_table");
     }
 }
