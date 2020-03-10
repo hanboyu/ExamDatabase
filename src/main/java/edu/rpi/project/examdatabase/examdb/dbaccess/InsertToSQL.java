@@ -49,9 +49,9 @@ public class InsertToSQL implements Insert{
 
     public static void main(String[] argv) {
         Map<String, String> test = new HashMap<>();
-        test.put("field1", "value1");
-        test.put("field2", "value2");
-        test.put("field3", "value3");
+        test.put("field1", "abc");
+        test.put("field2", "def");
+        test.put("field3", "ghj");
         InsertToSQL test_instance = new InsertToSQL();
         test_instance.doInsert(test, "test_table");
     }
