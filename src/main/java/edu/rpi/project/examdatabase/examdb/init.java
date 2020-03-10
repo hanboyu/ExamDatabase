@@ -31,7 +31,7 @@ public class init {
         try {
             Connection con = DriverManager.getConnection(DB_ADDRESS, DB_USER, DB_PSWD);
             Statement statement = con.createStatement();
-            statement.execute("");
+            statement.execute("CREATE TABLE questions (ID INT NOT NULL, )");
         } catch (SQLException e) {
             e.printStackTrace();
         }
