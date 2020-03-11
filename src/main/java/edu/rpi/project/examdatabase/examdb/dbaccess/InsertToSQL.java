@@ -1,5 +1,7 @@
 package edu.rpi.project.examdatabase.examdb.dbaccess;
 
+import edu.rpi.project.examdatabase.examdb.init;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +14,7 @@ public class InsertToSQL implements Insert{
     @Override
     public int doInsert(Map<String, String> fields, String tablename) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "Xuran123#");
+            Connection con = DriverManager.getConnection(init.DB_ADDRESS, init.DB_USER, init.DB_PSWD);
             StringBuilder insert = new StringBuilder("INSERT INTO %s (");
             insert = new StringBuilder(String.format(insert.toString(), tablename));
             int i = 0;
@@ -49,10 +51,14 @@ public class InsertToSQL implements Insert{
 
     public static void main(String[] argv) {
         Map<String, String> test = new HashMap<>();
-        test.put("field1", "abc");
-        test.put("field2", "def");
-        test.put("field3", "ghj");
+        test.put("ID", "001");
+        test.put("USERNAME", "admin");
+        test.put("PASSWORD", "admin1");
+        test.put("PERMISSION", "0");
+        test.put("FIRSTNAME", "Ran");
+        test.put("LASTNAME", "Xu");
+        test.put("TOKEN", "");
         InsertToSQL test_instance = new InsertToSQL();
-        test_instance.doInsert(test, "test_table");
+        test_instance.doInsert(test, "users");
     }
 }
