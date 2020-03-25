@@ -141,7 +141,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
     }
 
     @Override
-    public void setTime(long inTime) {
+    public void setTime() {
 
     }
 

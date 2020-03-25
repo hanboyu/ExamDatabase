@@ -37,8 +37,13 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String Admin(Model model){
-        return "Login";
+    public ModelAndView Admin(ModelMap model, @CookieValue(value = "token", defaultValue = "")
+            String session_token){
+        User user = AuthenticationService.VerifyToken(session_token);
+        if (user != null){
+            return new ModelAndView("redirect:/search", model);
+        }
+        return new ModelAndView("Login", model);
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
