@@ -1,39 +1,35 @@
 package edu.rpi.project.examdatabase.examdb;
 
+import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
+
 import java.util.Map;
 
 /**
  * TA class holds all attributes of a TA user and defines
  * the TA level operation.
  */
-public final class TA extends User{
-    protected String password;
+public final class TA extends User {
 
-    public TA(String username, String password, String firstName, String lastName, long id, String email) {
+    public TA(String username, String firstName, String lastName, String email) {
+        this.setTime();
         this.username = username;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = id;
         this.email = email;
     }
 
-
-    /**
-     * Save a question to the database.
-     * @param question
-     * @return
-     */
-    public int addQuestion(Question question) {
-        throw new RuntimeException("deleteQuestion() not implemented yet");
+    @Override
+    public void editQuestion(Question editedQuestion) throws PermissionDeniedException {
+        throw new PermissionDeniedException("Student '" + this.username + "' is trying to EDIT QUESTION");
     }
 
-    /* Public getters */
-    public String getUsername() {
-        return username;
+    @Override
+    public void addQuestion(Question newQuestion) throws PermissionDeniedException {
+        throw new PermissionDeniedException("Student '" + this.username + "' is trying to ADD QUESTION");
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public void deleteQuestion(String questionID) throws PermissionDeniedException {
+        throw new PermissionDeniedException("Student '" + this.username + "' is trying to DELETE QUESTION");
     }
 }
