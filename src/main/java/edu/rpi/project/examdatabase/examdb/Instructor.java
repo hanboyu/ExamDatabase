@@ -12,5 +12,6 @@ public final class Instructor extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userType = "Instructor";
     }
 }

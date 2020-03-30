@@ -15,17 +15,16 @@ public final class TA extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userType = "TA";
     }
 
     @Override
     public void addUser(User newUser) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "TA '" + this.username + "' does NOT have the permission to ADD USER");
+        throw new PermissionDeniedException(userType, username, "ADD USER");
     }
 
     @Override
     public void deleteUser(String username) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "TA '" + this.username + "' does NOT have the permission to DELETE USER");
+        throw new PermissionDeniedException(userType, username, "DELETE USER");
     }
 }

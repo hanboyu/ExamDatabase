@@ -15,6 +15,7 @@ public abstract class User implements Cachable, QueryObject{
     protected String lastName;
     protected String username;
     protected String email;
+    protected String userType;
 
 
     /**

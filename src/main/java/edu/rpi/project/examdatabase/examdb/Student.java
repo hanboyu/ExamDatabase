@@ -12,42 +12,38 @@ import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
  */
 public final class Student extends User {
 
-    public Student(String firstName, String lastName, String username, String email) {
+    public Student(String username, String firstName, String lastName, String email) {
         this.setTime();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
+        this.userType = "Student";
     }
 
     @Override
     public void editQuestion(Question editedQuestion) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "Student '" + this.username + "' does NOT have the permission to EDIT QUESTION");
+        throw new PermissionDeniedException(userType, username, "EDIT QUESTION");
     }
 
     @Override
     public void addQuestion(Question newQuestion) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "Student '" + this.username + "' does NOT have the permission to ADD QUESTION");
+        throw new PermissionDeniedException(userType, username, "ADD QUESTION");
     }
 
     @Override
     public void deleteQuestion(String questionID) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "Student '" + this.username + "' does NOT have the permission to DELETE QUESTION");
+        throw new PermissionDeniedException(userType, username, "DELETE QUESTION");
     }
 
     @Override
     public void addUser(User newUser) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "Student '" + this.username + "' does NOT have the permission to ADD USER");
+        throw new PermissionDeniedException(userType, username, "ADD USER");
     }
 
     @Override
     public void deleteUser(String username) throws PermissionDeniedException {
-        throw new PermissionDeniedException(
-                "Student '" + this.username + "' does NOT have the permission to DELETE USER");
+        throw new PermissionDeniedException(userType, username, "DELETE USER");
     }
 
 }
