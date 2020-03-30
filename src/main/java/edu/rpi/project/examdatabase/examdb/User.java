@@ -4,6 +4,7 @@ import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
 import edu.rpi.project.examdatabase.examdb.dbaccess.Query;
 
+import java.security.Permission;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public abstract class User implements Cachable, QueryObject{
 
 
     /**
-     * Set the time when the instance is saved into cache
+     * Timestamp the object when the instance created
      */
     @Override
     public void setTime(){
@@ -32,7 +33,8 @@ public abstract class User implements Cachable, QueryObject{
 
     /**
      * Get the time when the instance is saved into cache
-     * @return
+     *
+     * @return the timestamp of the is object
      */
     @Override
     public long getTime() {
@@ -97,7 +99,6 @@ public abstract class User implements Cachable, QueryObject{
 
     /**
      * Add a new question to the database
-     *
      * @param newQuestion new question that going to be added to the database
      * @throws PermissionDeniedException when the user does not have the
      *                                   permission to add a new question
@@ -115,6 +116,17 @@ public abstract class User implements Cachable, QueryObject{
      */
     public void addUser(User newUser) throws PermissionDeniedException {
         throw new RuntimeException("addUser() is not implemented yet");
+    }
+
+    /**
+     * Delete a existing user from the system
+     *
+     * @param username username of the user that will be deleted
+     * @throws PermissionDeniedException when the user does not have the
+     *                                   permission to make the operation
+     */
+    public void deleteUser(String username) throws PermissionDeniedException {
+        throw new RuntimeException("deleteUser() is not implemented yet");
     }
 }
 

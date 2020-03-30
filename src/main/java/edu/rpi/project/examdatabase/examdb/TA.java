@@ -2,11 +2,10 @@ package edu.rpi.project.examdatabase.examdb;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 
-import java.util.Map;
-
 /**
- * TA class holds all attributes of a TA user and defines
- * the TA level operation.
+ * TA does not have permission to do the following operation:
+ * - Add user
+ * - Delete user
  */
 public final class TA extends User {
 
@@ -19,17 +18,14 @@ public final class TA extends User {
     }
 
     @Override
-    public void editQuestion(Question editedQuestion) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to EDIT QUESTION");
+    public void addUser(User newUser) throws PermissionDeniedException {
+        throw new PermissionDeniedException(
+                "TA '" + this.username + "' does NOT have the permission to ADD USER");
     }
 
     @Override
-    public void addQuestion(Question newQuestion) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to ADD QUESTION");
-    }
-
-    @Override
-    public void deleteQuestion(String questionID) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to DELETE QUESTION");
+    public void deleteUser(String username) throws PermissionDeniedException {
+        throw new PermissionDeniedException(
+                "TA '" + this.username + "' does NOT have the permission to DELETE USER");
     }
 }

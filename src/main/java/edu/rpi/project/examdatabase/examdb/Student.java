@@ -2,8 +2,14 @@ package edu.rpi.project.examdatabase.examdb;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 
-import java.util.List;
-
+/**
+ * Student does not have the permission to do the following operation:
+ * - Add question
+ * - edit question
+ * - delete question
+ * - add user
+ * - delete user
+ */
 public final class Student extends User {
 
     public Student(String firstName, String lastName, String username, String email) {
@@ -16,22 +22,32 @@ public final class Student extends User {
 
     @Override
     public void editQuestion(Question editedQuestion) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to EDIT QUESTION");
+        throw new PermissionDeniedException(
+                "Student '" + this.username + "' does NOT have the permission to EDIT QUESTION");
     }
 
     @Override
     public void addQuestion(Question newQuestion) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to ADD QUESTION");
+        throw new PermissionDeniedException(
+                "Student '" + this.username + "' does NOT have the permission to ADD QUESTION");
     }
 
     @Override
     public void deleteQuestion(String questionID) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to DELETE QUESTION");
+        throw new PermissionDeniedException(
+                "Student '" + this.username + "' does NOT have the permission to DELETE QUESTION");
     }
 
     @Override
     public void addUser(User newUser) throws PermissionDeniedException {
-        throw new PermissionDeniedException("Student '" + this.username + "' is trying to ADD USER");
+        throw new PermissionDeniedException(
+                "Student '" + this.username + "' does NOT have the permission to ADD USER");
+    }
+
+    @Override
+    public void deleteUser(String username) throws PermissionDeniedException {
+        throw new PermissionDeniedException(
+                "Student '" + this.username + "' does NOT have the permission to DELETE USER");
     }
 
 }

@@ -1,5 +1,7 @@
 package edu.rpi.project.examdatabase.examdb;
 
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
+
 import java.util.List;
 
 /**
@@ -35,12 +37,15 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
     private final List<String> choices;
     private final String Answer;
 
+    protected long inTimestamp;
+
     //Constructors
-    public Question(){
+    public Question() {
         throw new RuntimeException("Question constructor is not implemented yet");
     }
 
     //Observers
+
     /**
      * Question serial code observer
      * @return Question serial code
@@ -140,13 +145,26 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
         throw new RuntimeException("compareTo() is not implemented");
     }
 
+    /**
+     * Timestamp the object when the instance created
+     */
     @Override
     public void setTime() {
-
+        try {
+            this.inTimestamp = GetSystemUpTime.getSystemUptime();
+        } catch (Exception e) {
+            this.inTimestamp = -1;
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Get the time when the instance is saved into cache
+     *
+     * @return the timestamp of the is object
+     */
     @Override
     public long getTime() {
-        return 0;
+        return this.inTimestamp;
     }
 }
