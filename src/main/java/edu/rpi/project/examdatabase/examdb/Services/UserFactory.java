@@ -1,17 +1,25 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
+import edu.rpi.project.examdatabase.examdb.*;
 import edu.rpi.project.examdatabase.examdb.Exceptions.NullUserTypeException;
 import edu.rpi.project.examdatabase.examdb.Exceptions.UnknownUserTypeException;
-import edu.rpi.project.examdatabase.examdb.Instructor;
-import edu.rpi.project.examdatabase.examdb.Student;
-import edu.rpi.project.examdatabase.examdb.TA;
-import edu.rpi.project.examdatabase.examdb.User;
 
 /**
- * A User factory that is used to produce all types of user
+ * A User factory that is used to produce all types of user.
+ * The UserFactory is a singleton object
  */
 
 public class UserFactory {
+
+    private static UserFactory instance = new UserFactory();
+
+    // Constructor
+    private UserFactory() {
+    }
+
+    public static UserFactory getInstance() {
+        return instance;
+    }
 
     /**
      * Generate a User object from the given user information.
@@ -35,6 +43,8 @@ public class UserFactory {
             return new TA(username, firstName, lastName, email);
         } else if (userType.equals("Instructor")) {
             return new Instructor(username, firstName, lastName, email);
+        } else if (userType.equals("Visitor")) {
+            return new Visitor(username, firstName, lastName, email);
         }
         throw new UnknownUserTypeException(userType);
     }
