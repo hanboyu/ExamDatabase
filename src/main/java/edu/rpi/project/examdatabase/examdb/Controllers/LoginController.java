@@ -17,36 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController {
 
-    static final int TOKEN_DURATION = 7 * 24 * 60 * 60; // login token expires in 7 days;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public RedirectView Home(@CookieValue(value = "token", defaultValue = "") String session_token,
-                             RedirectAttributes redirect_attributes, Model model){
-        if (session_token.isEmpty()){
-            return new RedirectView("/admin");
-        }
-        else{
-            User user = AuthenticationService.VerifyToken(session_token);
-            if (user == null){
-                return new RedirectView("/admin");
-            }
-            else{
-                return new RedirectView("/search");
-            }
-        }
-    }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView Admin(ModelMap model, @CookieValue(value = "token", defaultValue = "")
             String session_token){
         User user = AuthenticationService.VerifyToken(session_token);
         if (user != null){
-            return new ModelAndView("redirect:/search", model);
+            return new ModelAndView("redirect:/", model);
         }
         return new ModelAndView("Login", model);
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView LoginByPassword(ModelMap model, HttpServletResponse response,
                                         @RequestParam("uname") String username,
                                         @RequestParam("psw") String password){

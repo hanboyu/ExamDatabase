@@ -11,20 +11,23 @@
         <a  href="../Search.html" th:href="@{/search}">
             <div class="menu_options">Search Questions</div>
         </a>
-        <a th:remove="${permission} <= 0 ? all : none" href="../EditQuestion.html" th:href="@{/edit/add_new_question}">
+        <a th:remove="${permission} < 2 ? all : none" href="../EditQuestion.html" th:href="@{/edit/add_new_question}">
             <div class="menu_options">Add Question</div>
         </a>
-        <a th:remove="${permission} <= 0 ? all : none" href="../BulkUpload.html" th:href="@{/edit/bulk_upload}">
+        <a th:remove="${permission} < 2 ? all : none" href="../BulkUpload.html" th:href="@{/edit/bulk_upload}">
             <div class="menu_options">Bulk Upload</div>
         </a>
-        <a th:remove="${permission} <= 1 ? all : none" href="" th:href="@{/}">
+        <a th:remove="${permission} < 3 ? all : none" href="" th:href="@{/}">
             <div class="menu_options">Manage Class</div>
         </a>
-        <a href="../AccountSetting.html" th:href="@{/account_setting}">
+        <a th:remove="${permission} < 1 ? all : none" href="../AccountSetting.html" th:href="@{/account_setting}">
             <div class="menu_options">Account</div>
         </a>
-        <a href="../Login.html" th:href="@{/logout}">
+        <a th:remove="${permission} < 1 ? all : none" href="../Login.html" th:href="@{/logout}">
             <div class="menu_options">Logout</div>
+        </a>
+        <a th:remove="${permission} != 0 ? all : none" href="../Login.html" th:href="@{/login}">
+            <div class="menu_options">Login</div>
         </a>
     </div>
 </div>

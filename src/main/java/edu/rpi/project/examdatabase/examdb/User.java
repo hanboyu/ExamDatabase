@@ -59,6 +59,14 @@ public abstract class User implements Cachable, QueryObject{
         return email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
     /*
      ***********************************
      *   Service Functions for user    *

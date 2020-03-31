@@ -31,7 +31,7 @@ public class UserFactory {
      * @param email     email of the user
      * @return a User instance that contains all the information about one user
      * @throws NullUserTypeException    when the userType is a null string
-     * @throws UnknownUserTypeException when the user type is not Student, TA, or Instructor
+     * @throws UnknownUserTypeException when the user type is not recognized
      */
     public User getUser(String userType, String username, String firstName, String lastName, String email)
             throws NullUserTypeException, UnknownUserTypeException {

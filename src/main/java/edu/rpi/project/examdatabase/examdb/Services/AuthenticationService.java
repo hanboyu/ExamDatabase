@@ -1,6 +1,7 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
 import edu.rpi.project.examdatabase.examdb.User;
+import edu.rpi.project.examdatabase.examdb.Visitor;
 
 /**
  * All services related to user login/logout will be handled by this class.
@@ -35,14 +36,17 @@ public class AuthenticationService {
     }
 
     /**
-     * This function will check if the token is still valid
+     * This function will check if the token is still valid, and return the
+     * cross bounding user. If the token is invalid or null, a visitor user
+     * will be generated and returned.
+     *
      * @param token a string that is saved as cookie on user's web browser
      * @return A User instance which the token is assigned to.
-     * Returns null indicates a invalid token.
      */
-    public static User VerifyToken(String token){
+    public static User VerifyToken(String token) {
         //TODO - implement verifyToken()
-        throw new RuntimeException("VerifyToken() is not implemented yet");
+        //throw new RuntimeException("VerifyToken() is not implemented yet");
+        return new Visitor("testuser", "Test", "User", "");
     }
 
     /**
