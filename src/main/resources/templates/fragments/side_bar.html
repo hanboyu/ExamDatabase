@@ -8,7 +8,7 @@
 <body>
 <div class="side_bar" th:fragment="side_bar">
     <div class="side_menu">
-        <a  href="../Search.html" th:href="@{/search}">
+        <a href="../Search.html" th:href="@{/}">
             <div class="menu_options">Search Questions</div>
         </a>
         <a th:remove="${permission} < 2 ? all : none" href="../EditQuestion.html" th:href="@{/edit/add_new_question}">
