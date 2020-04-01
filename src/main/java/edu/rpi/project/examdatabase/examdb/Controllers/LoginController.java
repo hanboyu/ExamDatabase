@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView Admin(ModelMap model, @CookieValue(value = "token", defaultValue = "")
-            String session_token){
+    public ModelAndView Login(ModelMap model, @CookieValue(value = "token", defaultValue = "")
+            String session_token) {
         User user = AuthenticationService.VerifyToken(session_token);
         if (!user.getUserType().equals("Visitor")) {
             return new ModelAndView("redirect:/", model);
@@ -30,13 +30,18 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView LoginByPassword(ModelMap model, HttpServletResponse response,
                                         @RequestParam("uname") String username,
-                                        @RequestParam("psw") String password){
-        String token = AuthenticationService.LoginByPassword(username, password);
-        if (token.isEmpty()){
-            model.addAttribute("username", username);
-            return new ModelAndView( "Login", model);
+                                        @RequestParam("psw") String password) {
+        String token;
+        try {
+            token = AuthenticationService.LoginByPassword(username, password);
+        } catch (Exception e) {
+            token = "";
         }
-        else{
+
+        if (token.isEmpty()) {
+            model.addAttribute("username", username);
+            return new ModelAndView("Login", model);
+        } else {
             Cookie token_cookie = new Cookie("token", token);
             //token_cookie.setMaxAge(TOKEN_DURATION);
             token_cookie.setHttpOnly(true);

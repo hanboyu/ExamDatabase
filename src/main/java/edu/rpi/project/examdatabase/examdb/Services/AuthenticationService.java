@@ -1,17 +1,25 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
+import edu.rpi.project.examdatabase.examdb.TokenManager;
 import edu.rpi.project.examdatabase.examdb.User;
-import edu.rpi.project.examdatabase.examdb.Visitor;
+import org.apache.el.parser.Token;
+
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * All services related to user login/logout will be handled by this class.
- *
+ * <p>
  * Login methods:
- *  - login by username and password
- *  - login by Central Authentication Service (CAS)
- *  - login by previously saved token
+ * - login by username and password
+ * - login by Central Authentication Service (CAS)
+ * - login by previously saved token
  */
 public class AuthenticationService {
+
+    static long TOKEN_DURATION = 10 * 24 * 60 * 60 * 1000;
 
     /**
      * Use username and password to login to the system.
@@ -20,10 +28,25 @@ public class AuthenticationService {
      * @return a string contains the login token. An empty token indicates
      * login was unsuccessful.
      */
-    public static String LoginByPassword(String username, String password) {
+    public static String LoginByPassword(String username, String password) throws NoSuchAlgorithmException {
         //TODO - implement LoginService()
+        /*
+        String EncryptedPassword = Encrypt(password);
+        String Token = "";
+        // get the user's username and password from database
+        if (given password match with the database){
+            //request full info about the user from database
+            User user;
+            Token = TokenManager.generateToken();
+            TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+            UserFactory myUserFactory = UserFactory.getInstance();
+            myTokenManager.saveLoggedInToken(Token, user);
+        }
+        return Token;
+
+         */
         throw new RuntimeException("loginByPassword() is not implemented yet");
-        //return "";
+
     }
 
     /**
@@ -31,7 +54,6 @@ public class AuthenticationService {
      * @return
      */
     public static String LoginByCAS(){
-        //TODO - implement LoginByCAS()
         throw new RuntimeException("LoginByCAS() is not implemented yet");
     }
 
@@ -44,18 +66,56 @@ public class AuthenticationService {
      * @return A User instance which the token is assigned to.
      */
     public static User VerifyToken(String token) {
-        //TODO - implement verifyToken()
-        //throw new RuntimeException("VerifyToken() is not implemented yet");
-        return new Visitor("testuser", "Test", "User", "");
+        TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+        UserFactory myUserFactory = UserFactory.getInstance();
+        User user = null;
+        if (!token.isEmpty()) {
+            user = myTokenManager.getLoggedInUser(token);
+        }
+        if (token.isEmpty() || user == null) {
+            user = myUserFactory.generateVisitor();
+        }
+        return user;
     }
 
     /**
      * Terminate a user session
      * @param token token for the session that will be terminated
      */
-    public static void Logout(String token){
-        //TODO - implement Logout()
-        throw new RuntimeException("Logout() is not implemented yet");
+    public static void Logout(String token) {
+        TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+        if (!token.isEmpty()) {
+            myTokenManager.removeLoggedOutUser(token);
+        }
     }
 
+    /**
+     * Encrypt massage using SHA-256
+     *
+     * @param plaintext the massage that needs to be encrypted
+     * @return the ciphertext
+     * @throws NoSuchAlgorithmException when the encryption method can not be find
+     */
+    private static String Encrypt(String plaintext) throws NoSuchAlgorithmException {
+        // Static getInstance method is called with hashing SHA
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        // digest() method called
+        // to calculate message digest of an input
+        // and return array of byte
+        byte[] hash = md.digest(plaintext.getBytes(StandardCharsets.UTF_8));
+
+        // Convert byte array into signum representation
+        BigInteger number = new BigInteger(1, hash);
+
+        // Convert message digest into hex value
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        // Pad with leading zeros
+        while (hexString.length() < 32) {
+            hexString.insert(0, '0');
+        }
+
+        return hexString.toString();
+    }
 }

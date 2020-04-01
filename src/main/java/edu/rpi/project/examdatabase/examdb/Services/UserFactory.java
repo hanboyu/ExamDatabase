@@ -3,6 +3,7 @@ package edu.rpi.project.examdatabase.examdb.Services;
 import edu.rpi.project.examdatabase.examdb.*;
 import edu.rpi.project.examdatabase.examdb.Exceptions.NullUserTypeException;
 import edu.rpi.project.examdatabase.examdb.Exceptions.UnknownUserTypeException;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
 
 /**
  * A User factory that is used to produce all types of user.
@@ -47,5 +48,10 @@ public class UserFactory {
             return new Visitor(username, firstName, lastName, email);
         }
         throw new UnknownUserTypeException(userType);
+    }
+
+    public User generateVisitor() {
+        return new Visitor("visitor" + GetSystemUpTime.getSystemUptime(),
+                "", "", "");
     }
 }
