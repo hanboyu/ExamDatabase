@@ -1,13 +1,18 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
+import edu.rpi.project.examdatabase.examdb.QueryObject;
 import edu.rpi.project.examdatabase.examdb.TokenManager;
 import edu.rpi.project.examdatabase.examdb.User;
-import org.apache.el.parser.Token;
+import edu.rpi.project.examdatabase.examdb.dbaccess.Query;
+import edu.rpi.project.examdatabase.examdb.dbaccess.QueryUserFromDatabase;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * All services related to user login/logout will be handled by this class.
@@ -23,35 +28,47 @@ public class AuthenticationService {
 
     /**
      * Use username and password to login to the system.
+     *
      * @param username a string with letters and numbers only
      * @param password a string contains encrypted password
-     * @return a string contains the login token. An empty token indicates
+     * @return a string contains the session token. An empty token indicates
      * login was unsuccessful.
      */
     public static String LoginByPassword(String username, String password) throws NoSuchAlgorithmException {
-        //TODO - implement LoginService()
-        /*
-        String EncryptedPassword = Encrypt(password);
-        String Token = "";
-        // get the user's username and password from database
-        if (given password match with the database){
-            //request full info about the user from database
-            User user;
-            Token = TokenManager.generateToken();
-            TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
-            UserFactory myUserFactory = UserFactory.getInstance();
-            myTokenManager.saveLoggedInToken(Token, user);
+        String encrypted_password = Encrypt(password);
+
+        // get user's info by username
+        Query UserDatabase = new QueryUserFromDatabase();
+        Map<String, String> DBRequestArgs = new TreeMap<>();
+        DBRequestArgs.put("username", username);
+        List<QueryObject> QueryResults = UserDatabase.doQuery(DBRequestArgs);
+
+        // validate query result
+        if (QueryResults.size() < 1) {
+            throw new RuntimeException("Multiple users found from username '" + username + "'");
+        } else if (QueryResults.size() == 0) {
+            return "";
+        } else {
+            if (!(QueryResults.get(0) instanceof User)) {
+                throw new RuntimeException("Query results is not a instance of User");
+            }
         }
-        return Token;
 
-         */
-        throw new RuntimeException("loginByPassword() is not implemented yet");
-
+        User user = (User) QueryResults.get(0);
+        if (encrypted_password.equals(user.getPassword())) {
+            // password matches
+            String session_token = TokenManager.generateToken();
+            TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+            myTokenManager.saveLoggedInToken(session_token, user);
+            return session_token;
+        }
+        return "";
     }
 
     /**
      * TBD
-     * @return
+     * @return a string contains the session token. An empty token indicates
+     *      * login was unsuccessful.
      */
     public static String LoginByCAS(){
         throw new RuntimeException("LoginByCAS() is not implemented yet");

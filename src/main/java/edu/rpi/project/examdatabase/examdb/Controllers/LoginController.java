@@ -35,15 +35,22 @@ public class LoginController {
         try {
             token = AuthenticationService.LoginByPassword(username, password);
         } catch (Exception e) {
+            e.printStackTrace();
             token = "";
         }
 
         if (token.isEmpty()) {
             model.addAttribute("username", username);
+
+            //delete cookie
+            Cookie empty_token = new Cookie("token", "");
+            empty_token.setMaxAge(0);
+            empty_token.setHttpOnly(true);
+            response.addCookie(empty_token);
+
             return new ModelAndView("Login", model);
         } else {
             Cookie token_cookie = new Cookie("token", token);
-            //token_cookie.setMaxAge(TOKEN_DURATION);
             token_cookie.setHttpOnly(true);
             response.addCookie(token_cookie);
             return new ModelAndView("Search", model);
