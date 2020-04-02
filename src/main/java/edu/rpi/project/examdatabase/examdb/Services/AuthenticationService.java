@@ -16,7 +16,6 @@ import java.util.TreeMap;
 
 /**
  * All services related to user login/logout will be handled by this class.
- * <p>
  * Login methods:
  * - login by username and password
  * - login by Central Authentication Service (CAS)
@@ -24,7 +23,7 @@ import java.util.TreeMap;
  */
 public class AuthenticationService {
 
-    static long TOKEN_DURATION = 10 * 24 * 60 * 60 * 1000;
+    static long TOKEN_DURATION = 10 * 24 * 60 * 60 * 1000;// 10 days
 
     /**
      * Use username and password to login to the system.
@@ -40,7 +39,7 @@ public class AuthenticationService {
         // get user's info by username
         Query UserDatabase = new QueryUserFromDatabase();
         Map<String, String> DBRequestArgs = new TreeMap<>();
-        DBRequestArgs.put("username", username);
+        DBRequestArgs.put("USERNAME", username);
         List<QueryObject> QueryResults = UserDatabase.doQuery(DBRequestArgs);
 
         // validate query result
