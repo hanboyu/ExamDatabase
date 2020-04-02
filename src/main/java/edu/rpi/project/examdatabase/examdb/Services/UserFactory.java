@@ -34,24 +34,24 @@ public class UserFactory {
      * @throws NullUserTypeException    when the userType is a null string
      * @throws UnknownUserTypeException when the user type is not recognized
      */
-    public User getUser(String userType, String username, String firstName, String lastName, String email)
+    public User getUser(String userType, String username, String firstName, String lastName, String email, String password)
             throws NullUserTypeException, UnknownUserTypeException {
         if (userType == null) {
             throw new NullUserTypeException();
         } else if (userType.equals("Student")) {
-            return new Student(username, firstName, lastName, email);
+            return new Student(username, firstName, lastName, email, password);
         } else if (userType.equals("TA")) {
-            return new TA(username, firstName, lastName, email);
+            return new TA(username, firstName, lastName, email, password);
         } else if (userType.equals("Instructor")) {
-            return new Instructor(username, firstName, lastName, email);
+            return new Instructor(username, firstName, lastName, email, password);
         } else if (userType.equals("Visitor")) {
-            return new Visitor(username, firstName, lastName, email);
+            return new Visitor(username, firstName, lastName, email, password);
         }
         throw new UnknownUserTypeException(userType);
     }
 
     public User generateVisitor() {
         return new Visitor("visitor" + GetSystemUpTime.getSystemUptime(),
-                "", "", "");
+                "", "", "", "");
     }
 }

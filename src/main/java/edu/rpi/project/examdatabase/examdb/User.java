@@ -16,6 +16,7 @@ public abstract class User implements Cachable, QueryObject{
     protected String username;
     protected String email;
     protected String userType;
+    protected String password;
 
 
     /**
@@ -65,6 +66,10 @@ public abstract class User implements Cachable, QueryObject{
 
     public String getUserType() {
         return userType;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     /*

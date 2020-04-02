@@ -12,13 +12,14 @@ import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
  */
 public class Visitor extends User {
 
-    public Visitor(String username, String firstName, String lastName, String email) {
+    public Visitor(String username, String firstName, String lastName, String email, String password) {
         this.setTime();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.userType = "Visitor";
+        this.password = password;
     }
 
     @Override
