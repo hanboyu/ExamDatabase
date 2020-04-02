@@ -48,6 +48,7 @@ public class LoginController {
             empty_token.setHttpOnly(true);
             response.addCookie(empty_token);
 
+            model.addAttribute("error_message", true);
             return new ModelAndView("Login", model);
         } else {
             Cookie token_cookie = new Cookie("token", token);

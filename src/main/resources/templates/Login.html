@@ -12,13 +12,17 @@
             <div class="login_logo">
                 <img src="../static/site_photos/RF0010-01_Rensselaer_Large_Logo-with_Tagline_RGB-Red.png" alt="RPI Logo" th:attr="src='site_photos/RF0010-01_Rensselaer_Large_Logo-with_Tagline_RGB-Red.png'">
             </div>
-            <form action="/admin" method="post">
+            <form action="/login" method="post">
                 <div class="login_inner_box">
                     <div class="login_input_area">
-                        <input type="text" placeholder="Enter Username" name="uname" th:value="*{username}?: ''" required >
+                        <input type="text" placeholder="Enter Username" name="uname" th:value="*{username}?: ''"
+                               required>
                     </div>
                     <div class="login_input_area">
                         <input type="password" placeholder="Enter Password" name="psw" required>
+                    </div>
+                    <div class="important_message" th:remove="${error_message} ? none : all">
+                        Sorry, your username or password was incorrect. Please double-check your password.
                     </div>
                     <div class="login_input_area" id="login_button">
                         <button type="submit">Login</button>
