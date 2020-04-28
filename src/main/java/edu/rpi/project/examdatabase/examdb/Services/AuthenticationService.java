@@ -24,8 +24,6 @@ import java.util.TreeMap;
  */
 public class AuthenticationService {
 
-    static long TOKEN_DURATION = 10 * 24 * 60 * 60 * 1000;// 10 days
-
     /**
      * Use username and password to login to the system.
      *
@@ -58,7 +56,7 @@ public class AuthenticationService {
         if (encrypted_password.equals(user.getPassword())) {
             // password matches
             String session_token = TokenManager.generateToken();
-            TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+            TokenManager myTokenManager = TokenManager.getInstance();
             myTokenManager.saveLoggedInToken(session_token, user);
             return session_token;
         }
@@ -83,7 +81,7 @@ public class AuthenticationService {
      * @return A User instance which the token is assigned to.
      */
     public static User VerifyToken(String token) {
-        TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+        TokenManager myTokenManager = TokenManager.getInstance();
         UserFactory myUserFactory = UserFactory.getInstance();
         User user = null;
         if (!token.isEmpty()) {
@@ -100,7 +98,7 @@ public class AuthenticationService {
      * @param token token for the session that will be terminated
      */
     public static void Logout(String token) {
-        TokenManager myTokenManager = TokenManager.getInstance(TOKEN_DURATION);
+        TokenManager myTokenManager = TokenManager.getInstance();
         if (!token.isEmpty()) {
             myTokenManager.removeLoggedOutUser(token);
         }
