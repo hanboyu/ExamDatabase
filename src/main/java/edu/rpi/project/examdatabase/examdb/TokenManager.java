@@ -1,26 +1,35 @@
 package edu.rpi.project.examdatabase.examdb;
 
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.Set;
+
+import static edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime.getSystemUptime;
 
 /**
- *  TokenManager class is a singleton class that can produce hashed tokens and save
- *  logged in users' information.
+ * TokenManager class is a singleton class that can produce hashed tokens and save
+ * logged in users' information.
  */
 public class TokenManager {
 
     Map<String, Cachable> loggedInUsers;
-    private long ttl; // duration of time that each token is valid for
-    private static TokenManager instance = null;
+    private final static long TOKEN_DURATION = 10 * (24 * 60 * 60 * 1000); // token duration of in milliseconds
+    private static final TokenManager instance = null;
 
-    public static TokenManager getInstance(long ttl) {
+    private final Map<String, User> token_user_map;
+    private final Map<String, Long> token_createTime_map;
+
+    public static TokenManager getInstance() {
         if (instance == null) {
-            return new TokenManager(ttl);
+            return new TokenManager();
         }
         return instance;
     }
 
-    private TokenManager(long ttl) {
-        this.ttl = ttl;
+    private TokenManager() {
+        token_user_map = new Hashtable<>(300);
+        token_createTime_map = new Hashtable<>(300);
     }
 
     /**
@@ -28,7 +37,9 @@ public class TokenManager {
      * @return String
      */
     public static String generateToken() {
-        throw new RuntimeException("GenerateToken() is not implemented yet");
+        long temp = getSystemUptime();
+        String token = Long.toHexString(temp);
+        return (Integer.toHexString(token.hashCode())).toUpperCase();
     }
 
     /**
@@ -39,7 +50,8 @@ public class TokenManager {
      * @param user Cachable, cannot be empty or null
      */
     public synchronized void saveLoggedInToken(String token, Cachable user) {
-        throw new RuntimeException("saveLoggedInToken() is not implemented yet");
+        token_user_map.put(token, (User) user);
+        token_createTime_map.put(token, getSystemUptime());
     }
 
     /**
@@ -49,16 +61,50 @@ public class TokenManager {
      * @return a User instance that corresponds to the token; null if not found or expired
      */
     public User getLoggedInUser(String token) {
-        throw new RuntimeException("getLoggedInUser() is not implemented yet");
+        long last_login_time = token_createTime_map.getOrDefault(token, (long) -1);
+        long current_time = getSystemUptime();
+        if (last_login_time == -1) {
+            return null;
+        } else if (current_time - last_login_time > TOKEN_DURATION) {
+            removeLoggedOutUser(token);
+            return null;
+        } else {
+            token_createTime_map.replace(token, current_time);
+            return token_user_map.getOrDefault(token, null);
+        }
     }
 
     /**
      * Remove a user from the map.
      * The method checks if token is in the map and remove the token from the map
      * if it exists.
+     *
      * @param token String, cannot be empty or null
      */
     public synchronized void removeLoggedOutUser(String token) {
-        throw new RuntimeException("removeLoggedOutUser() is not implemented yet");
+        token_user_map.remove(token);
+        token_createTime_map.remove(token);
+    }
+
+    /**
+     * Do a sweep on every token in the hash table to check if the token is
+     * expired. Delete the expired token.
+     */
+    public synchronized void RemoveExpiredUser() {
+        Set<String> token_set = new HashSet<>(token_user_map.size());
+        token_set.addAll(token_user_map.keySet());
+        token_set.addAll(token_createTime_map.keySet());
+        long current_time = getSystemUptime();
+
+        for (String t : token_set) {
+            if (token_user_map.containsKey(t) != token_createTime_map.containsKey(t)) {
+                removeLoggedOutUser(t);
+            } else {
+                long last_login_time = token_createTime_map.getOrDefault(t, (long) -1);
+                if (current_time - last_login_time >= TOKEN_DURATION) {
+                    removeLoggedOutUser(t);
+                }
+            }
+        }
     }
 }
