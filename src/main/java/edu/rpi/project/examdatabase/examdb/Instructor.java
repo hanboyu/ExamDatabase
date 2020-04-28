@@ -15,4 +15,8 @@ public final class Instructor extends User {
         this.userType = "Instructor";
         this.password = password;
     }
+
+    public Instructor clone() {
+        return new Instructor(username, firstName, lastName, email, password);
+    }
 }

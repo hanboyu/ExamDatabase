@@ -10,7 +10,7 @@ import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
  * - add user
  * - delete user
  */
-public class Visitor extends User {
+public final class Visitor extends User {
 
     public Visitor(String username, String firstName, String lastName, String email, String password) {
         this.setTime();
@@ -20,6 +20,10 @@ public class Visitor extends User {
         this.email = email;
         this.userType = "Visitor";
         this.password = password;
+    }
+
+    public Visitor clone() {
+        return new Visitor(username, firstName, lastName, email, password);
     }
 
     @Override

@@ -74,6 +74,14 @@ public abstract class User implements Cachable, QueryObject{
 
     /*
      ***********************************
+     *           Producer              *
+     ***********************************
+     */
+
+    public abstract User clone();
+
+    /*
+     ***********************************
      *   Service Functions for user    *
      ***********************************
      */

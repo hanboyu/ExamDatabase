@@ -22,6 +22,10 @@ public final class Student extends User {
         this.password = password;
     }
 
+    public Student clone() {
+        return new Student(username, firstName, lastName, email, password);
+    }
+
     @Override
     public void editQuestion(Question editedQuestion) throws PermissionDeniedException {
         throw new PermissionDeniedException(userType, username, "EDIT QUESTION");

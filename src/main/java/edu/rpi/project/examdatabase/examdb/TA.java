@@ -19,6 +19,10 @@ public final class TA extends User {
         this.password = password;
     }
 
+    public TA clone() {
+        return new TA(username, firstName, lastName, email, password);
+    }
+
     @Override
     public void addUser(User newUser) throws PermissionDeniedException {
         throw new PermissionDeniedException(userType, username, "ADD USER");

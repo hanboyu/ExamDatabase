@@ -17,8 +17,7 @@ public class TokenManager {
     private final static long TOKEN_DURATION = 10 * (24 * 60 * 60 * 1000); // token duration of in milliseconds
     private static final TokenManager instance = null;
 
-    private final Map<String, User> token_user_map;
-    private final Map<String, Long> token_createTime_map;
+    private final Map<String, Cachable> token_user_map;
 
     public static TokenManager getInstance() {
         if (instance == null) {
@@ -29,7 +28,6 @@ public class TokenManager {
 
     private TokenManager() {
         token_user_map = new Hashtable<>(300);
-        token_createTime_map = new Hashtable<>(300);
     }
 
     /**
@@ -50,8 +48,10 @@ public class TokenManager {
      * @param user Cachable, cannot be empty or null
      */
     public synchronized void saveLoggedInToken(String token, Cachable user) {
-        token_user_map.put(token, (User) user);
-        token_createTime_map.put(token, getSystemUptime());
+        if (user instanceof User) {
+            user.setTime();
+            token_user_map.put(token, user);
+        }
     }
 
     /**
@@ -61,16 +61,19 @@ public class TokenManager {
      * @return a User instance that corresponds to the token; null if not found or expired
      */
     public User getLoggedInUser(String token) {
-        long last_login_time = token_createTime_map.getOrDefault(token, (long) -1);
+        Cachable user = token_user_map.getOrDefault(token, null);
         long current_time = getSystemUptime();
-        if (last_login_time == -1) {
+        if (user == null) {
             return null;
-        } else if (current_time - last_login_time > TOKEN_DURATION) {
+        }
+        long last_login_time = user.getTime();
+        if (current_time - last_login_time > TOKEN_DURATION) {
             removeLoggedOutUser(token);
             return null;
         } else {
-            token_createTime_map.replace(token, current_time);
-            return token_user_map.getOrDefault(token, null);
+            user.setTime();
+            token_user_map.replace(token, user);
+            return ((User) user).clone();
         }
     }
 
@@ -83,7 +86,6 @@ public class TokenManager {
      */
     public synchronized void removeLoggedOutUser(String token) {
         token_user_map.remove(token);
-        token_createTime_map.remove(token);
     }
 
     /**
@@ -91,19 +93,14 @@ public class TokenManager {
      * expired. Delete the expired token.
      */
     public synchronized void RemoveExpiredUser() {
-        Set<String> token_set = new HashSet<>(token_user_map.size());
-        token_set.addAll(token_user_map.keySet());
-        token_set.addAll(token_createTime_map.keySet());
+        Set<String> token_set = token_user_map.keySet();
         long current_time = getSystemUptime();
 
         for (String t : token_set) {
-            if (token_user_map.containsKey(t) != token_createTime_map.containsKey(t)) {
+            long last_login_time = (token_user_map.get(t)).getTime();
+            if (current_time - last_login_time >= TOKEN_DURATION) {
                 removeLoggedOutUser(t);
-            } else {
-                long last_login_time = token_createTime_map.getOrDefault(t, (long) -1);
-                if (current_time - last_login_time >= TOKEN_DURATION) {
-                    removeLoggedOutUser(t);
-                }
+
             }
         }
     }
