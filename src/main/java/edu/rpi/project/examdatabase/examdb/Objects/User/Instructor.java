@@ -1,6 +1,4 @@
-package edu.rpi.project.examdatabase.examdb;
-
-import javax.validation.constraints.NotNull;
+package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 /**
  * Instructor have the permission to access all functions in User class.

@@ -1,4 +1,4 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Objects;
 
 /**
  * Any object that can be cached should implement this interface

@@ -1,6 +1,6 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
-import edu.rpi.project.examdatabase.examdb.User;
+import edu.rpi.project.examdatabase.examdb.Objects.User.User;
 
 import java.util.List;
 

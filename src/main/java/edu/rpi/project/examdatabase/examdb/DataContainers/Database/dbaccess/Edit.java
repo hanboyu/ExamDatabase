@@ -1,4 +1,4 @@
-package edu.rpi.project.examdatabase.examdb.dbaccess;
+package edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess;
 
 import java.util.Map;
 

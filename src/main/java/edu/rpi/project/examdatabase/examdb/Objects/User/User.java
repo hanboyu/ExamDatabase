@@ -1,14 +1,16 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
-import edu.rpi.project.examdatabase.examdb.dbaccess.Query;
+import edu.rpi.project.examdatabase.examdb.Objects.Cachable;
+import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
+import edu.rpi.project.examdatabase.examdb.Objects.Question;
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
 
-import java.security.Permission;
 import java.util.List;
 import java.util.Map;
 
-public abstract class User implements Cachable, QueryObject{
+public abstract class User implements Cachable, QueryObject {
     protected long inTimestamp;
 
     protected String firstName;

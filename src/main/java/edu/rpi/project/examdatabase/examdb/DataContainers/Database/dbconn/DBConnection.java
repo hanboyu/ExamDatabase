@@ -1,4 +1,4 @@
-package edu.rpi.project.examdatabase.examdb.dbconn;
+package edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbconn;
 
 public interface DBConnection {
     void createTable(String tableName);

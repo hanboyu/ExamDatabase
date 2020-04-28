@@ -1,6 +1,6 @@
-package edu.rpi.project.examdatabase.examdb.dbaccess;
+package edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess;
 
-import edu.rpi.project.examdatabase.examdb.QueryObject;
+import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import edu.rpi.project.examdatabase.examdb.init;
 
 import java.sql.*;

@@ -1,10 +1,11 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
-import edu.rpi.project.examdatabase.examdb.QueryObject;
-import edu.rpi.project.examdatabase.examdb.TokenManager;
-import edu.rpi.project.examdatabase.examdb.User;
-import edu.rpi.project.examdatabase.examdb.dbaccess.Query;
-import edu.rpi.project.examdatabase.examdb.dbaccess.QueryUserFromDatabase;
+import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
+import edu.rpi.project.examdatabase.examdb.DataContainers.TokenManager;
+import edu.rpi.project.examdatabase.examdb.Objects.User.User;
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryUserFromDatabase;
+import edu.rpi.project.examdatabase.examdb.Objects.User.UserFactory;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

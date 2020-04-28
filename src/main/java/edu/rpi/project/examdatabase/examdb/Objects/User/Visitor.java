@@ -1,29 +1,30 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
+import edu.rpi.project.examdatabase.examdb.Objects.Question;
 
 /**
- * Student does not have the permission to do the following operation:
+ * Visitor does not have the permission to the following operation:
  * - Add question
  * - edit question
  * - delete question
  * - add user
  * - delete user
  */
-public final class Student extends User {
+public final class Visitor extends User {
 
-    public Student(String username, String firstName, String lastName, String email, String password) {
+    public Visitor(String username, String firstName, String lastName, String email, String password) {
         this.setTime();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.userType = "Student";
+        this.userType = "Visitor";
         this.password = password;
     }
 
-    public Student clone() {
-        return new Student(username, firstName, lastName, email, password);
+    public Visitor clone() {
+        return new Visitor(username, firstName, lastName, email, password);
     }
 
     @Override
@@ -50,5 +51,4 @@ public final class Student extends User {
     public void deleteUser(String username) throws PermissionDeniedException {
         throw new PermissionDeniedException(userType, username, "DELETE USER");
     }
-
 }

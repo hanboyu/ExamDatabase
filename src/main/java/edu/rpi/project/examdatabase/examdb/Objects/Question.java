@@ -1,4 +1,4 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Objects;
 
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
 
@@ -30,13 +30,13 @@ import java.util.List;
  *  Answer can only be one of the choices.
  */
 public final class Question implements Comparable<Question>, QueryObject, Cachable {
-    private String serial_code;
-    private List<String> tags;
-    private String class_code;
-    private String permission;
-    private String question_body;
-    private List<String> choices;
-    private String Answer;
+    private final String serial_code;
+    private final List<String> tags;
+    private final String class_code;
+    private final String permission;
+    private final String question_body;
+    private final List<String> choices;
+    private final String Answer;
 
     protected long inTimestamp;
 

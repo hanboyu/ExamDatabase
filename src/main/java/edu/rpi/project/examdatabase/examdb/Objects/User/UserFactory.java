@@ -1,6 +1,5 @@
-package edu.rpi.project.examdatabase.examdb.Services;
+package edu.rpi.project.examdatabase.examdb.Objects.User;
 
-import edu.rpi.project.examdatabase.examdb.*;
 import edu.rpi.project.examdatabase.examdb.Exceptions.NullUserTypeException;
 import edu.rpi.project.examdatabase.examdb.Exceptions.UnknownUserTypeException;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
@@ -12,7 +11,7 @@ import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
 
 public class UserFactory {
 
-    private static UserFactory instance = new UserFactory();
+    private static final UserFactory instance = new UserFactory();
 
     // Constructor
     private UserFactory() {

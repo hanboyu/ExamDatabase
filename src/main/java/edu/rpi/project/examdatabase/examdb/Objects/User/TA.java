@@ -1,4 +1,4 @@
-package edu.rpi.project.examdatabase.examdb;
+package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 

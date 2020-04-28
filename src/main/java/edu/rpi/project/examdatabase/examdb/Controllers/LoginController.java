@@ -1,13 +1,12 @@
 package edu.rpi.project.examdatabase.examdb.Controllers;
 
 import edu.rpi.project.examdatabase.examdb.Services.AuthenticationService;
-import edu.rpi.project.examdatabase.examdb.User;
+import edu.rpi.project.examdatabase.examdb.Objects.User.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
