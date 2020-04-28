@@ -24,12 +24,17 @@ public class SearchController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView Home(@CookieValue(value = "token", defaultValue = "") String session_token,
                              ModelMap model, HttpServletResponse response) {
-
+        if (session_token.isEmpty()) {
+            session_token = AuthenticationService.LoginAsVisitor();
+        }
         User user = AuthenticationService.VerifyToken(session_token);
+        if (user == null) {
+            session_token = AuthenticationService.LoginAsVisitor();
+            user = AuthenticationService.VerifyToken(session_token);
+        }
         Cookie token_cookie = new Cookie("token", session_token);
         token_cookie.setHttpOnly(true);
         response.addCookie(token_cookie);
-
         model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
         return new ModelAndView("Search", model);
 
@@ -40,7 +45,14 @@ public class SearchController {
                                         @RequestParam(name = "key_word", required = false, defaultValue = "") String key_word,
                                         ModelMap model, HttpServletResponse response) {
 
+        if (session_token.isEmpty()) {
+            session_token = AuthenticationService.LoginAsVisitor();
+        }
         User user = AuthenticationService.VerifyToken(session_token);
+        if (user == null) {
+            session_token = AuthenticationService.LoginAsVisitor();
+            user = AuthenticationService.VerifyToken(session_token);
+        }
         Cookie token_cookie = new Cookie("token", session_token);
         token_cookie.setHttpOnly(true);
         response.addCookie(token_cookie);
@@ -57,8 +69,14 @@ public class SearchController {
     public ModelAndView SearchByTags(@CookieValue(value = "token", defaultValue = "") String session_token,
                                      @RequestParam(name = "key_word", required = false, defaultValue = "") String key_word,
                                      ModelMap model, HttpServletResponse response) {
-
+        if (session_token.isEmpty()) {
+            session_token = AuthenticationService.LoginAsVisitor();
+        }
         User user = AuthenticationService.VerifyToken(session_token);
+        if (user == null) {
+            session_token = AuthenticationService.LoginAsVisitor();
+            user = AuthenticationService.VerifyToken(session_token);
+        }
         Cookie token_cookie = new Cookie("token", session_token);
         token_cookie.setHttpOnly(true);
         response.addCookie(token_cookie);
@@ -76,7 +94,14 @@ public class SearchController {
     public ModelAndView SearchByID(@CookieValue(value = "token", defaultValue = "") String session_token,
                                    @RequestParam(name = "key_word", required = false, defaultValue = "") String key_word,
                                    ModelMap model, HttpServletResponse response) {
+        if (session_token.isEmpty()) {
+            session_token = AuthenticationService.LoginAsVisitor();
+        }
         User user = AuthenticationService.VerifyToken(session_token);
+        if (user == null) {
+            session_token = AuthenticationService.LoginAsVisitor();
+            user = AuthenticationService.VerifyToken(session_token);
+        }
         Cookie token_cookie = new Cookie("token", session_token);
         token_cookie.setHttpOnly(true);
         response.addCookie(token_cookie);

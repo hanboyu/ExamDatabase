@@ -1,5 +1,6 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
+import edu.rpi.project.examdatabase.examdb.Objects.Cachable;
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import edu.rpi.project.examdatabase.examdb.DataContainers.TokenManager;
 import edu.rpi.project.examdatabase.examdb.Objects.User.User;
@@ -82,19 +83,31 @@ public class AuthenticationService {
      */
     public static User VerifyToken(String token) {
         TokenManager myTokenManager = TokenManager.getInstance();
-        UserFactory myUserFactory = UserFactory.getInstance();
         User user = null;
         if (!token.isEmpty()) {
             user = myTokenManager.getLoggedInUser(token);
-        }
-        if (token.isEmpty() || user == null) {
-            user = myUserFactory.generateVisitor();
         }
         return user;
     }
 
     /**
+     * Login user as visitor. This function will automatically generate a new
+     * visitor account on the system
+     *
+     * @return the session token
+     */
+    public static String LoginAsVisitor() {
+        TokenManager myTokenManager = TokenManager.getInstance();
+        UserFactory myUserFactory = UserFactory.getInstance();
+        String token = TokenManager.generateToken();
+        User user = myUserFactory.generateVisitor();
+        myTokenManager.saveLoggedInToken(token, user);
+        return token;
+    }
+
+    /**
      * Terminate a user session
+     *
      * @param token token for the session that will be terminated
      */
     public static void Logout(String token) {

@@ -17,14 +17,11 @@ public class TokenManager {
 
     Map<String, Cachable> loggedInUsers;
     private final static long TOKEN_DURATION = 10 * (24 * 60 * 60 * 1000); // token duration of in milliseconds
-    private static final TokenManager instance = null;
+    private static final TokenManager instance = new TokenManager();
 
     private final Map<String, Cachable> token_user_map;
 
     public static TokenManager getInstance() {
-        if (instance == null) {
-            return new TokenManager();
-        }
         return instance;
     }
 
@@ -59,11 +56,12 @@ public class TokenManager {
     /**
      * Get the user information from the map using the token passed in as argument
      * The method checks if the token has expired;
+     *
      * @param token String, cannot be empty or null
      * @return a User instance that corresponds to the token; null if not found or expired
      */
-    public User getLoggedInUser(String token) {
-        Cachable user = token_user_map.getOrDefault(token, null);
+    public synchronized User getLoggedInUser(String token) {
+        Cachable user = token_user_map.get(token);
         long current_time = getSystemUptime();
         if (user == null) {
             return null;
