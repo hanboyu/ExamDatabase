@@ -4,7 +4,7 @@ import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
 import edu.rpi.project.examdatabase.examdb.Objects.Cachable;
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
-import edu.rpi.project.examdatabase.examdb.Objects.Question;
+import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
 
 import java.util.List;

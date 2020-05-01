@@ -1,7 +1,7 @@
 package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
-import edu.rpi.project.examdatabase.examdb.Objects.Question;
+import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 
 /**
  * Student does not have the permission to do the following operation:
