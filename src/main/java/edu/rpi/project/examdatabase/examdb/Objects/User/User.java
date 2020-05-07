@@ -42,7 +42,7 @@ import java.util.Objects;
  * Abstraction Function:
  * Each User has an unique username.
  */
-public abstract class User implements Cachable, QueryObject, Comparable<User> {
+public abstract class User implements Cachable, QueryObject, Comparable<User>, Cloneable {
     protected long inTimestamp;
 
     protected String firstName;

@@ -2,6 +2,7 @@ package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Student does not have the permission to do the following operation:
@@ -23,8 +24,18 @@ public final class Student extends User {
         this.password = password;
     }
 
+    public Student(@NotNull Student u) {
+        this.setTime();
+        this.username = u.username;
+        this.firstName = u.firstName;
+        this.lastName = u.lastName;
+        this.email = u.email;
+        this.userType = u.userType;
+        this.password = u.password;
+    }
+
     public Student clone() {
-        return new Student(username, firstName, lastName, email, password);
+        return new Student(this);
     }
 
     @Override
