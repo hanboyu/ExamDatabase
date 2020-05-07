@@ -19,7 +19,7 @@ public final class Student extends User {
         this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.userType = "Student";
+        this.userType = 1;
         this.password = password;
     }
 

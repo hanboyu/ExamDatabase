@@ -19,7 +19,7 @@ public final class Visitor extends User {
         this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.userType = "Visitor";
+        this.userType = 0;
         this.password = password;
     }
 

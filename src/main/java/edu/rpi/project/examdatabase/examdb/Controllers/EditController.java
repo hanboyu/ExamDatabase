@@ -50,14 +50,14 @@ public class EditController {
         model.addAttribute("answer", answer);
 
         QuestionFactory myQuestionFactory = QuestionFactory.getInstance();
-
+        /*
         try {
             Question q = myQuestionFactory.makeQuestion(tags, class_code, permission, question_body, choices, answer);
             user.addQuestion(q);
         } catch (Exception e) {
             return new ModelAndView("EditQuestion", model);
         }
-
+        */
         return new ModelAndView("EditQuestionSuccess", model);
     }
 

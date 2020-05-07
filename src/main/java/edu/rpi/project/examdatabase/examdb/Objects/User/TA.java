@@ -15,7 +15,7 @@ public final class TA extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.userType = "TA";
+        this.userType = 2;
         this.password = password;
     }
 
