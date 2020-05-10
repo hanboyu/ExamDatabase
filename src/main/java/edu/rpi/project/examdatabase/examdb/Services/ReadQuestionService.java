@@ -1,9 +1,11 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryQuestionFromDatabase;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.Objects.User.User;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * All service related to getting questions from database will be handled by
@@ -14,14 +16,29 @@ public class ReadQuestionService {
     /**
      * This function requests a single question form the database by the
      * question's id
+     *
      * @param user user who sends the request
-     * @param id the unique id for each question
-     * @throws InvalidQuestionId when the id is not found in the database
+     * @param id   the unique id for each question
      * @return the question
      */
-    public static Question GetQuestionById(User user, String id){
-        //TODO - implement GetQuestionById()
-        throw new RuntimeException("GetQuestionById is not implemented yet");
+    public static Question GetQuestionById(User user, String id) {
+        // construct query arguments
+        Map<String, String> query_argus = new TreeMap<>();
+        query_argus.put("id", id);
+
+        List<Question> res = QueryQuestion(user, query_argus);
+
+        if (res.isEmpty()) {     // no result
+            return null;
+        }
+
+        if (res.size() > 1) {    // more than one results
+            // something is wrong. log this.
+            return null;
+        }
+
+        return res.get(0);
+
     }
 
     /**
@@ -30,7 +47,6 @@ public class ReadQuestionService {
      * @param user user who sends the request
      * @param tags a non-empty list of strings. Each element in the list
      *             represents a tag
-     * @throws EmptyTagList when given an empty or null list of tags.
      * @return a list of questions that satisfy the given tags. An empty list
      * indicates no question satisfies the given condition.
      * Return 100 questions maximum.
@@ -45,13 +61,29 @@ public class ReadQuestionService {
      * contain or related ot the given key word.
      * @param user user who sends the request
      * @param key_word a non-empty word to search
-     * @throws EmptyKeyWord when given an empty or null string.
      * @return a list of questions that relates to the given key word. An empty
      * list indicates no question satisfies the given condition.
      * Return 100 questions maximum.
      */
-    public static List<Question> GetQuestionsByKeyWord(User user, String key_word){
+    public static List<Question> GetQuestionsByKeyWord(User user, String key_word) {
         //TODO - implement GetQuestionsByKeyWord()
         throw new RuntimeException("GetQuestionsByKeyWord is not implemented yet");
+    }
+
+    private static List<Question> QueryQuestion(User user, Map<String, String> query_argus) {
+        // construct query strategies
+        List<Query> query_strategies = new LinkedList<>();
+
+        // !!! THE ORDER OF THE STRATEGIES IN THE LIST MATTERS !!!
+        // THE STRATEGIES SHOULD BE ORDERED FROM THE FASTEST ACCESS TIME TO THE SLOWEST ACCESS TIME.
+        query_strategies.add(new QueryQuestionFromDatabase());
+
+        Iterator<Query> query_itr = query_strategies.iterator();
+        List<Question> res;
+        do {
+            res = user.searchQuestion(query_itr.next(), query_argus);
+        } while (query_itr.hasNext() && res.isEmpty());
+
+        return res;
     }
 }
