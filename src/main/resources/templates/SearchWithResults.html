@@ -19,16 +19,16 @@
                 <div id="result_stat hidden_content">
                     <p class="small_text hidden_content"> relevant questions found.</p>
                 </div>
-                <div id="search_results_container" class="" th:each="q : search_results">
+                <div id="search_results_container" class="" th:object="${q}">
                     <!--Search result template for each question-->
                     <div class="result_question_container" id="123456789" th:id="${q.getSerialCode()}">
                         <div class="srq_id">
                             <span class="sr_title">Question id: </span>
-                            <span th:text="q.getSerialCode()">123456789</span>
+                            <span th:text="${q.getSerialCode()}">123456789</span>
                         </div>
                         <div class="srq_categories">
                             <span class="sr_title">Categories: </span>
-                            <span class="rq_tags_list" th:each="t : q.getTags()">
+                            <span class="rq_tags_list" th:each="t : ${q.getTags()}">
                                 <a th:text="${t} + ' '"  th:href="@{/search/by_tags(key_word=${t})}">Greek myths,</a>
                                 <a th:text="${t} + ' '"  th:href="@{/search/by_tags(key_word=${t})}">Classic,</a>
                             </span>
@@ -36,20 +36,20 @@
 
                         <div class="srq_body">
                             <p>
-                                <span th:text="${q.getQuestionBody}">
+                                <span th:text="${q.getQuestionBody()}">
                                     Who introduced the idea that dreams and myths were the projection of what he called the "collective unconscious" based on archetypal characters and narrative patterns.
                                 </span>
                             </p>
                         </div>
 
-                        <ol class="rq_choices_container" th:each="c : q.getChoices()">
+                        <ol class="rq_choices_container" th:each="c : ${q.getChoices()}">
                             <li th:text="${c}">Carl Jung</li>
                             <li>B. Malinowski</li>
                             <li>J. G. Frazer</li>
                             <li>Joseph Campbell</li>
                             <div class="srq_answer">
                                 <span class="show_answer" onclick="ShowAnswer('123456789')" title="Show answer">Show Answer</span>
-                                <span class="hide_answer" onclick="HideAnswer('123456789')" title="Hide answer" th:text="q.getAnswer()">Carl Jung</span>
+                                <span class="hide_answer" onclick="HideAnswer('123456789')" title="Hide answer" th:text="${q.getAnswer()}">Carl Jung</span>
                             </div>
                         </ol>
 
@@ -62,6 +62,7 @@
                         </div>
                     </div>
                     <!--END Search result template for each question-->
+                    <!--
                     <div class="result_question_container" id="000000000" th:id="${q.getSerialCode()}">
                         <div class="srq_id">
                             <span class="sr_title">Question id: </span>
@@ -101,7 +102,7 @@
                             <i class="action_buttons glyphicon glyphicon-plus-sign" title="Add to my list"></i>
                             <i class="action_buttons glyphicon glyphicon-pencil" title="Edit"></i>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
