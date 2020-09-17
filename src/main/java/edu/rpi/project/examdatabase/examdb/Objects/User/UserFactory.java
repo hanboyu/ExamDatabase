@@ -1,6 +1,5 @@
 package edu.rpi.project.examdatabase.examdb.Objects.User;
 
-import edu.rpi.project.examdatabase.examdb.Exceptions.NullUserTypeException;
 import edu.rpi.project.examdatabase.examdb.Exceptions.UnknownUserTypeException;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.GetSystemUpTime;
 
@@ -30,23 +29,22 @@ public class UserFactory {
      * @param lastName  last name of the user
      * @param email     email of the user
      * @return a User instance that contains all the information about one user
-     * @throws NullUserTypeException    when the userType is a null string
      * @throws UnknownUserTypeException when the user type is not recognized
      */
-    public User getUser(String userType, String username, String firstName, String lastName, String email, String password)
-            throws NullUserTypeException, UnknownUserTypeException {
-        if (userType == null) {
-            throw new NullUserTypeException();
-        } else if (userType.equals("Student")) {
-            return new Student(username, firstName, lastName, email, password);
-        } else if (userType.equals("TA")) {
-            return new TA(username, firstName, lastName, email, password);
-        } else if (userType.equals("Instructor")) {
-            return new Instructor(username, firstName, lastName, email, password);
-        } else if (userType.equals("Visitor")) {
-            return new Visitor(username, firstName, lastName, email, password);
+    public User getUser(int userType, String username, String firstName, String lastName, String email, String password)
+            throws UnknownUserTypeException {
+        switch (userType) {
+            case 0:
+                return new Visitor(username, firstName, lastName, email, password);
+            case 1:
+                return new Student(username, firstName, lastName, email, password);
+            case 2:
+                return new TA(username, firstName, lastName, email, password);
+            case 3:
+                return new Instructor(username, firstName, lastName, email, password);
+            default:
+                throw new UnknownUserTypeException(userType);
         }
-        throw new UnknownUserTypeException(userType);
     }
 
     public User generateVisitor() {

@@ -1,6 +1,7 @@
 package edu.rpi.project.examdatabase.examdb.Objects.User;
 
 import edu.rpi.project.examdatabase.examdb.Exceptions.PermissionDeniedException;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * TA does not have permission to do the following operation:
@@ -15,12 +16,22 @@ public final class TA extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.userType = "TA";
+        this.userType = 2;
         this.password = password;
     }
 
+    public TA(@NotNull TA u) {
+        this.setTime();
+        this.username = u.username;
+        this.firstName = u.firstName;
+        this.lastName = u.lastName;
+        this.email = u.email;
+        this.userType = u.userType;
+        this.password = u.password;
+    }
+
     public TA clone() {
-        return new TA(username, firstName, lastName, email, password);
+        return new TA(this);
     }
 
     @Override

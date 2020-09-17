@@ -17,17 +17,8 @@ public class QuestionFactory {
     }
 
     public Question makeQuestion(String serial_code, List<String> tags, String class_code,
-                                 String permission, String question_body,
-                                 List<String> choices, String answer)
-            throws UnknownPermissionTypeException {
-        permission = permission.trim();
-        permission = permission.toLowerCase();
-        if (!(permission.equals("student") || permission.equals("ta") ||
-                permission.equals("instructor") ||
-                permission.equals("visitor"))) {
-            throw new UnknownPermissionTypeException();
-        }
-
+                                 int permission, String question_body,
+                                 List<String> choices, String answer) {
         //trim white space and make all tags to lower case
         for (int i = 0; i < tags.size(); ++i) {
             String temp = tags.get(i);

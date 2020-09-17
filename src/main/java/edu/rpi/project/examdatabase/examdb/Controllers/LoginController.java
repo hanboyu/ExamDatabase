@@ -20,7 +20,7 @@ public class LoginController {
     public ModelAndView Login(ModelMap model, @CookieValue(value = "token", defaultValue = "")
             String session_token) {
         User user = AuthenticationService.VerifyToken(session_token);
-        if (!user.getUserType().equals("Visitor")) {
+        if (user.getUserType() != 0) {
             return new ModelAndView("redirect:/", model);
         }
         return new ModelAndView("Login", model);

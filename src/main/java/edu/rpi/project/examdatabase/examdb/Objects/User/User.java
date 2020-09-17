@@ -6,18 +6,50 @@ import edu.rpi.project.examdatabase.examdb.Objects.Cachable;
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public abstract class User implements Cachable, QueryObject {
+/**
+ * An <b>User</b> object represents a single user in the system. The User object
+ * is immutable. This object is used to storing user information and requesting
+ * services. Note that not all services are available to all types of user. Some
+ * service maybe restricted to certain type of user.
+ * <p>
+ * User is an abstract object. The concrete objects that extends User will be
+ * the specific type of user. If a subclass user type does not have the
+ * permission to certain service, the service function will need to be
+ * overridden in the subclass. The overridden function will simply throw a
+ * access denied exception.
+ * <p>
+ * The following user information is stored in this object:
+ * - username
+ * - first name
+ * - last name
+ * - email
+ * - password
+ * - user type
+ * The following service is available for the user:
+ * - search questions
+ * - edit question
+ * - delete question
+ * - add question
+ * - add user
+ * - delete user
+ * <p>
+ * Abstraction Function:
+ * Each User has an unique username.
+ */
+public abstract class User implements Cachable, QueryObject, Comparable<User>, Cloneable {
     protected long inTimestamp;
 
     protected String firstName;
     protected String lastName;
     protected String username;
     protected String email;
-    protected String userType;
+    protected int userType;
     protected String password;
 
 
@@ -66,12 +98,30 @@ public abstract class User implements Cachable, QueryObject {
         return username;
     }
 
-    public String getUserType() {
+    public int getUserType() {
         return userType;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
+    }
+
+    @Override
+    public int compareTo(@NotNull User u) {
+        return this.username.compareTo(u.username);
     }
 
     /*

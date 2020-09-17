@@ -35,7 +35,7 @@ public class SearchController {
         Cookie token_cookie = new Cookie("token", session_token);
         token_cookie.setHttpOnly(true);
         response.addCookie(token_cookie);
-        model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
+        model.addAttribute("permission", user.getUserType());
         return new ModelAndView("Search", model);
 
     }
@@ -60,7 +60,7 @@ public class SearchController {
         List<Question> search_results;
         search_results = ReadQuestionService.GetQuestionsByKeyWord(user, key_word);
 
-        model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
+        model.addAttribute("permission", user.getUserType());
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
     }
@@ -85,7 +85,7 @@ public class SearchController {
         List<String> tag_list = Arrays.asList(key_word.split(" "));
         search_results = ReadQuestionService.GetQuestionsByTags(user, tag_list);
 
-        model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
+        model.addAttribute("permission", user.getUserType());
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
     }
@@ -109,7 +109,7 @@ public class SearchController {
         List<Question> search_results = new LinkedList<Question>();
         search_results.add(ReadQuestionService.GetQuestionById(user, key_word));
 
-        model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
+        model.addAttribute("permission", user.getUserType());
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
     }
