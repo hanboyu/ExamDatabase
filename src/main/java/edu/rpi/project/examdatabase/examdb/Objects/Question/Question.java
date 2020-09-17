@@ -41,7 +41,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
     private final String serial_code;
     private final List<String> tags;
     private final String class_code;
-    private final String permission;
+    private final int permission;
     private final String question_body;
     private final List<String> choices;
     private final String answer;
@@ -50,7 +50,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
 
     //Constructors
     public Question(String serial_code, List<String> tags, String class_code,
-                    String permission, String question_body, List<String> choices,
+                    int permission, String question_body, List<String> choices,
                     String answer) {
         this.serial_code = serial_code;
         this.tags = new LinkedList<>(tags);
@@ -61,10 +61,22 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
         this.answer = answer;
     }
 
+    public Question(Question q) {
+        this.serial_code = q.serial_code;
+        this.tags = new LinkedList<>(q.tags);
+        this.class_code = q.class_code;
+        this.permission = q.permission;
+        this.question_body = q.question_body;
+        this.choices = new LinkedList<>(q.choices);
+        this.answer = q.answer;
+        setTime();
+    }
+
     //Observers
 
     /**
      * Question serial code observer
+     *
      * @return Question serial code
      */
     public String getSerialCode() {
@@ -83,9 +95,10 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
 
     /**
      * Question permission observer
+     *
      * @return a string that represent the permission type of the question
      */
-    public String getPermission() {
+    public int getPermission() {
         return permission;
     }
 
@@ -182,7 +195,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
         }
         return this.serial_code.equals(q.serial_code) && tags.equals(q.tags)
                 && class_code.equals(q.class_code) &&
-                permission.equals(q.permission) &&
+                permission == q.permission &&
                 question_body.equals(q.question_body) &&
                 choices.equals(q.choices) && answer.equals(q.answer);
     }
@@ -195,18 +208,6 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
     @Override
     public int hashCode() {
         return serial_code.hashCode();
-    }
-
-    /**
-     * Make a copy
-     *
-     * @return A exact same question object.
-     */
-    @Contract(" -> new")
-    @Override
-    protected @NotNull Question clone() {
-        return new Question(this.serial_code, this.tags, this.class_code,
-                this.permission, this.question_body, this.choices, this.answer);
     }
 
     /**

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class QueryFromQuestionBank implements Query{
+public class QueryQuestionFromDatabase implements Query {
     @Override
     public List<QueryObject> doQuery(Map<String, String> arguments) {
         try {
