@@ -446,7 +446,7 @@ ul.ba {
     font-variant: small-caps;
 }
 #search_results_container{
-    margin: 10% auto 0 auto;
+    margin: 0 auto 0 auto;
     padding: 10px 20px 10px 20px;
     width: 90%;
 }
@@ -520,7 +520,7 @@ ol.rq_choices_container:first-child {
 
 
 .rq_tags_list a{
-    display: inline;
+    display: inline-block;
     color: #525252;
 }
 .rq_tags_list a:hover{
@@ -543,7 +543,7 @@ ol.rq_choices_container:first-child {
     cursor: pointer;
 }
 .hide_answer{
-    color:#b50000;
+    color:#3ACE42;
     display:none;
     cursor: pointer;
 }
