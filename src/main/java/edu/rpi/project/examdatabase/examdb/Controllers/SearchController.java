@@ -153,9 +153,13 @@ public class SearchController {
                         "One of the three processes displays the output from Q5a, while the other two do not display anything")),
                 "One of the three processes displays the output from Q5a, while the other two do not display anything");
 
+        Question q4 = new Question("123456792", new LinkedList<String>(Arrays.asList("Programing languages", "Question with latex")),
+                "CSCI-4210", "visitor","Consider the expression grammar below. $$expr \\to expr\\ x\\ expr | expr\\ \\#\\ expr | id$$ How many parse trees are there for string id x id # id X id?",
+                new LinkedList<String>(Arrays.asList("2", "0", "5", "1")),"5");
         search_results.add(q1);
         search_results.add(q2);
         search_results.add(q3);
+        search_results.add(q4);
         model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
