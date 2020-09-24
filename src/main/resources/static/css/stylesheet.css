@@ -4,7 +4,7 @@ body{
     height: 100%;
     /*text-align: center;*/
     padding: 10px 0 10px;
-    overflow: auto;
+    overflow: hidden;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     text-align: center;
     min-height: 100%;
@@ -20,7 +20,7 @@ body{
 
 }
 div{
-    overflow: auto;
+    overflow: hidden;
 }
 form{
     text-align: left;
