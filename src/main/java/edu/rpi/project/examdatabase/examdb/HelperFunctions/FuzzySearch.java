@@ -34,7 +34,15 @@ public class FuzzySearch {
         return editDistanceDeep( s1, s2, s1.length(), s2.length() );
     }
 
-
+    /**
+     *
+     * @param s1 The first string to compare
+     * @param s2 The second string to compare
+     * @param s1_size The upper bound of s1
+     * @param s2_size The upper bound of s2
+     * @return The number of edits (insert, delete, replace) needed to
+     *  transform s1[0 to s1_size - 1] into s2[0 to s2_size - 1]
+     */
     public static Integer editDistanceDeep( String s1, String s2, Integer s1_size, Integer s2_size ) {
         // If first string is empty, the answer will necessarily
         // be the size of the second string
