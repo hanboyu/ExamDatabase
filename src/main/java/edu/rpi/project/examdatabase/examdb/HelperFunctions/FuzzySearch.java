@@ -51,7 +51,7 @@ public class FuzzySearch {
 
         // If second string is empty, the answer will necessarily
         // be the size of the first string
-        if (s2.length() == 0)
+        if (s2_size == 0)
             return s1.length();
 
         // If the last characters are the same, recurse without the
