@@ -24,7 +24,7 @@ public class FuzzySearch {
     /**
      * This function calculates the number of edits need to transform one
      *  string into another. This provides a measurement of similarity between
-     *  the two strings.
+     *  the two strings. This is just the driver function.
      * @param s1 The first string to compare
      * @param s2 The second string to compare
      * @return The number of edits (insert, delete, replace) needed to
@@ -33,6 +33,7 @@ public class FuzzySearch {
     public static Integer editDistance( String s1, String s2 ) {
         return editDistanceDeep( s1, s2, s1.length(), s2.length() );
     }
+
 
     public static Integer editDistanceDeep( String s1, String s2, Integer s1_size, Integer s2_size ) {
         // If first string is empty, the answer will necessarily
