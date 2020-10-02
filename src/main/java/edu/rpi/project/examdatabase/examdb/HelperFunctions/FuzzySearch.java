@@ -17,9 +17,22 @@ public class FuzzySearch {
      * @return A value between 0 and 1 inclusive which indicates the degree
      *  of similarity of the arguments, with 1 being the most similar
      */
-    public static Double similarity( String keyword, Question question ) {
-        throw new RuntimeException( "similarity not yet implemented" );
+    public static double similarity( String keyword, Question question ) {
+        // Create a variable to hold the minimum edit distance in any window
+        int min_edit_distance = (int) Integer.MAX_VALUE;
+        String question_body = question.getQuestionBody();
+        // Fetch the length of the strings so we don't have to do it multiple times
+        int keyword_len = keyword.length();
+        int question_len = question_body.length();
+        for( int i = 0; i + keyword_len < question_len; ++i ) {
+            min_edit_distance = Math.min( min_edit_distance,
+                    editDistance( keyword, question_body.substring( i, i + keyword_len ) ) );
+        }
+        // Return 1 - the minimum edit disance normalized by the length of the keyword
+        return 1 - ( (double)min_edit_distance / (double)keyword.length() );
     }
+
+
 
     /**
      * This function calculates the number of edits need to transform one
@@ -30,7 +43,7 @@ public class FuzzySearch {
      * @return The number of edits (insert, delete, replace) needed to
      *  transform s1 into s2
      */
-    public static Integer editDistance( String s1, String s2 ) {
+    public static int editDistance( String s1, String s2 ) {
         return editDistanceDeep( s1, s2, s1.length(), s2.length() );
     }
 
@@ -43,7 +56,7 @@ public class FuzzySearch {
      * @return The number of edits (insert, delete, replace) needed to
      *  transform s1[0 to s1_size - 1] into s2[0 to s2_size - 1]
      */
-    public static Integer editDistanceDeep( String s1, String s2, Integer s1_size, Integer s2_size ) {
+    public static int editDistanceDeep( String s1, String s2, int s1_size, int s2_size ) {
         // If first string is empty, the answer will necessarily
         // be the size of the second string
         if (s1_size == 0)
@@ -62,8 +75,8 @@ public class FuzzySearch {
         // If last characters are not same, we must make an edit.
         // Consider all 3 cases (insert, delete, replace)
         return 1 + min3( editDistanceDeep(s1, s2, s1_size, s2_size - 1),    // Insert
-                editDistanceDeep(s1, s2, s1_size - 1, s2_size),       // Remove
-                editDistanceDeep(s1, s2, s1_size - 1, s2_size - 1)      // Replace
+                editDistanceDeep(s1, s2, s1_size - 1, s2_size),             // Remove
+                editDistanceDeep(s1, s2, s1_size - 1, s2_size - 1)   // Replace
         );
     }
 
@@ -74,7 +87,7 @@ public class FuzzySearch {
      * @param i3 The third integer
      * @return The least of the three arguments
      */
-    public static Integer min3( Integer i1, Integer i2, Integer i3 ) {
+    public static int min3( Integer i1, Integer i2, Integer i3 ) {
         return Math.min( i1, Math.min( i2, i3 ) );
     }
 }
