@@ -156,10 +156,16 @@ public class SearchController {
         Question q4 = new Question("123456792", new LinkedList<String>(Arrays.asList("Programing languages", "Question with latex")),
                 "CSCI-4210", "visitor","Consider the expression grammar below. $$expr \\to expr\\ x\\ expr | expr\\ \\#\\ expr | id$$ How many parse trees are there for string id x id # id X id?",
                 new LinkedList<String>(Arrays.asList("2", "0", "5", "1")),"5");
+
+        Question q5 = new Question("123456793", new LinkedList<String>(Arrays.asList("MA 101", "Question with image")),
+                "MA 101", "visitor", "Who is the man in the picture?<img src=\"question_images/dr_ma.PNG\" alt=\"question image\">",
+                new LinkedList<String>(Arrays.asList("Dr. Shirley Ann Jackson", "Stephen van Rensselaer III", "Dr. Alex Ma", "Dr. Barbara Cutler", "Dr. Selmer Bringsjord")),
+                "Dr. Alex Ma");
         search_results.add(q1);
         search_results.add(q2);
         search_results.add(q3);
         search_results.add(q4);
+        search_results.add(q5);
         model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
