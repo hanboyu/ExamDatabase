@@ -6,6 +6,7 @@ import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,21 +54,21 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
                     int permission, String question_body, List<String> choices,
                     String answer) {
         this.serial_code = serial_code;
-        this.tags = new LinkedList<>(tags);
+        this.tags = new ArrayList<>(tags);
         this.class_code = class_code;
         this.permission = permission;
         this.question_body = question_body;
-        this.choices = new LinkedList<>(choices);
+        this.choices = new ArrayList<>(choices);
         this.answer = answer;
     }
 
     public Question(Question q) {
         this.serial_code = q.serial_code;
-        this.tags = new LinkedList<>(q.tags);
+        this.tags = new ArrayList<>(q.tags);
         this.class_code = q.class_code;
         this.permission = q.permission;
         this.question_body = q.question_body;
-        this.choices = new LinkedList<>(q.choices);
+        this.choices = new ArrayList<>(q.choices);
         this.answer = q.answer;
         setTime();
     }
@@ -90,7 +91,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
      */
     @Contract(" -> new")
     public @NotNull List<String> getTags() {
-        return new LinkedList<>(tags);
+        return new ArrayList<>(tags);
     }
 
     /**
@@ -117,7 +118,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
      */
     @Contract(" -> new")
     public @NotNull List<String> getChoices() {
-        return new LinkedList<>(choices);
+        return new ArrayList<>(choices);
     }
 
     /**
