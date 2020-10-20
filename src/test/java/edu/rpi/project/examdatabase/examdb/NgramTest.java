@@ -34,4 +34,10 @@ public class NgramTest {
         List<String> res = StringHelperFunctions.ngram( "Major", 5 );
         assert( res.equals( Arrays.asList( "Major" ) ) );
     }
+
+    @Test
+    void emptyList() {
+        List<String> res = StringHelperFunctions.ngram( "Major", 999 );
+        assert( res.size() == 0 );
+    }
 }

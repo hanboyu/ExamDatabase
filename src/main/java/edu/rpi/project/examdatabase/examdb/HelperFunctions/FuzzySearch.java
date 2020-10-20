@@ -12,6 +12,39 @@ import java.util.List;
  *  between the two.
  */
 public class FuzzySearch {
+
+    /**
+     * This function finds the Jaccard distance between two strings. It runs
+     *  in O(n^2) time, not sure if this can be improved?
+     * @param str1 First string
+     * @param str2 Second string
+     * @param n Size of n-grams to be used
+     * @return The number of n-grams matched
+     */
+    public static Integer JaccardDistance( String str1, String str2, Integer n ) {
+        List<String> str1_ngrams = StringHelperFunctions.ngram( str1, n );
+        List<String> str2_ngrams = StringHelperFunctions.ngram( str2, n );
+
+        /* Create an iterator for each list */
+        Iterator<String> itr1 = str1_ngrams.iterator();
+        Iterator<String> itr2 = str2_ngrams.iterator();
+
+        /* Compare each n-gram ( O(n^2) ), adding to the total for each match */
+        Integer res = 0;
+        while( itr1.hasNext() ) {
+            String s1 = itr1.next();
+            while( itr2.hasNext() ) {
+                if( s1.equals( itr2.next() ) ) {
+                    ++res;
+                }
+            }
+            /* Reset the inner iterator */
+            itr2 = str2_ngrams.iterator();
+        }
+
+        return res;
+    }
+
     /**
      * This function calculates the degree of similarity between the
      *  input keyword and a given Question object
@@ -36,7 +69,7 @@ public class FuzzySearch {
         List<String> split = StringHelperFunctions.split( keyword, ',', ' ' );
         Iterator<String> itr = split.iterator();
         // Create a List to store each of the result of comparison
-        List<Double> results = new LinkedList<Double>();
+        List<Double> results = new LinkedList<>();
         // Compare to each split string
         while( itr.hasNext() ) {
             results.add(similarity(itr.next(), text));
