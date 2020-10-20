@@ -6,5 +6,5 @@ package edu.rpi.project.examdatabase.examdb.HelperFunctions;
  *  fuzzy search
  */
 public interface FuzzyWeight {
-
+    double merge();
 }

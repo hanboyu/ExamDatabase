@@ -2,6 +2,10 @@ package edu.rpi.project.examdatabase.examdb.HelperFunctions;
 
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * StringComparison will contain all methods necessary to compare
  *  a single String with a Question and convey a degree of similarity
@@ -13,20 +17,29 @@ public class FuzzySearch {
      *  input keyword and a given Question object
      *
      * @param keyword The string to compare with given question
-     * @param question The question to compare keyword with
+     * @param text The text to compare keyword with
      * @return A value between 0 and 1 inclusive which indicates the degree
      *  of similarity of the arguments, with 1 being the most similar
      */
-    public static double similarity( String keyword, Question question ) {
+    public static double similarity( String keyword, String text ) {
         // Create a variable to hold the minimum edit distance in any window
-        int min_edit_distance = (int) Integer.MAX_VALUE;
-        String question_body = question.getQuestionBody();
+        int min_edit_distance = Integer.MAX_VALUE;
+
         // Fetch the length of the strings so we don't have to do it multiple times
         int keyword_len = keyword.length();
-        int question_len = question_body.length();
+        int question_len = text.length();
         for( int i = 0; i + keyword_len < question_len; ++i ) {
             min_edit_distance = Math.min( min_edit_distance,
-                    editDistance( keyword, question_body.substring( i, i + keyword_len ) ) );
+                    editDistance( keyword, text.substring( i, i + keyword_len ) ) );
+        }
+        // Split the keyword
+        List<String> split = StringHelperFunctions.split( keyword, ',', ' ' );
+        Iterator<String> itr = split.iterator();
+        // Create a List to store each of the result of comparison
+        List<Double> results = new LinkedList<Double>();
+        // Compare to each split string
+        while( itr.hasNext() ) {
+            results.add(similarity(itr.next(), text));
         }
         // Return 1 - the minimum edit disance normalized by the length of the keyword
         return 1 - ( (double)min_edit_distance / (double)keyword.length() );
@@ -56,7 +69,7 @@ public class FuzzySearch {
      * @return The number of edits (insert, delete, replace) needed to
      *  transform s1[0 to s1_size - 1] into s2[0 to s2_size - 1]
      */
-    public static int editDistanceDeep( String s1, String s2, int s1_size, int s2_size ) {
+    private static int editDistanceDeep( String s1, String s2, int s1_size, int s2_size ) {
         // If first string is empty, the answer will necessarily
         // be the size of the second string
         if (s1_size == 0)
@@ -87,7 +100,7 @@ public class FuzzySearch {
      * @param i3 The third integer
      * @return The least of the three arguments
      */
-    public static int min3( Integer i1, Integer i2, Integer i3 ) {
+    private static int min3( Integer i1, Integer i2, Integer i3 ) {
         return Math.min( i1, Math.min( i2, i3 ) );
     }
 }

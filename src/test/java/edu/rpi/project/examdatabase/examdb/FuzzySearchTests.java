@@ -1,5 +1,6 @@
 package edu.rpi.project.examdatabase.examdb;
 
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.FuzzyQuestionWrapper;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.FuzzySearch;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import org.junit.jupiter.api.Test;
@@ -34,16 +35,16 @@ public class FuzzySearchTests {
         String keyword = "Columbus day";
         // Create a 3 questions to compare a keyword to
         Question q1 = new Question( null, new LinkedList<>(), null,
-                0, new String( "The holiday Columbus day is in October" ), new LinkedList<>(), null );
+                0, "The holiday Columbus day is in October", new LinkedList<>(), null );
         Question q2 = new Question( null, new LinkedList<>(), null,
-        0, new String( "In 1492 Columbus sailed the ocean blue" ), new LinkedList<>(), null );
+        0, "In 1492 Columbus sailed the ocean blue", new LinkedList<>(), null );
         Question q3 = new Question( null, new LinkedList<>(), null,
-                0, new String( "Henry Hudson sailed New York" ), new LinkedList<>(), null );
+                0,"Henry Hudson sailed New York", new LinkedList<>(), null );
 
         double s1, s2, s3;
-        s1 = FuzzySearch.similarity( keyword, q1 );
-        s2 = FuzzySearch.similarity( keyword, q2 );
-        s3 = FuzzySearch.similarity( keyword, q3 );
+        s1 = FuzzyQuestionWrapper.similarity( keyword, q1 );
+        s2 = FuzzyQuestionWrapper.similarity( keyword, q2 );
+        s3 = FuzzyQuestionWrapper.similarity( keyword, q3 );
 
         assert( s1 > s2 && s2 > s3 ); // Make sure the questions are ordered most to least similar
         assert( 0 <= s1 && s1 <= 1 && 0 <= s2 && s2 <= 1 && 0 <= s3 && s3 <= 1 );
