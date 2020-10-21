@@ -39,6 +39,11 @@ public class FuzzySearch {
         // Split the keyword
         List<String> split = StringHelperFunctions.split( keyword, ',', ' ' );
 
+        /* If the split list only contains 1 String, then do not recurse, we were unable to split */
+        if( split.size() == 1 ) {
+            return topLevelResult;
+        }
+
         // Create a List to store each of the result of comparison
         List<Double> results = new LinkedList<>();
         // Compare to each split string

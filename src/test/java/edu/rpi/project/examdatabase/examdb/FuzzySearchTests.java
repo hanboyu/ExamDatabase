@@ -29,6 +29,11 @@ public class FuzzySearchTests {
         String small = "hut";
         String big = "doughnut";
         assert( StringDistanceFunctions.editDistance( small, big ) == 5 );
+
+        // Really big strings ( just make sure it terminates (
+        String r1 = "New York Yankees rock";
+        String r2 = "The New York Yankees are the best baseball team";
+        StringDistanceFunctions.editDistance( r1, r2 );
     }
 
     @Test
@@ -36,12 +41,15 @@ public class FuzzySearchTests {
         String keyword = "Yankees";
         String text = "The New York Yankees are the best baseball team";
         double res = FuzzySearch.similarity( keyword, text, new WeightAverage() );
-        assert( 0 <= res && res <= 1 );
+        assert( res == 1 );
     }
 
     @Test
     void SplittableTest() {
-
+        String keyword = "New York, Yankees";
+        String text = "The New York Yankees are the best baseball team";
+        double res = FuzzySearch.similarity( keyword, text, new WeightAverage() );
+        assert( res == 1 );
     }
 
     @Test
