@@ -2,6 +2,7 @@ package edu.rpi.project.examdatabase.examdb.HelperFunctions;
 
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class FuzzySearch {
         List<String> str2_ngrams = StringHelperFunctions.ngram( str2, n );
         
         /* Create a HashSet from the first list of n-grams for fast comparison */
-        HashSet<String> comparison_set = new HashSet( str1_ngrams );
+        HashSet<String> comparison_set = new HashSet<>( str1_ngrams );
         
         /* Calculate the total number of exactly matching n-grams in the second list */
         Iterator<String> itr = str2_ngrams.iterator();
@@ -49,7 +50,7 @@ public class FuzzySearch {
      * @return A value between 0 and 1 inclusive which indicates the degree
      *  of similarity of the arguments, with 1 being the most similar
      */
-    public static double similarity( String keyword, String text ) {
+    public static double similarity( String keyword, String text, FuzzyWeight weight ) {
         // Create a variable to hold the minimum edit distance in any window
         int min_edit_distance = Integer.MAX_VALUE;
 
@@ -60,6 +61,10 @@ public class FuzzySearch {
             min_edit_distance = Math.min( min_edit_distance,
                     editDistance( keyword, text.substring( i, i + keyword_len ) ) );
         }
+
+        // Normalize by the length of the keyword, this is toplevel result
+        Double topLevelResult = 1 - ( (double)min_edit_distance / (double)keyword.length() );
+
         // Split the keyword
         List<String> split = StringHelperFunctions.split( keyword, ',', ' ' );
         Iterator<String> itr = split.iterator();
@@ -67,10 +72,10 @@ public class FuzzySearch {
         List<Double> results = new LinkedList<>();
         // Compare to each split string
         while( itr.hasNext() ) {
-            results.add(similarity(itr.next(), text));
+            results.add(similarity(itr.next(), text, weight));
         }
-        // Return 1 - the minimum edit disance normalized by the length of the keyword
-        return 1 - ( (double)min_edit_distance / (double)keyword.length() );
+        // Return the value dictated by the weight object
+        return weight.merge( topLevelResult, results );
     }
 
 

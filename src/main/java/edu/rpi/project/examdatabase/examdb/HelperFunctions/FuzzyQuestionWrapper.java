@@ -17,6 +17,6 @@ public class FuzzyQuestionWrapper {
      *  of similarity of the arguments, with 1 being the most similar
      */
     public static double similarity( String keyword, Question question ) {
-        return FuzzySearch.similarity( keyword, question.getQuestionBody() );
+        return FuzzySearch.similarity( keyword, question.getQuestionBody(), new WeightAverage() );
     }
 }
