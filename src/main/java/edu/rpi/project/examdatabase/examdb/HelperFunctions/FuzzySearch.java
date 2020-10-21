@@ -24,25 +24,20 @@ public class FuzzySearch {
     public static Integer JaccardDistance( String str1, String str2, Integer n ) {
         List<String> str1_ngrams = StringHelperFunctions.ngram( str1, n );
         List<String> str2_ngrams = StringHelperFunctions.ngram( str2, n );
-
-        /* Create an iterator for each list */
-        Iterator<String> itr1 = str1_ngrams.iterator();
-        Iterator<String> itr2 = str2_ngrams.iterator();
-
-        /* Compare each n-gram ( O(n^2) ), adding to the total for each match */
-        Integer res = 0;
-        while( itr1.hasNext() ) {
-            String s1 = itr1.next();
-            while( itr2.hasNext() ) {
-                if( s1.equals( itr2.next() ) ) {
-                    ++res;
-                }
+        
+        /* Create a HashSet from the first list of n-grams for fast comparison */
+        HashSet<String> comparison_set = new HashSet( str1_ngrams );
+        
+        /* Calculate the total number of exactly matching n-grams in the second list */
+        Iterator<String> itr = str2_ngrams.iterator();
+        int total = 0;
+        while( itr.hasNext() ) {
+            if( comparison_set.contains( itr.next() ) ) {
+                ++total;
             }
-            /* Reset the inner iterator */
-            itr2 = str2_ngrams.iterator();
         }
-
-        return res;
+        
+        return total;
     }
 
     /**
