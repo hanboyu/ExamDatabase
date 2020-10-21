@@ -9,24 +9,9 @@ import java.util.List;
 
 public class NgramTest {
     @Test
-    void largeN() {
-
-    }
-
-    @Test
-    void smallN() {
-
-    }
-
-    @Test
     void smallString() {
         List<String> res = StringHelperFunctions.ngram( "Major", 3 );
         assert( res.equals( Arrays.asList( "Maj", "ajo", "jor" ) ) );
-    }
-
-    @Test
-    void largeString() {
-
     }
 
     @Test

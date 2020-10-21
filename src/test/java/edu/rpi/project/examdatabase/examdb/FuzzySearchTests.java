@@ -2,6 +2,8 @@ package edu.rpi.project.examdatabase.examdb;
 
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.FuzzyQuestionWrapper;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.FuzzySearch;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringDistanceFunctions;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.WeightAverage;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,17 +18,30 @@ public class FuzzySearchTests {
         // One edit
         String s1 = "Test";
         String s2 = "Tist";
-        assert( FuzzySearch.editDistance( s1, s2 ) == 1 );
+        assert( StringDistanceFunctions.editDistance( s1, s2 ) == 1 );
 
         // Empty string & non-empty string
         String empty = "";
         String non_empty = "Build";
-        assert( FuzzySearch.editDistance( empty, non_empty ) == 5 );
+        assert( StringDistanceFunctions.editDistance( empty, non_empty ) == 5 );
 
         // Small string & big string
         String small = "hut";
         String big = "doughnut";
-        assert( FuzzySearch.editDistance( small, big ) == 5 );
+        assert( StringDistanceFunctions.editDistance( small, big ) == 5 );
+    }
+
+    @Test
+    void NonSpittableTest() {
+        String keyword = "Yankees";
+        String text = "The New York Yankees are the best baseball team";
+        double res = FuzzySearch.similarity( keyword, text, new WeightAverage() );
+        assert( 0 <= res && res <= 1 );
+    }
+
+    @Test
+    void SplittableTest() {
+
     }
 
     @Test
