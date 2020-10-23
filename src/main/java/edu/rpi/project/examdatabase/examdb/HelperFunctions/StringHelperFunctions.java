@@ -53,4 +53,27 @@ public class StringHelperFunctions {
         }
         return res;
     }
+
+    /**
+     * This function splits a string into a list of substrings of length size. If the
+     *  given string is less than size characters an empty list is returned.
+     * @param str The source string to be split
+     * @param size The length of n-grams to create
+     * @return A list of n-grams of length size
+     */
+    public static List<String> ngram( String str, Integer size ) {
+        /* String is shorter than n-gram size */
+        if( str.length() < size ) {
+            return new LinkedList<>();
+        }
+
+        List<String> res = new LinkedList<>();
+
+        for( int i = 0; i + size <= str.length(); ++i ) {
+            // Add the substring [ i, i + size )
+            res.add( str.substring( i, i + size ) );
+        }
+
+        return res;
+    }
 }
