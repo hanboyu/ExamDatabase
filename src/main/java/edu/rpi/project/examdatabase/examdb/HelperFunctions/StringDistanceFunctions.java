@@ -1,56 +1,122 @@
 package edu.rpi.project.examdatabase.examdb.HelperFunctions;
 
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StringDistanceFunctions {
 
     /**
-     * This function finds the matching n-grams between
-     *  two strings
+     * This function finds degree to which two strings are similar
+     *  on a scale from [0, 1] with 1 being identical and 0 being dissimilar
      * @param str1 First string to be split into n-grams
      * @param str2 Second string to be split into n-grams
+     *
      * @return The number of matching n-grams between the strings
      */
-    public static Integer JaccardDriver( String str1, String str2, Integer n ) {
-        return JaccardDistance( StringHelperFunctions.ngram( str1, 3 ),
-                                StringHelperFunctions.ngram( str2, 3 ) );
+    public static Double JaccardDriver( String str1, String str2, Integer n ) {
+        return JaccardDistance( NgramSet( StringHelperFunctions.ngram( str1, n ) ),
+                                NgramSet( StringHelperFunctions.ngram( str2, n )  ));
+    }
+
+    /**
+     * This function finds the Jaccard distance between two sets of Strings
+     *  where the definiton of Jaccard distance is as follows
+     *    | Intersection | / | Union |
+     * @require At least one set is non-empty
+     * @param set1 Set of Strings
+     * @param set2 Set of Strings
+     * @return | Intersection | / | Union |
+     */
+    public static Double JaccardDistance( Set<String> set1, Set<String> set2 ) {
+        return IntersectionSize( set1, set2 ).doubleValue() / UnionSize( set1, set2 ).doubleValue();
+    }
+
+    /**
+     * @param set1 Set of strings
+     * @param set2 Set of strings
+     * @return The number of elements common to both sets
+     */
+    public static Integer IntersectionSize( Set<String> set1, Set<String> set2 ) {
+        int common_elements = 0;
+        for( String str : set1 ) {
+            if( set2.contains( str ) ) {
+                ++common_elements;
+            }
+        }
+        return common_elements;
+    }
+
+    /**
+     * @param set1 Set of strings
+     * @param set2 Set of strings
+     * @return The number of elements common to both sets
+     */
+    public static Integer UnionSize( Set<String> set1, Set<String> set2 ) {
+        /* Make a deep copy of the first set */
+        HashSet<String> copy = new HashSet<>( set1 );
+
+        /* Add all elements of set2 to the copy, then return the size */
+        copy.addAll( set2 );
+        return copy.size();
+    }
+
+    /**
+     * This function ignores duplicates because sets do not allow duplicate elements.
+     *  If the desired effect is to factor duplication into subsiquent calculations
+     *  use NgramMap().
+     * @param ngrams The list of ngrams from which to construct the set
+     * @return A set of
+     */
+    public static HashSet<String> NgramSet( List<String> ngrams ) {
+        /* Create a HashSet using constructor */
+        return new HashSet<>( ngrams );
+    }
+
+    /**
+     * This function keeps track of duplicates using the value of each pair in
+     *  the map
+     * @param ngrams The list of ngrams from which to construct the map
+     * @return A map of ngrams s.t. the value is the number of occurrences in the list
+     */
+    public static HashMap<String, Integer> NgramMap( List<String> ngrams ) {
+        /* Create a HashMap from the first list of n-grams for fast comparison */
+        HashMap<String, Integer> ngram_map = new HashMap<>();
+
+        /* Insert all n-grams from the first list into the HashMap s.t.
+            value = # of duplicates */
+        for( String str : ngrams ) {
+            /* putIfAbsent returns NULL if insertion is successful
+                ( the key wasn't already in the map ) */
+            if( ngram_map.putIfAbsent( str, 1 ) != null ) {
+                // If the string is a duplicate, add 1 to the value
+                ngram_map.replace( str, ngram_map.get(str) + 1 );
+            }
+        }
+
+        return ngram_map;
     }
 
     /**
      * This function finds the number of matching n-grams between
      * two sets of n-grams
-     * @param ngrams1 Set of n-grams from first string
-     * @param ngrams2 Set of n-grams from second string
+     * @param ngram_map Map of ngrams from the query/keyword
+     * @param comparison_list Set of n-grams from comparison string
      * @return The number of n-grams matched
      */
-    public static Integer JaccardDistance( List<String> ngrams1, List<String> ngrams2 ) {
-
-        /* Create a HashMap from the first list of n-grams for fast comparison */
-        HashMap<String, Integer> comparison_map = new HashMap<>();
-
-        /* Insert all n-grams from the first list into the HashMap s.t.
-            value = # of duplicates */
-        for( String str : ngrams1 ) {
-            /* putIfAbsent returns NULL if insertion is successful
-                ( the key wasn't already in the map ) */
-            if( comparison_map.putIfAbsent( str, 1 ) != null ) {
-                // If the string is a duplicate, add 1 to the value
-                comparison_map.replace( str, comparison_map.get(str) + 1 );
-            }
-        }
-
+    public static Integer CommonNgrams( HashMap<String, Integer> ngram_map, List<String> comparison_list ) {
         /* Calculate the total number of exactly matching n-grams in the second list */
         int total = 0;
-        for( String str : ngrams2 ) {
-            if( comparison_map.containsKey( str ) ) {
-                total += comparison_map.get(str);
+        for( String str : comparison_list ) {
+            if( ngram_map.containsKey( str ) ) {
+                total += ngram_map.get(str);
             }
         }
 
         return total;
     }
+
 
     /**
      * This function calculates the number of edits need to transform one
