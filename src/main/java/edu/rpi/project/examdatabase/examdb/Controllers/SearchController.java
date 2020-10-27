@@ -133,19 +133,19 @@ public class SearchController {
 
         List<Question> search_results = new LinkedList<Question>();
         Question q1 = new Question("123456789", new LinkedList<String>(Arrays.asList("Greek myths", "Classic")),
-                "", "visitor", "Who introduced the idea that dreams and myths were the projection" +
+                "", 0, "Who introduced the idea that dreams and myths were the projection" +
                 " of what he called the \"collective unconscious\" based on archetypal characters and narrative patterns.",
                 new LinkedList<String>(Arrays.asList("Carl Jung", "B. Malinowski", "J. G. Frazer", "Joseph Campbell")),
                 "Carl Jung");
 
         Question q2 = new Question("123456790", new LinkedList<String>(Arrays.asList("Operating systems", "Network")),
-                "CSCI-4210", "visitor", "In network communication, what is encapsulation?",
+                "CSCI-4210", 0, "In network communication, what is encapsulation?",
                 new LinkedList<String>(Arrays.asList("Setting the port number on a server socket", "Adding extra data (headers) at each layer of the network stack", "Using a struct to pass multiple arguments as a single void*", "Ordering data to be in network byte order",
                         "Removing extra data (headers) at each layer of the network stack")),
                 "Adding extra data (headers) at each layer of the network stack");
 
         Question q3 = new Question("123456791", new LinkedList<String>(Arrays.asList("Operating systems", "Network", "Long Question")),
-                "CSCI-4210", "visitor", "Again during the sleep() call above, assume that three different processes simultaneously run the code snippet from Q5a above, assuming again that stdout is non-buffered. What happens with the output of each of these three processes?",
+                "CSCI-4210", 0, "Again during the sleep() call above, assume that three different processes simultaneously run the code snippet from Q5a above, assuming again that stdout is non-buffered. What happens with the output of each of these three processes?",
                 new LinkedList<String>(Arrays.asList("All three processes display the same output from Q5a",
                         "The three processes display the output from Q5a with each character potentially interleaved",
                         "The three processes each display four characters, but the characters differ depending on the order the processes run in",
@@ -154,11 +154,11 @@ public class SearchController {
                 "One of the three processes displays the output from Q5a, while the other two do not display anything");
 
         Question q4 = new Question("123456792", new LinkedList<String>(Arrays.asList("Programing languages", "Question with latex")),
-                "CSCI-4210", "visitor","Consider the expression grammar below. $$expr \\to expr\\ x\\ expr | expr\\ \\#\\ expr | id$$ How many parse trees are there for string id x id # id X id?",
+                "CSCI-4210", 0,"Consider the expression grammar below. $$expr \\to expr\\ x\\ expr | expr\\ \\#\\ expr | id$$ How many parse trees are there for string id x id # id X id?",
                 new LinkedList<String>(Arrays.asList("2", "0", "5", "1")),"5");
 
         Question q5 = new Question("123456793", new LinkedList<String>(Arrays.asList("MA 101", "Question with image")),
-                "MA 101", "visitor", "Who is the man in the picture?<img src=\"question_images/dr_ma.PNG\" alt=\"question image\">",
+                "MA 101", 0, "Who is the man in the picture?<img src=\"question_images/dr_ma.PNG\" alt=\"question image\">",
                 new LinkedList<String>(Arrays.asList("Dr. Shirley Ann Jackson", "Stephen van Rensselaer III", "Dr. Alex Ma", "Dr. Barbara Cutler", "Dr. Selmer Bringsjord")),
                 "Dr. Alex Ma");
         search_results.add(q1);
@@ -166,7 +166,7 @@ public class SearchController {
         search_results.add(q3);
         search_results.add(q4);
         search_results.add(q5);
-        model.addAttribute("permission", SearchHelperFunctions.getPermissionLevel(user.getUserType()));
+        model.addAttribute("permission", user.getUserType());
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
     }
