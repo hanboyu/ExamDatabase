@@ -16,6 +16,7 @@ public class StringDistanceFunctions {
      * @return The number of n-grams matched
      */
     public static Integer JaccardDistance( String str1, String str2, Integer n ) {
+        /* This should be move outside this class to a driver class */
         List<String> str1_ngrams = StringHelperFunctions.ngram( str1, n );
         List<String> str2_ngrams = StringHelperFunctions.ngram( str2, n );
 
