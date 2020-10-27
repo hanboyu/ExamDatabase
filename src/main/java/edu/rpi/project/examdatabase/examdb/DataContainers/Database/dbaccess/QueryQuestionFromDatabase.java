@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class QueryQuestionFromDatabase implements Query {
     @Override
-    public List<QueryObject> doQuery(Map<String, String> arguments) {
+    public List<QueryObject> doQuery(QueryParameters param) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "Xuran123#");
 

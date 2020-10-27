@@ -1,5 +1,7 @@
 package edu.rpi.project.examdatabase.examdb.Services;
 
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryParameters;
+import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryUserParameter;
 import edu.rpi.project.examdatabase.examdb.Objects.Cachable;
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import edu.rpi.project.examdatabase.examdb.DataContainers.TokenManager;
@@ -40,7 +42,8 @@ public class AuthenticationService {
         Query UserDatabase = new QueryUserFromDatabase();
         Map<String, String> DBRequestArgs = new TreeMap<>();
         DBRequestArgs.put("USERNAME", username);
-        List<QueryObject> QueryResults = UserDatabase.doQuery(DBRequestArgs);
+        QueryParameters qp = new QueryUserParameter(username, password, "0");
+        List<QueryObject> QueryResults = UserDatabase.doQuery(qp);
 
         // validate query result
         if (QueryResults.size() < 1) {
