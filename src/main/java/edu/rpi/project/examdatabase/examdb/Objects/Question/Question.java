@@ -6,6 +6,7 @@ import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,11 +18,18 @@ import java.util.List;
  *  - Question serial code
  *  - Tags
  *  - Question body
+ *  - Question body image(s)
  *  - Choices
+ *  - Choice image (one image per choice)
  *  - Answer
  *  - Answer explanation
  *  - Permission
  *  - Time added to database
+ *  Permission is represented by a integer with 0 being the lowest permission level.
+ *      0 - Visitor
+ *      1 - Student
+ *      2 - TA
+ *      3 - Instructor
  *
  *  Abstraction Function:
  *  Each question has an unique serial code, and each question is unique from
@@ -43,31 +51,38 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
     private final String class_code;
     private final int permission;
     private final String question_body;
+    private final List<String> question_images_addr;
     private final List<String> choices;
+    private final List<String> choice_images_addr;
     private final String answer;
 
     protected long inTimestamp;
 
     //Constructors
     public Question(String serial_code, List<String> tags, String class_code,
-                    int permission, String question_body, List<String> choices,
-                    String answer) {
+                    int permission, String question_body,
+                    List<String> question_images_addr, List<String> choices,
+                    List<String> choice_images_addr, String answer) {
         this.serial_code = serial_code;
-        this.tags = new LinkedList<>(tags);
+        this.tags = new ArrayList<>(tags);
         this.class_code = class_code;
         this.permission = permission;
         this.question_body = question_body;
-        this.choices = new LinkedList<>(choices);
+        this.question_images_addr = new ArrayList<>(question_images_addr);
+        this.choices = new ArrayList<>(choices);
+        this.choice_images_addr = new ArrayList<>(choice_images_addr);
         this.answer = answer;
     }
 
     public Question(Question q) {
         this.serial_code = q.serial_code;
-        this.tags = new LinkedList<>(q.tags);
+        this.tags = new ArrayList<>(q.tags);
         this.class_code = q.class_code;
         this.permission = q.permission;
         this.question_body = q.question_body;
-        this.choices = new LinkedList<>(q.choices);
+        this.question_images_addr = new ArrayList<>(q.choice_images_addr);
+        this.choices = new ArrayList<>(q.choices);
+        this.choice_images_addr = new ArrayList<>(q.choice_images_addr);
         this.answer = q.answer;
         setTime();
     }
@@ -90,7 +105,7 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
      */
     @Contract(" -> new")
     public @NotNull List<String> getTags() {
-        return new LinkedList<>(tags);
+        return new ArrayList<>(tags);
     }
 
     /**
@@ -111,13 +126,27 @@ public final class Question implements Comparable<Question>, QueryObject, Cachab
     }
 
     /**
+     * Question body images address observer
+     * @return a list of image address
+     */
+    @Contract(" -> new")
+    public @NotNull List<String> getQuestion_images_addr() { return new ArrayList<>(question_images_addr); }
+
+    /**
+     * Question choice images observer
+     * @return a list of address of images in the same order as the choice list.
+     */
+    @Contract(" -> new")
+    public @NotNull List<String> getChoice_images_addr() { return new ArrayList<>(choice_images_addr); }
+
+    /**
      * Question choices observer
      *
      * @return a list of choices.
      */
     @Contract(" -> new")
     public @NotNull List<String> getChoices() {
-        return new LinkedList<>(choices);
+        return new ArrayList<>(choices);
     }
 
     /**
