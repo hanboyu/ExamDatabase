@@ -10,5 +10,5 @@ import java.util.Map;
  * query algorithms in database
  */
 public interface Query {
-    List<QueryObject> doQuery(Map<String, String> arguments);
+    List<QueryObject> doQuery(QueryParameters param);
 }

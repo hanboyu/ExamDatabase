@@ -18,8 +18,8 @@ public class init {
         try {
             Connection con = DriverManager.getConnection(DB_ADDRESS, DB_USER, DB_PSWD);
             Statement statement = con.createStatement();
-            statement.execute("CREATE TABLE users (ID INT NOT NULL, USERNAME VARCHAR(64) NOT NULL, " +
-                    "PASSWORD VARCHAR(255) NOT NULL, " +
+            statement.execute("CREATE TABLE users (ID INT NOT NULL AUTO_INCREMENT, USERNAME VARCHAR(64) NOT NULL, " +
+                    "PASSWORD VARCHAR(255) NOT NULL, EMAIL VARCHAR(255) NOT NULL," +
                     "PERMISSION INT NOT NULL, FIRSTNAME VARCHAR(255) NOT NULL, " +
                     "LASTNAME VARCHAR(255) NOT NULL, TOKEN VARCHAR(255) NULL, PRIMARY KEY(ID));");
         } catch (SQLException e) {
@@ -31,7 +31,8 @@ public class init {
         try {
             Connection con = DriverManager.getConnection(DB_ADDRESS, DB_USER, DB_PSWD);
             Statement statement = con.createStatement();
-            statement.execute("CREATE TABLE questions (ID INT NOT NULL, )");
+            statement.execute("CREATE TABLE questions (ID INT NOT NULL, SERIAL_CODE INT NOT NULL, TAGS VARCHAR(255) NOT NULL," +
+               "PERMISSION VARCHAR(10) NOT NULL, QUESTION_BODY VARCHAR(8000) NOT NULL, CHOICE_A VARCHAR )");
         } catch (SQLException e) {
             e.printStackTrace();
         }
