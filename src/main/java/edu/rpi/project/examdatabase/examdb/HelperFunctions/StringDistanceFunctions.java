@@ -1,6 +1,6 @@
 package edu.rpi.project.examdatabase.examdb.HelperFunctions;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,15 +19,25 @@ public class StringDistanceFunctions {
         List<String> str1_ngrams = StringHelperFunctions.ngram( str1, n );
         List<String> str2_ngrams = StringHelperFunctions.ngram( str2, n );
 
-        /* Create a HashSet from the first list of n-grams for fast comparison */
-        HashSet<String> comparison_set = new HashSet<>( str1_ngrams );
+        /* Create a HashMap from the first list of n-grams for fast comparison */
+        HashMap<String, Integer> comparison_map = new HashMap<>();
+
+        /* Insert all n-grams from the first list into the HashMap s.t.
+            value = # of duplicates */
+        for( String str : str1_ngrams ) {
+            /* putIfAbsent returns NULL if insertion is successful
+                ( the key wasn't already in the map ) */
+            if( comparison_map.putIfAbsent( str, 1 ) != null ) {
+                // If the string is a duplicate, add 1 to the value
+                comparison_map.replace( str, comparison_map.get(str) + 1 );
+            }
+        }
 
         /* Calculate the total number of exactly matching n-grams in the second list */
-        Iterator<String> itr = str2_ngrams.iterator();
         int total = 0;
-        while( itr.hasNext() ) {
-            if( comparison_set.contains( itr.next() ) ) {
-                ++total;
+        for( String str : str2_ngrams ) {
+            if( comparison_map.containsKey( str ) ) {
+                total += comparison_map.get(str);
             }
         }
 
