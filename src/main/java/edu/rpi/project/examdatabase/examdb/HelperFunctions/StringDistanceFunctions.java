@@ -5,27 +5,34 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StringDistanceFunctions {
+
     /**
-     * This function finds the Jaccard distance between two strings.
-     * ***** This function will eliminate duplicate n-grams in the first
-     *  List when placed into the hashset. This can be eliminated by using
-     *  a HashMap with value = # of duplicates *****
-     * @param str1 First string
-     * @param str2 Second string
-     * @param n Size of n-grams to be used
+     * This function finds the matching n-grams between
+     *  two strings
+     * @param str1 First string to be split into n-grams
+     * @param str2 Second string to be split into n-grams
+     * @return The number of matching n-grams between the strings
+     */
+    public static Integer JaccardDriver( String str1, String str2, Integer n ) {
+        return JaccardDistance( StringHelperFunctions.ngram( str1, 3 ),
+                                StringHelperFunctions.ngram( str2, 3 ) );
+    }
+
+    /**
+     * This function finds the number of matching n-grams between
+     * two sets of n-grams
+     * @param ngrams1 Set of n-grams from first string
+     * @param ngrams2 Set of n-grams from second string
      * @return The number of n-grams matched
      */
-    public static Integer JaccardDistance( String str1, String str2, Integer n ) {
-        /* This should be move outside this class to a driver class */
-        List<String> str1_ngrams = StringHelperFunctions.ngram( str1, n );
-        List<String> str2_ngrams = StringHelperFunctions.ngram( str2, n );
+    public static Integer JaccardDistance( List<String> ngrams1, List<String> ngrams2 ) {
 
         /* Create a HashMap from the first list of n-grams for fast comparison */
         HashMap<String, Integer> comparison_map = new HashMap<>();
 
         /* Insert all n-grams from the first list into the HashMap s.t.
             value = # of duplicates */
-        for( String str : str1_ngrams ) {
+        for( String str : ngrams1 ) {
             /* putIfAbsent returns NULL if insertion is successful
                 ( the key wasn't already in the map ) */
             if( comparison_map.putIfAbsent( str, 1 ) != null ) {
@@ -36,7 +43,7 @@ public class StringDistanceFunctions {
 
         /* Calculate the total number of exactly matching n-grams in the second list */
         int total = 0;
-        for( String str : str2_ngrams ) {
+        for( String str : ngrams2 ) {
             if( comparison_map.containsKey( str ) ) {
                 total += comparison_map.get(str);
             }

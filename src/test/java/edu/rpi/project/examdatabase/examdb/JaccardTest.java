@@ -9,14 +9,14 @@ public class JaccardTest {
     void typo_test() {
         String hello = "hello";
         String typo = "jello";
-        assert(StringDistanceFunctions.JaccardDistance(hello,typo, 3) == 2);
+        assert(StringDistanceFunctions.JaccardDriver(hello,typo, 3) == 2);
     }
 
     @Test
     void duplicate_ngram_test() {
         String a = "Anastassia";
         String b = "Anastasia";
-        System.out.println( StringDistanceFunctions.JaccardDistance( a, b, 3 ) );
+        System.out.println( StringDistanceFunctions.JaccardDriver( a, b, 3 ) );
         //assert( StringDistanceFunctions.JaccardDistance( a, b, 3 ) == 9 );
     }
 }
