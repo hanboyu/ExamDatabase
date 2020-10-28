@@ -8,7 +8,7 @@ public class Jaccard {
      *  on a scale from [0, 1] with 1 being identical and 0 being dissimilar
      * @param str1 First string to be split into n-grams
      * @param str2 Second string to be split into n-grams
-     *
+     * @param n The size of n-grams to be created
      * @return The number of matching n-grams between the strings
      */
     public static Double Distance( String str1, String str2, Integer n ) {

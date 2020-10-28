@@ -33,4 +33,23 @@ public class SetOperations {
         copy.addAll( set2 );
         return copy.size();
     }
+
+    /**
+     * This function constructs the union of two sets. It does not
+     *  affect either of the input sets
+     * @param set1 The first set
+     * @param set2 The second set
+     * @param <E> Any Object
+     * @return The union of set1 and set2
+     */
+    public static <E> Set<E> Union( Set<E> set1, Set<E> set2 ) {
+        /* Construct a new (empty) set */
+        HashSet<E> res = new HashSet<>();
+
+        /* Add the contents of boths sets and return */
+        res.addAll( set1 );
+        res.addAll( set2 );
+
+        return res;
+    }
 }

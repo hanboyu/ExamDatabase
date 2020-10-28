@@ -1,9 +1,6 @@
 package edu.rpi.project.examdatabase.examdb.HelperFunctions;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class StringDistanceFunctions {
     /**
@@ -15,7 +12,7 @@ public class StringDistanceFunctions {
      */
     public static HashSet<String> NgramSet( List<String> ngrams ) {
         /* Create a HashSet using constructor */
-        return new HashSet<>( ngrams );
+        return new HashSet<>(ngrams);
     }
 
     /**
@@ -43,6 +40,16 @@ public class StringDistanceFunctions {
     }
 
     /**
+     * This function finds a map of < ngram, # occurrences > in string str
+     * @param str The string to be vectorized
+     * @param n The size of n-grams to be created
+     * @return A map of ngrams s.t. the value is the number of occurrences in the string
+     */
+    public static HashMap<String, Integer> NgramMap( String str, int n ) {
+        return NgramMap( StringHelperFunctions.ngram( str, n ) );
+    }
+
+    /**
      * This function finds the number of matching n-grams between
      * two sets of n-grams
      * @param ngram_map Map of ngrams from the query/keyword
@@ -60,7 +67,5 @@ public class StringDistanceFunctions {
 
         return total;
     }
-
-
 
 }
