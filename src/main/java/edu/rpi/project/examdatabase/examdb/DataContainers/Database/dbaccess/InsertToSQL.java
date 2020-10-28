@@ -54,6 +54,7 @@ public class InsertToSQL implements Insert{
         test.put("ID", "001");
         test.put("USERNAME", "admin");
         test.put("PASSWORD", "admin1");
+        test.put("EMAIL", "xur2@rpi.edu");
         test.put("PERMISSION", "0");
         test.put("FIRSTNAME", "Ran");
         test.put("LASTNAME", "Xu");
