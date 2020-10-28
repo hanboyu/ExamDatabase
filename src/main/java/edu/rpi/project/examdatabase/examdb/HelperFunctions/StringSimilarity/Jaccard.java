@@ -1,4 +1,8 @@
-package edu.rpi.project.examdatabase.examdb.HelperFunctions;
+package edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity;
+
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.SetOperations;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringDistanceFunctions;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringHelperFunctions;
 
 import java.util.Set;
 

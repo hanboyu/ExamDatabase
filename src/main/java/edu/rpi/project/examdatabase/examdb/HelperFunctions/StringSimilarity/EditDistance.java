@@ -1,4 +1,4 @@
-package edu.rpi.project.examdatabase.examdb.HelperFunctions;
+package edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity;
 
 public class EditDistance {
     /**

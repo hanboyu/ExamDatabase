@@ -1,11 +1,9 @@
 package edu.rpi.project.examdatabase.examdb;
 
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.*;
-import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.EditDistance;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.LinkedList;
 
 @SpringBootTest
 public class FuzzySearchTests {
