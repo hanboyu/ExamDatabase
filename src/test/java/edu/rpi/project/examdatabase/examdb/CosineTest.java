@@ -1,7 +1,6 @@
 package edu.rpi.project.examdatabase.examdb;
 
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.Cosine;
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.Jaccard;
 import org.junit.jupiter.api.Test;
 
 public class CosineTest {
