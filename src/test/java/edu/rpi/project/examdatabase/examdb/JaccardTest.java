@@ -9,7 +9,7 @@ public class JaccardTest {
     void same_string() {
         String a = "Alexander";
         String b = "Alexander";
-        assert( Jaccard.Distance( a, b, 3 ) == 1 );
+        assert( Jaccard.Similarity( a, b, 3 ) == 1 );
     }
 
 
@@ -17,14 +17,14 @@ public class JaccardTest {
     void dissimilar_strings() {
         String a = "Alexander";
         String b = "Grrrrrrrr";
-        assert( Jaccard.Distance( a, b,3  ) <= 0.2 );
+        assert( Jaccard.Similarity( a, b,3  ) <= 0.2 );
     }
 
     @Test
     void hand_calculated_test() {
         String a = "Hello";
         String b = "Jello";
-        double ans = Jaccard.Distance( a, b, 3 ) - ( 0.5 );
+        double ans = Jaccard.Similarity( a, b, 3 ) - ( 0.5 );
         assert( ans < 0.00001 && ans > -0.00001 );
     }
 
@@ -32,7 +32,7 @@ public class JaccardTest {
     void order_independence_test() {
         String a = "Hello";
         String b = "Jello";
-        double ans = Jaccard.Distance( a, b, 3 ) - Jaccard.Distance( b, a, 3 );
+        double ans = Jaccard.Similarity( a, b, 3 ) - Jaccard.Similarity( b, a, 3 );
         assert(  ans < 0.00001 && ans > -0.00001  );
     }
 
@@ -43,9 +43,9 @@ public class JaccardTest {
         String second = "Using a Lewis dot diagram we can analyze the bonding of atoms";
         String least = "Nothing about the above string";
 
-        Double m = Jaccard.Distance( keyword, most,3  );
-        Double s = Jaccard.Distance( keyword, second,3  );
-        Double l = Jaccard.Distance( keyword, least,3  );
+        Double m = Jaccard.Similarity( keyword, most,3  );
+        Double s = Jaccard.Similarity( keyword, second,3  );
+        Double l = Jaccard.Similarity( keyword, least,3  );
 
         assert( m > s && s > l );
 

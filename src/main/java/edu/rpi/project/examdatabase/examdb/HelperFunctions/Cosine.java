@@ -16,7 +16,7 @@ public class Cosine {
      * @param n The size of n-grams to be created
      * @return The number of matching n-grams between the strings
      */
-    public static Double Distance( String str1, String str2, Integer n ) {
+    public static Double Similarity( String str1, String str2, Integer n ) {
         /* Get the n-gram lists, and convert them to vectors/maps */
         HashMap<String, Integer> vector1 = StringDistanceFunctions.NgramMap(str1, n);
         HashMap<String, Integer> vector2 = StringDistanceFunctions.NgramMap(str2, n);

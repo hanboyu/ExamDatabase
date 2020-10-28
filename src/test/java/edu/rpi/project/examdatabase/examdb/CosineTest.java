@@ -10,7 +10,7 @@ public class CosineTest {
         String a = "Alexander";
         String b = "Alexander";
         /* Double equality is weird */
-        assert( 1 - Cosine.Distance( a, b, 3 ) < 0.0001 );
+        assert( 1 - Cosine.Similarity( a, b, 3 ) < 0.0001 );
     }
 
 
@@ -18,14 +18,14 @@ public class CosineTest {
     void dissimilar_strings() {
         String a = "Alexander";
         String b = "Grrrrrrrr";
-        assert( Cosine.Distance( a, b,3  ) <= 0.2 );
+        assert( Cosine.Similarity( a, b,3  ) <= 0.2 );
     }
 
     @Test
     void hand_calculated_test() {
         String a = "Hello";
         String b = "Jello";
-        double ans = Cosine.Distance( a, b, 3 ) - (2.0 / 3.0);
+        double ans = Cosine.Similarity( a, b, 3 ) - (2.0 / 3.0);
         assert( ans < 0.00001 && ans > -0.00001 );
     }
 
@@ -33,7 +33,7 @@ public class CosineTest {
     void order_independence_test() {
         String a = "Hello";
         String b = "Jello";
-        double ans = Cosine.Distance( a, b, 3 ) - Cosine.Distance( b, a, 3 );
+        double ans = Cosine.Similarity( a, b, 3 ) - Cosine.Similarity( b, a, 3 );
         assert(  ans < 0.00001 && ans > -0.00001  );
     }
 
@@ -45,9 +45,9 @@ public class CosineTest {
         String second = "Using a Lewis dot diagram we can analyze the bonding of atoms";
         String least = "Nothing about the above string";
 
-        Double m = Cosine.Distance( keyword, most,3  );
-        Double s = Cosine.Distance( keyword, second,3  );
-        Double l = Cosine.Distance( keyword, least,3  );
+        Double m = Cosine.Similarity( keyword, most,3  );
+        Double s = Cosine.Similarity( keyword, second,3  );
+        Double l = Cosine.Similarity( keyword, least,3  );
 
         assert( m > s && s > l );
 

@@ -11,8 +11,8 @@ public class Jaccard {
      * @param n The size of n-grams to be created
      * @return The number of matching n-grams between the strings
      */
-    public static Double Distance( String str1, String str2, Integer n ) {
-        return JaccardDistance( StringDistanceFunctions.NgramSet( StringHelperFunctions.ngram( str1, n ) ),
+    public static Double Similarity( String str1, String str2, Integer n ) {
+        return JaccardSimilarity( StringDistanceFunctions.NgramSet( StringHelperFunctions.ngram( str1, n ) ),
                 StringDistanceFunctions.NgramSet( StringHelperFunctions.ngram( str2, n )  ));
     }
 
@@ -25,7 +25,7 @@ public class Jaccard {
      * @param set2 Set of Strings
      * @return | Intersection | / | Union |
      */
-    public static Double JaccardDistance(Set<String> set1, Set<String> set2 ) {
+    public static Double JaccardSimilarity(Set<String> set1, Set<String> set2 ) {
         return SetOperations.IntersectionSize( set1, set2 ).doubleValue() / SetOperations.UnionSize( set1, set2 ).doubleValue();
     }
 }
