@@ -38,7 +38,7 @@ public class StringDistanceFunctions {
      * @param set2 Set of strings
      * @return The number of elements common to both sets
      */
-    public static Integer IntersectionSize( Set<String> set1, Set<String> set2 ) {
+    private static Integer IntersectionSize( Set<String> set1, Set<String> set2 ) {
         int common_elements = 0;
         for( String str : set1 ) {
             if( set2.contains( str ) ) {
@@ -49,11 +49,12 @@ public class StringDistanceFunctions {
     }
 
     /**
+     * This function does not affect either of the arguments
      * @param set1 Set of strings
      * @param set2 Set of strings
      * @return The number of elements common to both sets
      */
-    public static Integer UnionSize( Set<String> set1, Set<String> set2 ) {
+    private static Integer UnionSize( Set<String> set1, Set<String> set2 ) {
         /* Make a deep copy of the first set */
         HashSet<String> copy = new HashSet<>( set1 );
 
