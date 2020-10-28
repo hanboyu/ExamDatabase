@@ -1,5 +1,6 @@
 package edu.rpi.project.examdatabase.examdb;
 
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.Cosine;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.Jaccard;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringDistanceFunctions;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,22 @@ public class JaccardTest {
         String a = "Alexander";
         String b = "Grrrrrrrr";
         assert( Jaccard.Distance( a, b,3  ) <= 0.2 );
+    }
+
+    @Test
+    void hand_calculated_test() {
+        String a = "Hello";
+        String b = "Jello";
+        double ans = Jaccard.Distance( a, b, 3 ) - ( 0.5 );
+        assert( ans < 0.00001 && ans > -0.00001 );
+    }
+
+    @Test
+    void order_independence_test() {
+        String a = "Hello";
+        String b = "Jello";
+        double ans = Jaccard.Distance( a, b, 3 ) - Jaccard.Distance( b, a, 3 );
+        assert(  ans < 0.00001 && ans > -0.00001  );
     }
 
     @Test

@@ -23,6 +23,23 @@ public class CosineTest {
     }
 
     @Test
+    void hand_calculated_test() {
+        String a = "Hello";
+        String b = "Jello";
+        double ans = Cosine.Distance( a, b, 3 ) - (2.0 / 3.0);
+        assert( ans < 0.00001 && ans > -0.00001 );
+    }
+
+    @Test
+    void order_independence_test() {
+        String a = "Hello";
+        String b = "Jello";
+        double ans = Cosine.Distance( a, b, 3 ) - Cosine.Distance( b, a, 3 );
+        assert(  ans < 0.00001 && ans > -0.00001  );
+    }
+
+
+    @Test
     void multiple_strings() {
         String keyword = "Lewis";
         String most = "Dr. Lewis ____";
