@@ -18,24 +18,37 @@ public class Cosine {
      */
     public static Double Distance( String str1, String str2, Integer n ) {
         /* Get the n-gram lists, and convert them to vectors/maps */
-        HashMap<String, Integer> map1 = StringDistanceFunctions.NgramMap(str1, n);
-        HashMap<String, Integer> map2 = StringDistanceFunctions.NgramMap(str2, n);
+        HashMap<String, Integer> vector1 = StringDistanceFunctions.NgramMap(str1, n);
+        HashMap<String, Integer> vector2 = StringDistanceFunctions.NgramMap(str2, n);
 
+        /* Find the dot product */
+        int dot_product = DotProduct( vector1, vector2 );
+
+        /* Calculate the magnitude of each of the vectors */
+        Double magnitude1 = Magnitude( vector1 );
+        Double magnitude2 = Magnitude( vector2 );
+
+        /* Return the dot product / ( mag * mag ) */
+        return dot_product / ( magnitude1 * magnitude2 );
+    }
+
+    /**
+     * This function finds the dot product of two vectorized Strings
+     * @param vector1 The first vector
+     * @param vector2 The second vector
+     * @return The dot product
+     */
+    private static int DotProduct( HashMap<String, Integer> vector1, HashMap<String, Integer> vector2 ) {
         /* Find the combined set of n-grams */
-        Set<String> union = SetOperations.Union( map1.keySet(), map2.keySet() );
+        Set<String> union = SetOperations.Union( vector1.keySet(), vector2.keySet() );
 
         /* Calculate the dot product of the two vectors */
         int dot_product = 0;
         for( String str : union ) {
-            dot_product += map1.getOrDefault( str, 0 ) * map2.getOrDefault( str, 0 );
+            dot_product += vector1.getOrDefault( str, 0 ) * vector2.getOrDefault( str, 0 );
         }
 
-        /* Calculate the magnitude of each of the vectors */
-        Double magnitude1 = Magnitude( map1 );
-        Double magnitude2 = Magnitude( map2 );
-
-        /* Return the dot product / ( mag * mag ) */
-        return dot_product / ( magnitude1 * magnitude2 );
+        return dot_product;
     }
 
     /**
