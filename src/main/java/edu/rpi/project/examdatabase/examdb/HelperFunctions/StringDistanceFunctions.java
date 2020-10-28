@@ -7,61 +7,6 @@ import java.util.Set;
 
 public class StringDistanceFunctions {
 
-    /**
-     * This function finds degree to which two strings are similar
-     *  on a scale from [0, 1] with 1 being identical and 0 being dissimilar
-     * @param str1 First string to be split into n-grams
-     * @param str2 Second string to be split into n-grams
-     *
-     * @return The number of matching n-grams between the strings
-     */
-    public static Double JaccardDriver( String str1, String str2, Integer n ) {
-        return JaccardDistance( NgramSet( StringHelperFunctions.ngram( str1, n ) ),
-                                NgramSet( StringHelperFunctions.ngram( str2, n )  ));
-    }
-
-    /**
-     * This function finds the Jaccard distance between two sets of Strings
-     *  where the definiton of Jaccard distance is as follows
-     *    | Intersection | / | Union |
-     * @require At least one set is non-empty
-     * @param set1 Set of Strings
-     * @param set2 Set of Strings
-     * @return | Intersection | / | Union |
-     */
-    public static Double JaccardDistance( Set<String> set1, Set<String> set2 ) {
-        return IntersectionSize( set1, set2 ).doubleValue() / UnionSize( set1, set2 ).doubleValue();
-    }
-
-    /**
-     * @param set1 Set of strings
-     * @param set2 Set of strings
-     * @return The number of elements common to both sets
-     */
-    private static Integer IntersectionSize( Set<String> set1, Set<String> set2 ) {
-        int common_elements = 0;
-        for( String str : set1 ) {
-            if( set2.contains( str ) ) {
-                ++common_elements;
-            }
-        }
-        return common_elements;
-    }
-
-    /**
-     * This function does not affect either of the arguments
-     * @param set1 Set of strings
-     * @param set2 Set of strings
-     * @return The number of elements common to both sets
-     */
-    private static Integer UnionSize( Set<String> set1, Set<String> set2 ) {
-        /* Make a deep copy of the first set */
-        HashSet<String> copy = new HashSet<>( set1 );
-
-        /* Add all elements of set2 to the copy, then return the size */
-        copy.addAll( set2 );
-        return copy.size();
-    }
 
     /**
      * This function ignores duplicates because sets do not allow duplicate elements.
