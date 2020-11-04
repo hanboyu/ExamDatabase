@@ -2,6 +2,9 @@ package edu.rpi.project.examdatabase.examdb.Services;
 
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryQuestionFromDatabase;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.SimilarityObject;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.Cosine;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.StringSimilarity;
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.Objects.User.User;
@@ -73,13 +76,26 @@ public class ReadQuestionService {
         List<Question> questions = new LinkedList<>();
 
         // Create a PQ to help with ordering them from most --> least similar
-        PriorityQueue<QueryObject> similarity_queue = new PriorityQueue<>();
+        PriorityQueue<SimilarityObject> similarity_queue = new PriorityQueue<>();
+
+        // Construct a StringSimilarity Object to compare questions to keyword
+        StringSimilarity cosine = new Cosine(3);
 
         for( Question question : questions ) {
-
+            // Make a SimilarityObject to bind the Question to its comparison value
+            SimilarityObject simObj = new SimilarityObject( question, cosine.Similarity( key_word, question.getQuestionBody() ) );
+            // Insert it into a PQ
+            similarity_queue.add( simObj );
         }
 
-        return null;
+        // Add no more than the top 100 most similar questions
+        List<Question> res = new LinkedList<>();
+        for( int i = 0; i < 100 && i < similarity_queue.size(); ++i ) {
+            // Add the most similar question to the end of the list
+            res.add( similarity_queue.poll().getQuestion() );
+        }
+
+        return res;
 
     }
 
