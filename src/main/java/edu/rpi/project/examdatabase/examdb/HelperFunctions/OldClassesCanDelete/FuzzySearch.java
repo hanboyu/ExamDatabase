@@ -1,6 +1,7 @@
-package edu.rpi.project.examdatabase.examdb.HelperFunctions;
+package edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete;
 
-import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.StringHelperFunctions;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.EditDistance;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class FuzzySearch {
         int question_len = text.length();
         for( int i = 0; i + keyword_len < question_len; ++i ) {
             min_edit_distance = Math.min( min_edit_distance,
-                    StringDistanceFunctions.editDistance( keyword, text.substring( i, i + keyword_len ) ) );
+                    EditDistance.editDistance( keyword, text.substring( i, i + keyword_len ) ) );
         }
 
         // Normalize by the length of the keyword, this is toplevel result

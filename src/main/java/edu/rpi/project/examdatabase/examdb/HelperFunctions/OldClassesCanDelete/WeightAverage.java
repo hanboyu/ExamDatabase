@@ -1,7 +1,8 @@
-package edu.rpi.project.examdatabase.examdb.HelperFunctions;
+package edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete;
+
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete.FuzzyWeight;
 
 import java.util.List;
-import java.util.Iterator;
 
 public class WeightAverage implements FuzzyWeight {
     /**

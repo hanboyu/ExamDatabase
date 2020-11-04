@@ -1,8 +1,7 @@
 package edu.rpi.project.examdatabase.examdb;
 
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringHelperFunctions;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.StringHelperFunctions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;

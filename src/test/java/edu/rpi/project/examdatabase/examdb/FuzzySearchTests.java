@@ -1,14 +1,10 @@
 package edu.rpi.project.examdatabase.examdb;
 
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.FuzzyQuestionWrapper;
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.FuzzySearch;
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringDistanceFunctions;
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.WeightAverage;
-import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete.FuzzySearch;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete.WeightAverage;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.EditDistance;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.LinkedList;
 
 @SpringBootTest
 public class FuzzySearchTests {
@@ -18,22 +14,22 @@ public class FuzzySearchTests {
         // One edit
         String s1 = "Test";
         String s2 = "Tist";
-        assert( StringDistanceFunctions.editDistance( s1, s2 ) == 1 );
+        assert( EditDistance.editDistance( s1, s2 ) == 1 );
 
         // Empty string & non-empty string
         String empty = "";
         String non_empty = "Build";
-        assert( StringDistanceFunctions.editDistance( empty, non_empty ) == 5 );
+        assert( EditDistance.editDistance( empty, non_empty ) == 5 );
 
         // Small string & big string
         String small = "hut";
         String big = "doughnut";
-        assert( StringDistanceFunctions.editDistance( small, big ) == 5 );
+        assert( EditDistance.editDistance( small, big ) == 5 );
 
         // Really big strings ( just make sure it terminates (
         String r1 = "New York Yankees rock";
         String r2 = "The New York Yankees are the best baseball team";
-        StringDistanceFunctions.editDistance( r1, r2 );
+        EditDistance.editDistance( r1, r2 );
     }
 
     @Test
