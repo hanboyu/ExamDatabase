@@ -1,6 +1,7 @@
 package edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess;
 
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
+import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.init;
 
 import java.sql.*;
@@ -8,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QueryUserFromDatabase implements Query{
+public class QueryUserFromDatabase<E> implements Query<E>{
     @Override
-    public List<QueryObject> doQuery(QueryParameters param) {
+    public List<E> doQuery(QueryParameters param) {
         try {
             Connection con = DriverManager.getConnection(init.DB_ADDRESS, init.DB_USER, init.DB_PSWD);
             Statement statement = con.createStatement();
