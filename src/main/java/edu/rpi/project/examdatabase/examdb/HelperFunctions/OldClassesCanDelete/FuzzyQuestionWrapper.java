@@ -1,10 +1,6 @@
-package edu.rpi.project.examdatabase.examdb.HelperFunctions;
+package edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete;
 
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class FuzzyQuestionWrapper {
     /**

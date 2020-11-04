@@ -1,6 +1,7 @@
 package edu.rpi.project.examdatabase.examdb;
 
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.*;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete.FuzzySearch;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete.WeightAverage;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.EditDistance;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

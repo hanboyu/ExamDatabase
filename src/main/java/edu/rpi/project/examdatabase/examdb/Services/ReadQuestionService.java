@@ -2,6 +2,7 @@ package edu.rpi.project.examdatabase.examdb.Services;
 
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryQuestionFromDatabase;
+import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.Objects.User.User;
 
@@ -66,8 +67,20 @@ public class ReadQuestionService {
      * Return 100 questions maximum.
      */
     public static List<Question> GetQuestionsByKeyWord(User user, String key_word) {
-        //TODO - implement GetQuestionsByKeyWord()
-        throw new RuntimeException("GetQuestionsByKeyWord is not implemented yet");
+        // Get all the questions from the database
+        Query query = new QueryQuestionFromDatabase();
+        //List<Question> questions = query.doQuery(null);
+        List<Question> questions = new LinkedList<>();
+
+        // Create a PQ to help with ordering them from most --> least similar
+        PriorityQueue<QueryObject> similarity_queue = new PriorityQueue<>();
+
+        for( Question question : questions ) {
+
+        }
+        return null;
+
+
     }
 
     private static List<Question> QueryQuestion(User user, Map<String, String> query_argus) {

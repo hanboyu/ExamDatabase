@@ -1,8 +1,6 @@
 package edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity;
 
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.SetOperations;
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringDistanceFunctions;
-import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringHelperFunctions;
 
 import java.util.Set;
 
@@ -16,8 +14,8 @@ public class Jaccard {
      * @return The number of matching n-grams between the strings
      */
     public static Double Similarity( String str1, String str2, Integer n ) {
-        return JaccardSimilarity( StringDistanceFunctions.NgramSet( StringHelperFunctions.ngram( str1, n ) ),
-                StringDistanceFunctions.NgramSet( StringHelperFunctions.ngram( str2, n )  ));
+        return JaccardSimilarity( Ngram.NgramSet( Ngram.ngram( str1, n ) ),
+                Ngram.NgramSet( Ngram.ngram( str2, n )  ));
     }
 
     /**

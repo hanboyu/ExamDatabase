@@ -1,5 +1,6 @@
-package edu.rpi.project.examdatabase.examdb.HelperFunctions;
+package edu.rpi.project.examdatabase.examdb.HelperFunctions.OldClassesCanDelete;
 
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.StringHelperFunctions;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.EditDistance;
 
 import java.util.LinkedList;
