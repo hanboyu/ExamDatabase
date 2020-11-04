@@ -5,5 +5,5 @@ import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import java.util.List;
 
 public class QuestionRAM {
-    static List<Question> questions;
+    private List<Question> questions;
 }
