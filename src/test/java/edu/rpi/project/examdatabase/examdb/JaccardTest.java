@@ -4,12 +4,13 @@ import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.Jacc
 import org.junit.jupiter.api.Test;
 
 public class JaccardTest {
+    Jaccard j = new Jaccard(3);
 
     @Test
     void same_string() {
         String a = "Alexander";
         String b = "Alexander";
-        assert( Jaccard.Similarity( a, b, 3 ) == 1 );
+        assert( j.Similarity( a, b ) == 1 );
     }
 
 
@@ -17,14 +18,14 @@ public class JaccardTest {
     void dissimilar_strings() {
         String a = "Alexander";
         String b = "Grrrrrrrr";
-        assert( Jaccard.Similarity( a, b,3  ) <= 0.2 );
+        assert( j.Similarity( a, b ) <= 0.2 );
     }
 
     @Test
     void hand_calculated_test() {
         String a = "Hello";
         String b = "Jello";
-        double ans = Jaccard.Similarity( a, b, 3 ) - ( 0.5 );
+        double ans = j.Similarity( a, b ) - ( 0.5 );
         assert( ans < 0.00001 && ans > -0.00001 );
     }
 
@@ -32,7 +33,7 @@ public class JaccardTest {
     void order_independence_test() {
         String a = "Hello";
         String b = "Jello";
-        double ans = Jaccard.Similarity( a, b, 3 ) - Jaccard.Similarity( b, a, 3 );
+        double ans = j.Similarity( a, b ) - j.Similarity( b, a );
         assert(  ans < 0.00001 && ans > -0.00001  );
     }
 
@@ -43,9 +44,9 @@ public class JaccardTest {
         String second = "Using a Lewis dot diagram we can analyze the bonding of atoms";
         String least = "Nothing about the above string";
 
-        Double m = Jaccard.Similarity( keyword, most,3  );
-        Double s = Jaccard.Similarity( keyword, second,3  );
-        Double l = Jaccard.Similarity( keyword, least,3  );
+        Double m = j.Similarity( keyword, most );
+        Double s = j.Similarity( keyword, second );
+        Double l = j.Similarity( keyword, least );
 
         assert( m > s && s > l );
 
