@@ -36,7 +36,7 @@ public class Demo {
         List<Question> res = new ArrayList<>();
 
         for( Integer i = 0; i < question_bodies.size(); ++i ) {
-            res.add( new Question( i.toString(), new LinkedList<>(), null,
+            res.add( new Question( i.toString(), new LinkedList<>(), "",
                     0, question_bodies.get(i), new LinkedList<>(), demo_choices, new LinkedList<>(), "Choice1" ) );
         }
 
