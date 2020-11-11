@@ -2,6 +2,7 @@ package edu.rpi.project.examdatabase.examdb.Services;
 
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryQuestionFromDatabase;
+import edu.rpi.project.examdatabase.examdb.HelperFunctions.Demo;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.SimilarityObject;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.Cosine;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.StringSimilarity;
@@ -73,7 +74,8 @@ public class ReadQuestionService {
         // Get all the questions from the database
         Query query = new QueryQuestionFromDatabase();
         //List<Question> questions = query.doQuery(null);
-        List<Question> questions = new LinkedList<>();
+        //List<Question> questions = new LinkedList<>();
+        List<Question> questions = Demo.demoQuestions();
 
         // Create a PQ to help with ordering them from most --> least similar
         PriorityQueue<SimilarityObject> similarity_queue = new PriorityQueue<>();
@@ -89,8 +91,9 @@ public class ReadQuestionService {
         }
 
         // Add no more than the top 100 most similar questions
+        int size = similarity_queue.size();     // Save the size (it shrinks as we poll)
         List<Question> res = new LinkedList<>();
-        for( int i = 0; i < 100 && i < similarity_queue.size(); ++i ) {
+        for( int i = 0; i < 100 && i < size; ++i ) {
             // Add the most similar question to the end of the list
             res.add( similarity_queue.poll().getQuestion() );
         }

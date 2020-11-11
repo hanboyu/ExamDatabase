@@ -34,7 +34,7 @@ public class SimilarityObject implements Comparable<SimilarityObject> {
      */
     @Override
     public int compareTo( SimilarityObject s ) {
-        if( similarity < s.similarity ) {
+        if( similarity > s.similarity ) {
             return -1;
         } else if( similarity.equals( s.similarity ) ) {
             return 0;
