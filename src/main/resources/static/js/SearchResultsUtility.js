@@ -55,7 +55,7 @@ function HideAnswer(question_id){
  */
 function ChangeSearchMethod(method_name){
     //change url
-    document.getElementById("search_form").setAttribute("action", "/search/" + method_name);
+    document.getElementById("search_form").setAttribute("action", "/search_" + method_name);
     //change place holder
     let place_holder = "Enter key word here";
     if (method_name === "by_tags"){
