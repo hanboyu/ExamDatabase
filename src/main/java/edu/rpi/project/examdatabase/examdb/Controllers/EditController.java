@@ -78,6 +78,7 @@ public class EditController {
     @RequestMapping(value="/bulk_upload", method=RequestMethod.GET)
     public ModelAndView getBulkUpload(@CookieValue(value="token", defaultValue="") String session_token,
                                       ModelMap model){
+        model.addAttribute("permission", 0);
         return new ModelAndView("BulkUpload", model);
     }
 
