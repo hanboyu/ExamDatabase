@@ -78,7 +78,7 @@ public class EditController {
     @RequestMapping(value="/bulk_upload", method=RequestMethod.GET)
     public ModelAndView getBulkUpload(@CookieValue(value="token", defaultValue="") String session_token,
                                       ModelMap model){
-        throw new RuntimeException("/bulk_upload GET request handler is not implemented yet");
+        return new ModelAndView("BulkUpload", model);
     }
 
     @RequestMapping(value="/bulk_upload", method=RequestMethod.POST)
