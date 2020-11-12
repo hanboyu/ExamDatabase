@@ -1,20 +1,34 @@
 package edu.rpi.project.examdatabase.examdb.Controllers;
 
+import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import javax.servlet.ServletContext;
+
+import edu.rpi.project.examdatabase.examdb.Controllers.HelperFunctions.FileModel;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.QuestionFactory;
 import edu.rpi.project.examdatabase.examdb.Objects.User.User;
 import edu.rpi.project.examdatabase.examdb.Services.AuthenticationService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/edit")
 public class EditController {
+
+    @Autowired
+    ServletContext context;
 
     @RequestMapping(value = "/add_new_question", method = RequestMethod.GET)
     public ModelAndView getAddNewQuestion(@CookieValue(value = "token", defaultValue = "") String session_token,
@@ -77,14 +91,31 @@ public class EditController {
 
     @RequestMapping(value="/bulk_upload", method=RequestMethod.GET)
     public ModelAndView getBulkUpload(@CookieValue(value="token", defaultValue="") String session_token,
-                                      ModelMap model){
+                                      ModelMap model) {
         model.addAttribute("permission", 0);
-        return new ModelAndView("BulkUpload", model);
+        FileModel file = new FileModel();
+        return new ModelAndView("BulkUpload", "command", file);
     }
 
-    @RequestMapping(value="/bulk_upload", method=RequestMethod.POST)
-    public ModelAndView submitBulkUpload(@CookieValue(value="token", defaultValue="") String session_token,
-                                         ModelMap model){
-        throw new RuntimeException("/bulk_upload POST request handler is not implemented yet");
+    @RequestMapping(value = "/bulk_upload", method = RequestMethod.POST)
+    public ModelAndView submitBulkUpload(@CookieValue(value = "token", defaultValue = "") String session_token,
+                                         @Validated FileModel file, BindingResult result, ModelMap model) throws IOException {
+        if (result.hasErrors()) {
+            System.out.println("validation errors");
+            model.addAttribute("permission", 0);
+            FileModel new_file = new FileModel();
+            return new ModelAndView("BulkUpload", "command", new_file);
+        } else {
+            System.out.println("Fetching file");
+            MultipartFile multipartFile = file.getFile();
+            String uploadPath = context.getRealPath("") + "temp" + File.separator;
+            //Now do something with file...
+            File temp_file = new File(uploadPath + file.getFile().getOriginalFilename());
+            byte[] temp_byte = file.getFile().getBytes();
+            FileCopyUtils.copy(temp_byte, temp_file);
+            String fileName = multipartFile.getOriginalFilename();
+            model.addAttribute("fileName", fileName);
+            return new ModelAndView("redirect:/", model);
+        }
     }
 }
