@@ -38,6 +38,7 @@ public class SearchController {
         token_cookie.setHttpOnly(true);
         response.addCookie(token_cookie);
         model.addAttribute("permission", user.getUserType());
+        model.addAttribute("last_search", "");
         return new ModelAndView("Search", model);
 
     }
@@ -63,6 +64,7 @@ public class SearchController {
         search_results = ReadQuestionService.GetQuestionsByKeyWord(user, key_word);
 
         model.addAttribute("permission", user.getUserType());
+        model.addAttribute("last_search", key_word);
         model.addAttribute("search_results", search_results);
         return new ModelAndView("SearchWithResults", model);
     }
