@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="../../static/css/stylesheet.css" th:remove="all">
+</head>
+<body>
+<div class="side_bar" th:fragment="side_bar">
+    <div class="side_menu">
+        <a href="../Search.html" th:href="@{/}">
+            <div class="menu_options">Search Questions</div>
+        </a>
+        <a th:remove="${permission} < 2 ? all : none" href="../EditQuestion.html" th:href="@{/edit/add_new_question}">
+            <div class="menu_options">Add Question</div>
+        </a>
+        <a th:remove="${permission} < 2 ? all : none" href="../BulkUpload.html" th:href="@{/edit/bulk_upload}">
+            <div class="menu_options">Bulk Upload</div>
+        </a>
+        <a th:remove="${permission} < 3 ? all : none" href="" th:href="@{/}">
+            <div class="menu_options">Manage Class</div>
+        </a>
+        <a th:remove="${permission} < 1 ? all : none" href="../AccountSetting.html" th:href="@{/account_setting}">
+            <div class="menu_options">Account</div>
+        </a>
+        <a th:remove="${permission} < 1 ? all : none" href="../Login.html" th:href="@{/logout}">
+            <div class="menu_options">Logout</div>
+        </a>
+        <a th:remove="${permission} != 0 ? all : none" href="../Login.html" th:href="@{/login}">
+            <div class="menu_options">Login</div>
+        </a>
+    </div>
+</div>
+</body>
+</html>
