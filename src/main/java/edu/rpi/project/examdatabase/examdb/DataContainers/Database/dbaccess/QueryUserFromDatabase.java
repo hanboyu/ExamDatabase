@@ -15,7 +15,7 @@ import edu.rpi.project.examdatabase.examdb.Objects.User.*;
 public class QueryUserFromDatabase<E> implements Query<E>{
     @Override
     public List<E> doQuery(QueryParameters param) {
-        User user = null;
+        User user;
         List<E> users = new ArrayList<>();
 
         try {

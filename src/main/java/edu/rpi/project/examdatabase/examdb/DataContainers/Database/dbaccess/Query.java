@@ -11,5 +11,4 @@ import java.util.Map;
  */
 public interface Query<E> {
     List<E> doQuery(QueryParameters param);
-
 }
