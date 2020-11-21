@@ -15,13 +15,24 @@ configurations {
 	}
 }
 
+apply plugin: 'war'
+war {
+	baseName = 'spring-boot-war-example'
+	version = '0.0.1-SNAPSHOT'
+}
+
 repositories {
 	mavenCentral()
+}
+
+configurations {
+	providedRuntime
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -33,3 +44,6 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+
+
