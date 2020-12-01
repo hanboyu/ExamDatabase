@@ -4,6 +4,8 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import edu.rpi.project.examdatabase.examdb.Controllers.HelperFunctions.FileModel;
 import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
@@ -11,6 +13,7 @@ import edu.rpi.project.examdatabase.examdb.Objects.Question.QuestionFactory;
 import edu.rpi.project.examdatabase.examdb.Objects.User.User;
 import edu.rpi.project.examdatabase.examdb.Services.AuthenticationService;
 
+import edu.rpi.project.examdatabase.examdb.Services.EditQuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,7 +102,20 @@ public class EditController {
 
     @RequestMapping(value = "/bulk_upload", method = RequestMethod.POST)
     public ModelAndView submitBulkUpload(@CookieValue(value = "token", defaultValue = "") String session_token,
-                                         @Validated FileModel file, BindingResult result, ModelMap model) throws IOException {
+                                         @Validated FileModel file, BindingResult result, ModelMap model,
+                                         HttpServletResponse response) throws IOException {
+        if (session_token.isEmpty()) {
+            session_token = AuthenticationService.LoginAsVisitor();
+        }
+        User user = AuthenticationService.VerifyToken(session_token);
+        if (user == null) {
+            session_token = AuthenticationService.LoginAsVisitor();
+            user = AuthenticationService.VerifyToken(session_token);
+        }
+        Cookie token_cookie = new Cookie("token", session_token);
+        token_cookie.setHttpOnly(true);
+        response.addCookie(token_cookie);
+
         if (result.hasErrors()) {
             System.out.println("validation errors");
             model.addAttribute("permission", 0);
@@ -112,9 +128,10 @@ public class EditController {
             //Now do something with file...
             File temp_file = new File(uploadPath + file.getFile().getOriginalFilename());
             byte[] temp_byte = file.getFile().getBytes();
-            FileCopyUtils.copy(temp_byte, temp_file);
-            String fileName = multipartFile.getOriginalFilename();
-            model.addAttribute("fileName", fileName);
+            EditQuestionService.parseBulkUploadFile(user, temp_byte);
+            //FileCopyUtils.copy(temp_byte, temp_file);
+            //String fileName = multipartFile.getOriginalFilename();
+            //model.addAttribute("fileName", fileName);
             return new ModelAndView("redirect:/", model);
         }
     }

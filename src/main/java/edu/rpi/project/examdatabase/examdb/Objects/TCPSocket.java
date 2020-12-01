@@ -49,6 +49,25 @@ public class TCPSocket {
     }
 
     /**
+     * Send a bytes array to the socket, and wait for a response.
+     * The response message must be less than 1024 bytes.
+     *
+     * @param data string message to send
+     * @return the response message from the socket
+     * @throws IOException when error occurs during send or receive data.
+     */
+    public String send(byte[] data) throws IOException {
+        byte[] recv_buf = new byte[1024];
+        String response;
+        toServer.write(data);
+        toServer.flush();
+
+        int data_size = fromServer.read(recv_buf);
+        response = new String(Arrays.copyOf(recv_buf, data_size));
+        return response;
+    }
+
+    /**
      * Send a string message to the socket.
      *
      * @param data string message to send
@@ -81,17 +100,5 @@ public class TCPSocket {
 
     public int getRecv_port() {
         return recv_port;
-    }
-
-    /**
-     * Destructor, make sure socket is closed when it's not
-     * in use anymore.
-     *
-     * @throws Throwable error occurs during destructing.
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        close();
-        super.finalize();
     }
 }
