@@ -1,22 +1,30 @@
 package edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess;
 
+import edu.rpi.project.examdatabase.examdb.Exceptions.UnknownUserTypeException;
 import edu.rpi.project.examdatabase.examdb.Objects.QueryObject;
+import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
 import edu.rpi.project.examdatabase.examdb.init;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import edu.rpi.project.examdatabase.examdb.Objects.User.*;
 
-public class QueryUserFromDatabase implements Query{
+public class QueryUserFromDatabase<E> implements Query<E>{
     @Override
-    public List<QueryObject> doQuery(QueryParameters param) {
+    public List<E> doQuery(QueryParameters param) {
+        User user;
+        List<E> users = new ArrayList<>();
+
         try {
             Connection con = DriverManager.getConnection(init.DB_ADDRESS, init.DB_USER, init.DB_PSWD);
             Statement statement = con.createStatement();
             String query = param.createQueryString();
             System.out.println(query);
             ResultSet rs = statement.executeQuery(query);
+            UserFactory userFactory = UserFactory.getInstance();
             while (rs.next()) {
                 String username = rs.getString("USERNAME");
                 String password = rs.getString("PASSWORD");
@@ -24,21 +32,19 @@ public class QueryUserFromDatabase implements Query{
                 String firstname = rs.getString("FIRSTNAME");
                 String lastname = rs.getString("LASTNAME");
                 int permission = rs.getInt("PERMISSION");
-                System.out.println(username);
-                System.out.println(password);
-                System.out.println(id);
-                System.out.println(firstname);
-                System.out.println(lastname);
-                System.out.println(permission);
+                user = userFactory.getUser(permission, username, firstname, lastname, null, password);
+                users.add((E)user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (UnknownUserTypeException e) {
+            return null;
         }
-        return null;
+        return users;
     }
 
     public static void main(String[] args) {
-        Query testQuery = new QueryUserFromDatabase();
+        Query<User> testQuery = new QueryUserFromDatabase<>();
 //        Map<String, String> testArgs= new HashMap<>();
 //        testArgs.put("USERNAME", "admin");
 //        testArgs.put("PASSWORD", "admin1");

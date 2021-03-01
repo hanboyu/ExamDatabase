@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="../static/css/stylesheet.css" th:remove="all">
+
+
+    <title>Search</title>
+</head>
+<body>
+<div id="page">
+    <div id="top_banner_placeholder" th:replace="fragments/header :: header"></div>
+    <div id="main_content" style="margin: 0; padding: 0;">
+        <div id="side_bar_placeholder" th:replace="fragments/side_bar :: side_bar"></div>
+        <div class="content_area" id="content_area">
+            <div class="content_slide" id="search_questions">
+                <div id="search_bar_container" th:replace="Search :: search_bar">
+                </div>
+                <div id="result_stat hidden_content">
+                    <p class="small_text hidden_content"> relevant questions found.</p>
+                </div>
+                <div id="search_results_container" class="" th:object="${search_results}">
+                    <!--Search result template for each question-->
+                    <div class="result_question_container" id="123456789"th:each="q: ${search_results}" th:id="${q.getSerialCode()}">
+                        <div class="srq_id">
+                            <span class="sr_title">Question id: </span>
+                            <span th:text="${q.getSerialCode()}">123456789</span>
+                        </div>
+
+                        <div class="srq_categories">
+                            <span class="sr_title">Categories: </span>
+                            <span class="rq_tags_list" th:each="t : ${q.getTags()}">
+                                <a th:text="${t} + ' '"  th:href="@{/search/by_tags(key_word=${t})}">Greek myths,</a>
+                            </span>
+                        </div>
+
+                        <div class="srq_body">
+                            <p>
+                                <span th:utext="${q.getQuestionBody()}">
+                                    Who introduced the idea that dreams and myths were the projection of what he called the "collective unconscious" based on archetypal characters and narrative patterns.
+                                </span>
+                            </p>
+                        </div>
+
+                        <ol class="rq_choices_container" >
+                            <li th:each="c : ${q.getChoices()}" th:text="${c}">A choice ...</li>
+                            <div class="srq_answer">
+                                <span class="show_answer" onclick="ShowAnswer('123456789')" th:onclick="ShowAnswer([[${q.getSerialCode()}]])" title="Show answer">Show Answer</span>
+                                <span class="hide_answer" onclick="HideAnswer('123456789')" th:onclick="HideAnswer([[${q.getSerialCode()}]])" title="Hide answer" th:text="'Answer: ' + ${q.getAnswer()}">Carl Jung</span>
+                            </div>
+                        </ol>
+
+                        <div class="action_options">
+                            <i class="action_buttons arrow glyphicon glyphicon-chevron-down" onclick="ExpendQuestion('123456789')" th:onclick="ExpendQuestion([[${q.getSerialCode()}]])" title="Expend"></i>
+                            <i class="action_buttons arrow glyphicon glyphicon-chevron-up" onclick="CollapseQuestion('123456789')" th:onclick="CollapseQuestion([[${q.getSerialCode()}]])" title="Collapse" style="display: none"></i>
+                            <i class="action_buttons glyphicon glyphicon-exclamation-sign" title="Report an issue in the question"></i>
+                            <i class="action_buttons glyphicon glyphicon-plus-sign" title="Add to my list"></i>
+                            <i class="action_buttons glyphicon glyphicon-pencil" title="Edit"></i>
+                        </div>
+                    </div>
+                    <!--END Search result template for each question-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="magnified_question_container" class="magnified_question_container">
+    <div class="magnified_question_content">
+        <span id="magnified_question_close_button" class="close">&times;</span>
+        <div id="magnified_question_tags" class=""></div>
+        <div id="magnified_question_body"></div>
+        <div id="magnified_question_choices"></div>
+    </div>
+
+</div>
+</body>
+<script src="/js/SearchResultsUtility.js"></script>
+<script src="../static/js/SearchResultsUtility.js" th:remove="all"></script>
+<script src='/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<script src='../static/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML' async th:remove="all"></script>
+</html>

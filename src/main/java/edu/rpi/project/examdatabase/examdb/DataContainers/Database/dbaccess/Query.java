@@ -9,6 +9,6 @@ import java.util.Map;
  * Query interface defines method that implements
  * query algorithms in database
  */
-public interface Query {
-    List<QueryObject> doQuery(QueryParameters param);
+public interface Query<E> {
+    List<E> doQuery(QueryParameters param);
 }

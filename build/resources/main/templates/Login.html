@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="../static/css/stylesheet.css" th:remove="all">
+    <script src="/js/LoginUtility.js"></script>
+    <script src="../static/js/LoginUtility.js" th:remove="all"></script>
+    <title>Admin Login</title>
+</head>
+<body>
+    <div class="login_background">
+        <div class="login_block">
+            <div class="login_logo">
+                <img src="../static/site_photos/RF0010-01_Rensselaer_Large_Logo-with_Tagline_RGB-Red.png" alt="RPI Logo" th:attr="src='site_photos/RF0010-01_Rensselaer_Large_Logo-with_Tagline_RGB-Red.png'">
+            </div>
+            <form action="/login" method="post">
+                <div class="login_inner_box">
+                    <div class="login_input_area">
+                        <input type="text" placeholder="Enter Username" name="uname" th:value="*{username}?: ''"
+                               required>
+                    </div>
+                    <div class="login_input_area">
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                    </div>
+                    <div class="important_message" th:remove="${error_message} ? none : all">
+                        Sorry, your username or password was incorrect. Please double-check your password.
+                    </div>
+                    <div class="login_input_area" id="login_button">
+                        <button type="submit">Login</button>
+                    </div>
+                </div>
+                <div class="container" style="background-color:#f1f1f1">
+                    <button onclick="ForgetPassword()">Forget password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

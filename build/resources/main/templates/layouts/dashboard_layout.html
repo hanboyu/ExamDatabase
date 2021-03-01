@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout (title, additional_links, content)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <link rel="stylesheet" href="../static/css/stylesheet.css" th:remove="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title th:replace="${title}">Layout template</title>
+    <th:block th:replace="${additional_links}" />
+</head>
+<body>
+<div id="page">
+    <div id="top_banner_placeholder" th:replace="fragments/header :: header"></div>
+    <div id="main_content" style="margin: 0; padding: 0;">
+        <div id="side_bar_placeholder" th:replace="fragments/side_bar :: side_bar"></div>
+        <div class="content_area" id="content_area">
+            <div th:replace="${content}">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
