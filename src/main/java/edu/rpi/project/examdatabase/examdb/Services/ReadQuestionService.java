@@ -57,6 +57,7 @@ public class ReadQuestionService {
      * Return 100 questions maximum.
      */
     public static List<Question> GetQuestionsByTags(User user, List<String> tags){
+        /* Quick change test */
         //TODO - implement GetQuestionsByTags()
         throw new RuntimeException("GetQuestionsByTags is not implemented yet");
     }
