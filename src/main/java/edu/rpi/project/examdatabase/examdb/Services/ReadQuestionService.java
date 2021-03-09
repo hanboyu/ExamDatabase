@@ -2,6 +2,7 @@ package edu.rpi.project.examdatabase.examdb.Services;
 
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.Query;
 import edu.rpi.project.examdatabase.examdb.DataContainers.Database.dbaccess.QueryQuestionFromDatabase;
+import edu.rpi.project.examdatabase.examdb.DataContainers.RAM.TagsRAM;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.Demo;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.SimilarityObject;
 import edu.rpi.project.examdatabase.examdb.HelperFunctions.StringSimilarity.Cosine;
@@ -57,8 +58,10 @@ public class ReadQuestionService {
      * Return 100 questions maximum.
      */
     public static List<Question> GetQuestionsByTags(User user, List<String> tags){
-        //TODO - implement GetQuestionsByTags()
-        throw new RuntimeException("GetQuestionsByTags is not implemented yet");
+        /* Get dummy tag iterator from RAM structure */
+        Iterator<String> tag_itr = TagsRAM.dummy_tag_itr();
+        /* Match the tag to the best match of saved tags */
+        throw new RuntimeException("GetQuestionByTags Not Yet Implemented");
     }
 
     /**
