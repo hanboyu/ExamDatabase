@@ -23,7 +23,7 @@ public class QueryQuestionFromDatabase<E> implements Query<E> {
             Statement statement = con.createStatement();
             String query = param.createQueryString();
             ResultSet rs = statement.executeQuery(query);
-            QuestionFactory qf = QuestionFactory.getInstance();
+            QuestionFactory qf = new QuestionFactory();
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 String serialCode = rs.getString("SERIAL_CODE");

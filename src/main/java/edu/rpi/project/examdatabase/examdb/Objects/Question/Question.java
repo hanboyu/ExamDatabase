@@ -46,15 +46,15 @@ import java.util.List;
  *  Answer can only be one of the choices.
  */
 public final class Question implements Comparable<Question>, QueryObject, Cachable {
-    private final String serial_code;
-    private final List<String> tags;
-    private final String class_code;
-    private final int permission;
-    private final String question_body;
-    private final List<String> question_images_addr;
-    private final List<String> choices;
-    private final List<String> choice_images_addr;
-    private final String answer;
+    protected final String serial_code;
+    protected final List<String> tags;
+    protected final String class_code;
+    protected final int permission;
+    protected final String question_body;
+    protected final List<String> question_images_addr;
+    protected final List<String> choices;
+    protected final List<String> choice_images_addr;
+    protected final String answer;
 
     protected long inTimestamp;
 

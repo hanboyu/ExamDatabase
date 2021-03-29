@@ -49,7 +49,7 @@ public class EditController {
         model.addAttribute("choices", choices);
         model.addAttribute("answer", answer);
 
-        QuestionFactory myQuestionFactory = QuestionFactory.getInstance();
+        QuestionFactory myQuestionFactory = new QuestionFactory();
         /*
         try {
             Question q = myQuestionFactory.makeQuestion(tags, class_code, permission, question_body, choices, answer);
