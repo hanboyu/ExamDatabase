@@ -1,8 +1,9 @@
 package edu.rpi.project.examdatabase.examdb.DataContainers.RAM;
 
-import edu.rpi.project.examdatabase.examdb.Objects.Question.Question;
+import edu.rpi.project.examdatabase.examdb.Objects.Question.QuestionLite;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * QuestionRAM class load every question from the database when initializing,
@@ -19,7 +20,7 @@ import java.util.*;
  * read and write issue.
  */
 public class QuestionRAM {
-    private Vector<Question> questions;
+    private Vector<QuestionLite> questions;
     private static QuestionRAM instance = null;
 
     /**
@@ -44,7 +45,7 @@ public class QuestionRAM {
      * Query all the questions in the container.
      * @return an enumeration that can iterate through all data.
      */
-    public Enumeration<Question> getAllQuestions(){
+    public Enumeration<QuestionLite> getAllQuestions(){
         return questions.elements();
     }
 }
